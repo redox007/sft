@@ -27,10 +27,10 @@ class Admin extends MY_Controller {
             $password = md5($this->input->post('password'));
             if ($user_name == "") {
                 $this->session->set_flashdata('err_msg', 'Please enter User Name');
-                redirect(base_url() . 'login');
+                redirect(base_url() . 'admin/login');
             } else if ($password == "") {
                 $this->session->set_flashdata('err_msg', 'Please enter password');
-                redirect(base_url() . 'login');
+                redirect(base_url() . 'admin/login');
             } else {
                 $chk_data = $this->Custom_model->fetch_data(ADMIN, $field = array('*'), $where = array(
                     'user_name' => $user_name,
@@ -38,7 +38,7 @@ class Admin extends MY_Controller {
                 ));
                 if (empty($chk_data)) {
                     $this->session->set_flashdata('err_msg', 'Wrong username or password');
-                    redirect(base_url() . 'login');
+                    redirect(base_url() . 'admin/login');
                 } else {
                     $edit_data['last_login'] = date('Y-m-d H:i:s');
                     $this->Custom_model->edit_data($edit_data, array('user_name' => $user_name,'user_pass' => $password), ADMIN);
