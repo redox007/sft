@@ -87,3 +87,4 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 //******** database table *********//
 defined('ADMIN') ? null : define('ADMIN', 'admin');
 defined('PARTNER') ? null : define('PARTNER', 'sft_partner');
+
