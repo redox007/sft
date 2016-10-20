@@ -104,6 +104,15 @@ class Custom_model extends CI_Model {
 
         return $rs;
     }
+    
+    function insert_data($data, $table_name) {
+        $this->db->insert($table_name, $data);
+        if ($this->db->affected_rows() > 0) {
+            return $this->db->insert_id();
+        } else {
+            return false;
+        }
+    }
 
 }
 
