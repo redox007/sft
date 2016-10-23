@@ -7,21 +7,15 @@
  */
 
 /**
- * Description of menu
- *
+ * Description of MY_Model
+ * @property CI_DB_query_builder $db QUERY BUILDER
  * @author SUCHANDAN
  */
-class Menu extends MY_Controller {
-
-    public function __construct() {
-        parent::__construct();
-        $this->load->model('menu_model');
-    }
-    
-    public function index(){
-        $data['menu'] = $this->menu_model->get_menu();
-        $this->load->view('menu_view',$data);
-    }
+class MY_Model extends CI_Model {
 
     //put your code here
+    public function __construct() {
+        parent::__construct();
+    }
+
 }
