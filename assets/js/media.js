@@ -6,8 +6,9 @@
 
 
 $(document).ready(function () {
-
-    //Example 2
+    $('body').on('click', '.media-button', function () {
+        $('.media-box').modal('show');
+    });
     $("#filer_input2").filer({
         limit: null,
         maxSize: null,
@@ -157,4 +158,18 @@ $(document).ready(function () {
             }
         }
     });
-})
+    $('body').on('click', '#media-list-container li', function (e) {
+        e.preventDefault();
+        $(this).addClass('active');
+        $(this).siblings().removeClass('active');
+    });
+    $('body').on('click', '#insert-media', function (e) {
+        e.preventDefault();
+        var ids = [];
+        $('#media-list-container li.active').each(function (i, e) {
+            ids.push($(e).data('media-id'));
+        });
+        console.log('ids', ids);
+        $('.media-box').modal('hide');
+    });
+});

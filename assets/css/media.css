@@ -18,3 +18,16 @@ and open the template in the editor.
 .jFiler-items-grid .jFiler-item .jFiler-item-container .jFiler-item-thumb{
     width: 170px;
 }
+
+.media-box .modal-body .tab-content{
+    height: 400px;
+    overflow-y: scroll;
+}
+
+#media-list-container li.jFiler-item.active .jFiler-item-container{
+    outline: 2px solid #00cc00;
+}
+.media-box .jFiler-row{
+    padding: 2px;
+}
+

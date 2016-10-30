@@ -1,6 +1,6 @@
 
 <?php foreach ($medias as $media) { ?>
-    <li class="jFiler-item" data-jfiler-index="7" style="">
+    <li class="jFiler-item" data-jfiler-index="7" style="" data-media-id="<?php echo $media['id']; ?>" data-preview-url="<?php echo generate_image_media_url($media, 'media_thumb'); ?>">
         <div class="jFiler-item-container">
             <div class="jFiler-item-inner">
                 <div class="jFiler-item-thumb">

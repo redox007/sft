@@ -3,9 +3,9 @@
 
 
 <!-- Large modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>
+<button type="button" class="btn btn-primary media-button" data-on-chooen="">Media</button>
 
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+<div class="modal fade media-box" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -23,7 +23,7 @@
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active media-list" id="home">
                         <div class="jFiler-items jFiler-row" id="media-container">
-                            <ul class="jFiler-items-list jFiler-items-grid">
+                            <ul class="jFiler-items-list jFiler-items-grid" id="media-list-container">
                                 <?php $this->load->view('media_list'); ?>
                             </ul>
                         </div>
@@ -35,7 +35,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" id="insert-media">Insert As Media</button>
             </div>
         </div>
     </div>
