@@ -42,4 +42,13 @@ class Media_model extends MY_Model {
         return $result->result_array();
     }
 
+    public function list_media_by_id($ids = array()) {
+        $this->db->from(TBL_MEDIA);
+
+        $this->db->where_in('id', explode(',', $ids));
+
+        $result = $this->db->get();
+        return $result->result_array();
+    }
+
 }

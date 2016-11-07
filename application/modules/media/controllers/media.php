@@ -30,6 +30,12 @@ class Media extends MY_Controller {
         $this->template->load('template', $partials, $data);
     }
 
+    public function media_modal() {
+        $data = array();
+        $data['medias'] = $this->list_media();
+        $this->load->view('media_modal', $data);
+    }
+
     public function upload() {
         $type = 1;
         $media_used_type = 1;
@@ -67,6 +73,7 @@ class Media extends MY_Controller {
                 'modified_on' => date('Y-m-d H:i:s'),
             );
             $media_id = $this->media_model->insert_media($media);
+            $media['id'] = $media_id;
             $data['resize_data'] = $this->resize($data['upload_data']['full_path'], $data['upload_data']['raw_name'], $data['upload_data']['file_ext'], $data['upload_data']['file_path']);
             $data['media'] = $this->load->view('media_list', array('medias' => array($media)), true);
             $data['media_id'] = $media_id;
@@ -107,6 +114,16 @@ class Media extends MY_Controller {
 //        $config['max_width'] = 1024;
 //        $config['max_height'] = 768;
         return $config;
+    }
+
+    public function list_view_media($media_ids = '', $input_media_id = '', $no_cross = false) {
+        $media_ids = $media_ids ? $media_ids : $this->input->post_get('medias');
+        $input_media_id = $input_media_id ? $input_media_id : $this->input->post_get('input_media_id');
+        if ($media_ids) {
+            $medias = $this->media_model->list_media_by_id($media_ids);
+        }
+        $this->load->view('media_list_view', array('mds' => $medias, 'input_media_id' => $input_media_id, 'no_cross' => $no_cross));
+//        $this->output->set_content_type('application/json')->set_output(json_encode($data));
     }
 
     public function add_media() {
