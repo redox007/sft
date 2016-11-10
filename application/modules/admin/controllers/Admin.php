@@ -50,4 +50,13 @@ class Admin extends MY_Controller {
         $this->load->view('login');
     }
 
+    function set_language(){
+        $language =  $this->input->post('language');
+        
+        $this->session->set_userdata('language',$language);
+        echo 1;
+        exit;
+        
+    }
+    
 }

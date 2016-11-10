@@ -44,7 +44,18 @@
                                 <input type="text" id="partner_name" name="partner_name"  class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
-
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Partner Logo 
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="pv" id="preview">
+                                <?php load_medias("", $input_media_id = '#input-media', true); ?>
+                            </div>
+                                <input id="input-media" type="hidden" value="1" name="media_ids" />
+                            <!-- Large modal -->
+                            <button type="button" class="btn btn-primary media-button" data-input-field="#input-media"  data-preview="#preview" >Media</button>
+                            </div>
+                        </div>    
                         <div class="ln_solid"></div>
                         <div class="form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">

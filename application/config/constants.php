@@ -90,4 +90,13 @@ define('UPLOAD_PATH', 'uploads');
 //******** database table *********//
 defined('ADMIN') ? null : define('ADMIN', 'admin');
 defined('PARTNER') ? null : define('PARTNER', 'sft_partner');
+defined('LANGUAGE') ? null : define('LANGUAGE', 'sft_language');
+
+defined('WELLNESS_TYPE') ? null : define('WELLNESS_TYPE', 'sft_wellness_type');
+defined('WELLNESS_TYPE_LANG') ? null : define('WELLNESS_TYPE_LANG', 'sft_wellness_type_lang');
+
+defined('WELLNESS_PROGRAM') ? null : define('WELLNESS_PROGRAM', 'sft_wellness_program');
+defined('WELLNESS_PROGRAM_LANG') ? null : define('WELLNESS_PROGRAM_LANG', 'sft_wellness_program_lang');
+
+defined('UPLOAD_PATH') ? null : define('UPLOAD_PATH', 'uploads/');
 

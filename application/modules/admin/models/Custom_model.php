@@ -8,7 +8,7 @@ class Custom_model extends CI_Model {
         parent::__construct();
     }
 
-  public function fetch_data($table_name, $field = array('*'), $where = '', $joining = '', $search = '', $order = '', $by = '', $page_number = '', $item_per_page = '', $group_by = '', $having = '', $start = '', $end = '') {
+    public function fetch_data($table_name, $field = array('*'), $where = '', $joining = '', $search = '', $order = '', $by = '', $page_number = '', $item_per_page = '', $group_by = '', $having = '', $start = '', $end = '') {
 
         $this->db->select($field);
         if (!empty($where)) {
@@ -82,10 +82,9 @@ class Custom_model extends CI_Model {
         } else {
             return $arr;
         }
-    }
+    }    
     
-    
-     function edit_data($data, $where, $table_name) {
+    public function edit_data($data, $where, $table_name) {
 
         if (!empty($where)) {
             foreach ($where as $key => $where_list) {
@@ -105,10 +104,89 @@ class Custom_model extends CI_Model {
         return $rs;
     }
     
-    function insert_data($data, $table_name) {
+    public function insert_data($data, $table_name) {
         $this->db->insert($table_name, $data);
         if ($this->db->affected_rows() > 0) {
             return $this->db->insert_id();
+        } else {
+            return false;
+        }
+    }
+    
+    public function row_present_check($table_name, $where) {
+        if (!empty($where)) {
+            foreach ($where as $key => $where_list) {
+                $this->db->where($key, $where_list);
+            }
+        }
+        $query = $this->db->get($table_name);
+        //echo $this->db->last_query();
+        if ($query->num_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    
+    public function row_count($table_name, $field, $where, $joining = '', $having = '', $search = '', $group_by = '') {
+
+
+        $this->db->select($field);
+        if (!empty($where)) {
+            foreach ($where as $key => $where_list) {
+                if (strpos($where_list, ",") == true) {
+                    $wh_list = explode(",", $where_list);
+                    $this->db->where_in($key, $wh_list);
+                } else {
+                    $this->db->where($key, $where_list);
+                }
+            }
+        }
+        if (!empty($joining) || !empty($joining) && is_array($joining)) {
+            foreach ($joining as $key => $join_list) {
+                if (strpos($join_list, "|") == true) {
+                    $join = explode("|", $join_list);
+                    $this->db->join($key, $join[0], $join[1]);
+                } else {
+                    $this->db->join($key, $join_list, 'left');
+                }
+            }
+        }
+
+        if (!empty($having)) {
+            foreach ($having as $key => $having_list) {
+                $this->db->having($key, $having_list);
+            }
+        }
+
+        if (!empty($search) && is_array($search)) {
+            foreach ($search as $key => $search_list) {
+                if ($search_list != "") {
+                    $this->db->or_like($key, $search_list);
+                }
+            }
+        }
+        if (!empty($group_by)) {
+            $this->db->group_by($group_by);
+        }
+
+        $query = $this->db->get($table_name);
+        // echo $this->db->last_query();exit;
+        return $query->num_rows();
+    }
+
+    function delete_row($table_name, $where) {
+
+        if ($table_name != "" && !empty($where)) {
+
+            //$this->db->where_in($field,$wherein);
+            foreach ($where as $key => $list) {
+                $this->db->where($key, $list);
+            }
+            $this->db->delete($table_name);
+            $effected_row = $this->db->affected_rows();
+            return $effected_row;
         } else {
             return false;
         }

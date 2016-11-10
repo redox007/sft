@@ -11,7 +11,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Edit Partner</h2>
+                    <h2>Add Wellness Program</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -38,26 +38,20 @@
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="" method="post">
 
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Partner Name <span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Program Name <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="partner_name" name="partner_name"  class="form-control col-md-7 col-xs-12" value="<?php echo isset($partner_details->partner_name)?$partner_details->partner_name:""; ?>">
+                                <input type="text" id="program_name" name="program_name"  class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Partner Logo 
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Short Description <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                            <div class="pv" id="preview">
-                                <?php load_medias(isset($partner_details->partner_logo)?$partner_details->partner_logo:"", $input_media_id = '#input-media', true); ?>
+                                <textarea class="form-control" id="short_description" name="short_description"></textarea>                                
                             </div>
-                                <input id="input-media" type="hidden" value="1" name="media_ids" />
-                            <!-- Large modal -->
-                            <button type="button" class="btn btn-primary media-button" data-input-field="#input-media"  data-preview="#preview" >Media</button>
-                            </div>
-                        </div>   
-                        
+                        </div>                        
                         <div class="ln_solid"></div>
                         <div class="form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">

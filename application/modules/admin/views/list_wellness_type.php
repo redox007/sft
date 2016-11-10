@@ -9,7 +9,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>List Partner</h2>
+                    <h2>List Wellness Type</h2>
 
                     <div class="clearfix"></div>
                 </div>
@@ -29,18 +29,18 @@
                             <thead>
                                 <tr class="headings">
                                     <th>Sl.No.</th>
-                                    <th>Partner Name</th>                                                         
+                                    <th>Type Name</th>                                                         
                                     <th>Action</th>              
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if (!empty($partners)) { ?>
-                                    <?php foreach ($partners as $key => $partner) { ?>
+                                <?php if (!empty($wellness_type)) { ?>
+                                    <?php foreach ($wellness_type as $key => $type) { ?>
                                         <tr>
                                             <td><?php echo ($key + 1) . '.' ?></td>
-                                            <td><?php echo isset($partner->partner_name) ? $partner->partner_name : ""; ?></td>                                                   
+                                            <td><?php echo isset($type->type_name) ? $type->type_name : ""; ?></td>                                                   
                                             <td>
-                                                <a href="<?php echo base_url('admin/master/edit_partner') . '/' . encode_url($partner->id); ?>" >
+                                                <a href="<?php echo base_url('admin/master/edit_wellness_type') . '/' . encode_url($type->id); ?>" >
                                                     <i class="fa fa-edit"></i>
 
                                                 </a>
@@ -56,7 +56,7 @@
                         </table>
                     </div>
 
-                    <?php if (!empty($partners)) { ?>
+                    <?php if (!empty($wellness_type)) { ?>
                         <ul class="pagination">
                             <?php echo $page_link; ?>
                         </ul>
