@@ -17,7 +17,8 @@
         <link href="<?php echo base_url(); ?>theme/vendors/nprogress/nprogress.css" rel="stylesheet">
         <!-- bootstrap-wysiwyg -->
         <link href="<?php echo base_url(); ?>theme/vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
-
+        
+         <script src="<?php echo base_url(); ?>theme/vendors/jquery/dist/jquery.min.js"></script>
         <!-- Custom styling plus plugins -->
         <link href="<?php echo base_url(); ?>theme/build/css/custom.min.css" rel="stylesheet">
          <?php load_media_style(); ?>
@@ -156,7 +157,7 @@
             <!-- /compose -->
 
             <!-- jQuery -->
-            <script src="<?php echo base_url(); ?>theme/vendors/jquery/dist/jquery.min.js"></script>
+           
             <!-- Bootstrap -->
             <script src="<?php echo base_url(); ?>theme/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
             <!-- FastClick -->
@@ -167,7 +168,7 @@
             <script src="<?php echo base_url(); ?>theme/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
             <script src="<?php echo base_url(); ?>theme/vendors/jquery.hotkeys/jquery.hotkeys.js"></script>
             <script src="<?php echo base_url(); ?>theme/vendors/google-code-prettify/src/prettify.js"></script>
-
+ <script src="<?php echo base_url(); ?>theme/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
             <!-- Custom Theme Scripts -->
             <script src="<?php echo base_url(); ?>theme/build/js/custom.min.js"></script>
             <script src="<?php echo base_url(); ?>theme/custom/js/custom.js"></script>
@@ -176,6 +177,17 @@
             <script>
                 $(document).ready(function () {
 
+        $('#wizard').smartWizard();
+
+        $('#wizard_verticle').smartWizard({
+          transitionEffect: 'slide'
+        });
+
+        $('.buttonNext').addClass('btn btn-success');
+        $('.buttonPrevious').addClass('btn btn-primary');
+        $('.buttonFinish').addClass('btn btn-default');
+        
+        
                     $('#lang').change(function () {
                         
                         $.ajax({

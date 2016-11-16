@@ -29,7 +29,9 @@
                             <thead>
                                 <tr class="headings">
                                     <th>Sl.No.</th>
-                                    <th>Partner Name</th>                                                         
+                                    <th>Partner Name</th> 
+                                    <th>Wellness Type</th>
+                                    <th>Country Code</th> 
                                     <th>Action</th>              
                                 </tr>
                             </thead>
@@ -39,6 +41,8 @@
                                         <tr>
                                             <td><?php echo ($key + 1) . '.' ?></td>
                                             <td><?php echo isset($partner->partner_name) ? $partner->partner_name : ""; ?></td>                                                   
+                                            <td><?php echo isset($partner->wellness_type) ? $partner->wellness_type : ""; ?></td>                                                   
+                                            <td><?php echo isset($partner->code) ? $partner->code : ""; ?></td>                                                   
                                             <td>
                                                 <a href="<?php echo base_url('admin/master/edit_partner') . '/' . encode_url($partner->id); ?>" >
                                                     <i class="fa fa-edit"></i>

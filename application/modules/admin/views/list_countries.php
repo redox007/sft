@@ -9,7 +9,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>List Wellness Type</h2>
+                    <h2>Country List</h2>
 
                     <div class="clearfix"></div>
                 </div>
@@ -29,20 +29,20 @@
                             <thead>
                                 <tr class="headings">
                                     <th>Sl.No.</th>
-                                    <th>Wellness Type</th>
-                                    <th>Wellness Type In <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?></th>
+                                    <th>Country Code</th>
+                                    <th>Country Name in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?></th>
                                     <th>Action</th>              
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if (!empty($wellness_type)) { ?>
-                                    <?php foreach ($wellness_type as $key => $type) { ?>
+                                <?php if (!empty($countries)) { ?>
+                                    <?php foreach ($countries as $key => $con) { ?>
                                         <tr>
                                             <td><?php echo ($key + 1) . '.' ?></td>
-                                            <td><?php echo isset($type->wellness_type) ? $type->wellness_type : ""; ?></td>   
-                                            <td><?php echo isset($type->type_name) ? $type->type_name : ""; ?></td>   
+                                            <td><?php echo isset($con->code) ? $con->code : ""; ?></td>   
+                                            <td><?php echo isset($con->country_name) ? $con->country_name : ""; ?></td>   
                                             <td>
-                                                <a href="<?php echo base_url('admin/master/edit_wellness_type') . '/' . encode_url($type->id); ?>" >
+                                                <a href="<?php echo base_url('admin/master/edit_countries') . '/' . encode_url($con->id); ?>" >
                                                     <i class="fa fa-edit"></i>
 
                                                 </a>
@@ -58,7 +58,7 @@
                         </table>
                     </div>
 
-                    <?php if (!empty($wellness_type)) { ?>
+                    <?php if (!empty($countries)) { ?>
                         <ul class="pagination">
                             <?php echo $page_link; ?>
                         </ul>

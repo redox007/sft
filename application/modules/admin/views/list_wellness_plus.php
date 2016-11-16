@@ -9,7 +9,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>List Wellness Type</h2>
+                    <h2>List Wellness Plus</h2>
 
                     <div class="clearfix"></div>
                 </div>
@@ -29,20 +29,24 @@
                             <thead>
                                 <tr class="headings">
                                     <th>Sl.No.</th>
-                                    <th>Wellness Type</th>
-                                    <th>Wellness Type In <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?></th>
+                                    <th>Code</th>
+                                    <th>Wellness  </th> 
+                                    <th>Partner Name</th>
+                                    <th>Price </th>
                                     <th>Action</th>              
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if (!empty($wellness_type)) { ?>
-                                    <?php foreach ($wellness_type as $key => $type) { ?>
+                                <?php if (!empty($wellness_plus)) { ?>
+                                    <?php foreach ($wellness_plus as $key => $type) { ?>
                                         <tr>
                                             <td><?php echo ($key + 1) . '.' ?></td>
-                                            <td><?php echo isset($type->wellness_type) ? $type->wellness_type : ""; ?></td>   
-                                            <td><?php echo isset($type->type_name) ? $type->type_name : ""; ?></td>   
+                                            <td><?php echo isset($type->code) ? $type->code : ""; ?></td>    
+                                            <td><?php echo isset($type->wellness_name) ? $type->wellness_name : ""; ?></td>   
+                                            <td><?php echo isset($type->partner_name) ? $type->partner_name : ""; ?></td>   
+                                            <td><?php echo isset($type->price) ? $type->price : ""; ?></td>   
                                             <td>
-                                                <a href="<?php echo base_url('admin/master/edit_wellness_type') . '/' . encode_url($type->id); ?>" >
+                                                <a href="<?php echo base_url('admin/master/edit_wellness_plus') . '/' . encode_url($type->id); ?>" >
                                                     <i class="fa fa-edit"></i>
 
                                                 </a>
@@ -51,14 +55,14 @@
                                         <?php
                                     }
                                 } else {
-                                    echo '<tr><td colspan="4">No Data Found</td></tr>';
+                                    echo '<tr><td colspan="6">No Data Found</td></tr>';
                                 }
                                 ?>                   
                             </tbody>
                         </table>
                     </div>
 
-                    <?php if (!empty($wellness_type)) { ?>
+                    <?php if (!empty($wellness_plus)) { ?>
                         <ul class="pagination">
                             <?php echo $page_link; ?>
                         </ul>

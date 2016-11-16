@@ -11,7 +11,27 @@
                   <li><a><i class="fa fa-sitemap"></i> Master <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         
-                        <li><a>Partner Management<span class="fa fa-chevron-down"></span></a>
+                        <li><a>Wellness Type<span class="fa fa-chevron-down"></span></a>
+                          <ul class="nav child_menu">
+                            <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/list_wellness_type">List Type</a>
+                            </li>
+                            <li><a href="<?php echo base_url(); ?>admin/master/add_wellnes_type">Add Type</a>
+                            </li>                           
+                          </ul>
+                        </li>
+                        
+                        
+                         <li><a>Countries<span class="fa fa-chevron-down"></span></a>
+                          <ul class="nav child_menu">
+                            <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/list_countries">List Countries</a>
+                            </li>
+                            <li><a href="<?php echo base_url(); ?>admin/master/add_countries">Add Country</a>
+                            </li>                           
+                          </ul>
+                        </li>
+                        
+                        
+                        <li><a>Partners<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
                             <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/list_partner">List Partner</a>
                             </li>
@@ -20,14 +40,6 @@
                           </ul>
                         </li>
                         
-                        <li><a>Type Management<span class="fa fa-chevron-down"></span></a>
-                          <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/list_wellness_type">List Type</a>
-                            </li>
-                            <li><a href="<?php echo base_url(); ?>admin/master/add_wellnes_type">Add Type</a>
-                            </li>                           
-                          </ul>
-                        </li>
                         
                         <li><a>Program Management<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
