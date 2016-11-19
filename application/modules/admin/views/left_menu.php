@@ -58,8 +58,16 @@
                             </li>
                           </ul>
                         </li>
+
+                  </li>
+
+                  <li><a><i class="fa fa-edit"></i> Wellness Plus <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="<?php echo base_url('admin/master/list_wellness_plus'); ?>">List</a></li>
+                        <li><a href="<?php echo base_url('admin/master/add_wellnes_plus'); ?>">Add</a></li>
                     </ul>
                   </li>
+
                 </ul>
               </div>
     </div>

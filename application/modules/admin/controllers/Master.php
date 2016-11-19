@@ -594,7 +594,6 @@ class Master extends MY_Controller {
 
         if ($this->input->post('submit')) {
 
-
             if ($this->input->post('wellness_name') == "") {
                 $this->session->set_flashdata('error_message', 'Please enter wellness name');
                 redirect(base_url() . 'admin/master/add_wellnes_plus');
@@ -604,10 +603,7 @@ class Master extends MY_Controller {
             } else if ($this->input->post('partner_id') == "") {
                 $this->session->set_flashdata('error_message', 'Please select partner');
                 redirect(base_url() . 'admin/master/add_wellnes_plus');
-            } else if ($this->input->post('country_id') == "") {
-                $this->session->set_flashdata('error_message', 'Please select country');
-                redirect(base_url() . 'admin/master/add_wellnes_plus');
-            }else if ($this->input->post('no_of_day') == "") {
+            } else if ($this->input->post('no_of_day') == "") {
                 $this->session->set_flashdata('error_message', 'Please enter number of day');
                 redirect(base_url() . 'admin/master/add_wellnes_plus');
             }else if ($this->input->post('price') == "") {
@@ -617,7 +613,6 @@ class Master extends MY_Controller {
                 $ins_data['wellness_name'] = $this->input->post('wellness_name');
                 $ins_data['type'] = $this->input->post('type');
                 $ins_data['partner_id'] = $this->input->post('partner_id');
-                $ins_data['country_id'] = $this->input->post('country_id');
                 $ins_data['no_of_day'] = $this->input->post('no_of_day');
                 $ins_data['price'] = $this->input->post('price');
                 $ins_data['code'] = $this->Custom_model->generateRandomString(8);
@@ -631,8 +626,18 @@ class Master extends MY_Controller {
                     $ins_inner['description'] = $this->input->post('description');
                     $inner = $this->Custom_model->insert_data($ins_inner, WELLNESS_LANG);
                     if ($inner != FALSE) {
+                        $Itinerary = $this->input->post('Itinerary');
+                        if(!empty($Itinerary)){
+                            foreach ($Itinerary as $key=>$val){
+                                $ins_intinerary['day_number'] = $key+1;
+                                $ins_intinerary['language_id'] = $selected_lang;
+                                $ins_intinerary['welness_id'] = $res;
+                                $ins_intinerary['description'] = $val;
+                                $inner = $this->Custom_model->insert_data($ins_intinerary, ITINERARY);
+                            }
+                        }
                         $this->session->set_flashdata('success_message', 'Wellness added successfully.');
-                        redirect(base_url() . 'admin/master/list_wellnes_plus');
+                        redirect(base_url() . 'admin/master/list_wellness_plus');
                     } else {
                         $this->Custom_model->delete_row(WELLNESS, array('id' => $res));
                         $this->session->set_flashdata('error_message', 'Please try again.');
@@ -938,4 +943,94 @@ class Master extends MY_Controller {
     }
 
      //**************** end W.O.W section **************//
+
+
+    function edit_wellness_plus($wellness_id=NULL){
+
+        $data['wellness_type'] = $this->Custom_model->fetch_data(WELLNESS_TYPE, array('id', 'wellness_type'), array(), array());
+        $data['partner'] = $this->Custom_model->fetch_data(PARTNER, array('id', 'partner_name'), array(), array());
+        $data['countries'] = $this->Custom_model->fetch_data(COUNTRY, array('id', 'code'), array(), array());
+        $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
+        $data['selected_lang'] = $selected_lang;
+        $id= decode_url($wellness_id);
+        $chk_welless = $this->Custom_model->row_present_check(WELLNESS, array('id'=>$id));
+        if($chk_welless==FALSE){
+            redirect(base_url() . 'admin/master/list_wellness_plus');
+        }
+
+        $wellness_details = $this->Custom_model->fetch_data(WELLNESS,
+                array(
+                    WELLNESS.'.*',
+                    WELLNESS_LANG.'.wellness_name_lang',
+                    WELLNESS_LANG.'.short_description',
+                    WELLNESS_LANG.'.description'
+                    ),
+                array(WELLNESS.'.id'=>$id),
+                array(WELLNESS_LANG=>WELLNESS_LANG.'.welness_id='.WELLNESS.'.id AND '.WELLNESS_LANG.'.language_id='.$selected_lang));
+        $data['wellness_details']=$wellness_details[0];
+
+        $data['itinerary']=$this->Custom_model->fetch_data(ITINERARY,
+                array('*'),
+                array(
+                    'welness_id'=>$id,
+                    'language_id'=>$selected_lang
+                    ));
+
+          if ($this->input->post('submit')) {
+
+            if ($this->input->post('wellness_name') == "") {
+                $this->session->set_flashdata('error_message', 'Please enter wellness name');
+                redirect(base_url() . 'admin/master/add_wellnes_plus');
+            }else if ($this->input->post('type') == "") {
+                $this->session->set_flashdata('error_message', 'Please select wellness type');
+                redirect(base_url() . 'admin/master/add_wellnes_plus');
+            } else if ($this->input->post('partner_id') == "") {
+                $this->session->set_flashdata('error_message', 'Please select partner');
+                redirect(base_url() . 'admin/master/add_wellnes_plus');
+            } else if ($this->input->post('no_of_day') == "") {
+                $this->session->set_flashdata('error_message', 'Please enter number of day');
+                redirect(base_url() . 'admin/master/add_wellnes_plus');
+            }else if ($this->input->post('price') == "") {
+                $this->session->set_flashdata('error_message', 'Please enter price');
+                redirect(base_url() . 'admin/master/add_wellnes_plus');
+            }else {
+                $ins_data['wellness_name'] = $this->input->post('wellness_name');
+                $ins_data['type'] = $this->input->post('type');
+                $ins_data['partner_id'] = $this->input->post('partner_id');
+                $ins_data['no_of_day'] = $this->input->post('no_of_day');
+                $ins_data['price'] = $this->input->post('price');
+                //$ins_data['code'] = $this->Custom_model->generateRandomString(8);
+                $this->Custom_model->edit_data($ins_data, array('id'=>$id), WELLNESS);
+
+
+
+                    $ins_inner['wellness_name_lang'] = $this->input->post('wellness_name_lang');
+                    $ins_inner['short_description'] = $this->input->post('short_description');
+                    $ins_inner['description'] = $this->input->post('description');
+
+                    $this->Custom_model->edit_data($ins_inner, array('welness_id'=>$id,'language_id'=>$selected_lang), WELLNESS_LANG);
+
+
+                        $Itinerary = $this->input->post('Itinerary');
+                        if(!empty($Itinerary)){
+                            $this->Custom_model->delete_row(ITINERARY, array('welness_id' => $id,'language_id'=>$selected_lang));
+                            foreach ($Itinerary as $key=>$val){
+                                $ins_intinerary['day_number'] = $key+1;
+                                $ins_intinerary['language_id'] = $selected_lang;
+                                $ins_intinerary['welness_id'] = $id;
+                                $ins_intinerary['description'] = $val;
+                                $inner = $this->Custom_model->insert_data($ins_intinerary, ITINERARY);
+                            }
+                        }
+                        $this->session->set_flashdata('success_message', 'Wellness update successfully.');
+                        redirect(base_url() . 'admin/master/list_wellness_plus');
+
+
+            }
+        }
+
+
+        $partials = array('content' => 'edit_wellness_plus', 'left_menu' => 'left_menu', 'header' => 'header');
+        $this->template->load('template', $partials, $data);
+    }
 }
