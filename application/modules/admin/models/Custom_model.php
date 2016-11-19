@@ -45,7 +45,7 @@ class Custom_model extends CI_Model {
         }
 
         if ($page_number !== "" && $item_per_page != "") {
-            //$this->db->order_by($order,$by); 
+            //$this->db->order_by($order,$by);
 
             $start_point = $item_per_page * $page_number;
             $this->db->limit($item_per_page, $start_point);
@@ -82,8 +82,8 @@ class Custom_model extends CI_Model {
         } else {
             return $arr;
         }
-    }    
-    
+    }
+
     public function edit_data($data, $where, $table_name) {
 
         if (!empty($where)) {
@@ -103,7 +103,7 @@ class Custom_model extends CI_Model {
 
         return $rs;
     }
-    
+
     public function insert_data($data, $table_name) {
         $this->db->insert($table_name, $data);
         if ($this->db->affected_rows() > 0) {
@@ -112,7 +112,7 @@ class Custom_model extends CI_Model {
             return false;
         }
     }
-    
+
     public function row_present_check($table_name, $where) {
         if (!empty($where)) {
             foreach ($where as $key => $where_list) {
@@ -127,8 +127,8 @@ class Custom_model extends CI_Model {
             return false;
         }
     }
-    
-    
+
+
     public function row_count($table_name, $field, $where, $joining = '', $having = '', $search = '', $group_by = '') {
 
 

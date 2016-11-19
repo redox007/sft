@@ -98,5 +98,7 @@ defined('WELLNESS_TYPE_LANG') ? null : define('WELLNESS_TYPE_LANG', 'sft_wellnes
 defined('WELLNESS_PROGRAM') ? null : define('WELLNESS_PROGRAM', 'sft_wellness_program');
 defined('WELLNESS_PROGRAM_LANG') ? null : define('WELLNESS_PROGRAM_LANG', 'sft_wellness_program_lang');
 
-defined('UPLOAD_PATH') ? null : define('UPLOAD_PATH', 'uploads/');
+defined('WOW') ? null : define('CMS_PAGE', 'sft_cms_page');
+defined('WOW_LANG') ? null : define('CMS_LANG', 'sft_cms_language');
 
+defined('UPLOAD_PATH') ? null : define('UPLOAD_PATH', 'uploads/');

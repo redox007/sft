@@ -11,6 +11,7 @@ class Master extends MY_Controller {
         if (!$this->session->userdata('user_data')) {
             redirect(base_url() . 'admin/login');
         }
+
     }
 
     //**************** welness type **************//
@@ -148,7 +149,7 @@ class Master extends MY_Controller {
                     redirect(base_url() . 'admin/master/list_wellness_type');
                 } else {
                     $ins_data['type_name'] = $this->input->post('type_name');
-                    //$ins_data['short_description'] = $this->input->post('short_description');               
+                    //$ins_data['short_description'] = $this->input->post('short_description');
                     $res = $this->Custom_model->edit_data($ins_data, array('wellness_type_id' => $wellness_id, 'language_id' => $selected_lang), WELLNESS_TYPE_LANG);
 
                     $this->session->set_flashdata('success_message', 'Wellness updated successfully.');
@@ -296,7 +297,7 @@ class Master extends MY_Controller {
                     redirect(base_url() . 'admin/master/list_countries');
                 } else {
                     $ins_data['country_name'] = $this->input->post('country_name');
-                    //$ins_data['short_description'] = $this->input->post('short_description');               
+                    //$ins_data['short_description'] = $this->input->post('short_description');
                     $res = $this->Custom_model->edit_data($ins_data, array('country_id' => $country_id, 'language_id' => $selected_lang), COUNTRY_LANG);
 
                     $this->session->set_flashdata('success_message', 'Country updated successfully.');
@@ -537,7 +538,7 @@ class Master extends MY_Controller {
             WELLNESS_PROGRAM_LANG . '.program_name',
             WELLNESS_PROGRAM_LANG . '.language_id',
             WELLNESS_TYPE . '.wellness_type'
-                ), array(WELLNESS_PROGRAM . '.id' => $program_id), 
+                ), array(WELLNESS_PROGRAM . '.id' => $program_id),
                 array(
                     WELLNESS_PROGRAM_LANG => WELLNESS_PROGRAM_LANG . '.wellness_program_id=' . WELLNESS_PROGRAM . '.id AND '.WELLNESS_PROGRAM_LANG.'.language_id='.$selected_lang.'|left',
                     WELLNESS_TYPE=>WELLNESS_TYPE.'.id='.WELLNESS_PROGRAM.'.wellness_type_id'
@@ -583,17 +584,17 @@ class Master extends MY_Controller {
     }
 
     //**************** end welness type **************//
-    
+
     function add_wellnes_plus() {
-        $data['wellness_type'] = $this->Custom_model->fetch_data(WELLNESS_TYPE, array('id', 'wellness_type'), array(), array()); 
-        $data['partner'] = $this->Custom_model->fetch_data(PARTNER, array('id', 'partner_name'), array(), array()); 
-        $data['countries'] = $this->Custom_model->fetch_data(COUNTRY, array('id', 'code'), array(), array()); 
+        $data['wellness_type'] = $this->Custom_model->fetch_data(WELLNESS_TYPE, array('id', 'wellness_type'), array(), array());
+        $data['partner'] = $this->Custom_model->fetch_data(PARTNER, array('id', 'partner_name'), array(), array());
+        $data['countries'] = $this->Custom_model->fetch_data(COUNTRY, array('id', 'code'), array(), array());
         $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
         $data['selected_lang'] = $selected_lang;
-        
+
         if ($this->input->post('submit')) {
-            
-            
+
+
             if ($this->input->post('wellness_name') == "") {
                 $this->session->set_flashdata('error_message', 'Please enter wellness name');
                 redirect(base_url() . 'admin/master/add_wellnes_plus');
@@ -620,14 +621,14 @@ class Master extends MY_Controller {
                 $ins_data['no_of_day'] = $this->input->post('no_of_day');
                 $ins_data['price'] = $this->input->post('price');
                 $ins_data['code'] = $this->Custom_model->generateRandomString(8);
-                
+
                 $res = $this->Custom_model->insert_data($ins_data, WELLNESS);
                 if ($res != FALSE) {
                     $ins_inner['welness_id'] = $res;
-                    $ins_inner['wellness_name_lang'] = $this->input->post('wellness_name_lang');                    
+                    $ins_inner['wellness_name_lang'] = $this->input->post('wellness_name_lang');
                     $ins_inner['language_id'] = $selected_lang;
-                    $ins_inner['short_description'] = $this->input->post('short_description'); 
-                    $ins_inner['description'] = $this->input->post('description'); 
+                    $ins_inner['short_description'] = $this->input->post('short_description');
+                    $ins_inner['description'] = $this->input->post('description');
                     $inner = $this->Custom_model->insert_data($ins_inner, WELLNESS_LANG);
                     if ($inner != FALSE) {
                         $this->session->set_flashdata('success_message', 'Wellness added successfully.');
@@ -647,7 +648,7 @@ class Master extends MY_Controller {
         $partials = array('content' => 'add_wellnes_plus', 'left_menu' => 'left_menu', 'header' => 'header');
         $this->template->load('template', $partials, $data);
     }
-    
+
     function list_wellness_plus() {
         $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
         $data['selected_lang'] = $selected_lang;
@@ -683,11 +684,11 @@ class Master extends MY_Controller {
 
         $data['wellness_plus'] = $this->Custom_model->fetch_data(WELLNESS, array(
             WELLNESS . '.*',
-            PARTNER.'.partner_name',            
-                ), 
-                array(WELLNESS.'.type'=>1), 
+            PARTNER.'.partner_name',
+                ),
+                array(WELLNESS.'.type'=>1),
                 array(
-            PARTNER => PARTNER . '.id=' . WELLNESS . '.partner_id'), 
+            PARTNER => PARTNER . '.id=' . WELLNESS . '.partner_id'),
                 $search = '', $order = WELLNESS . '.id', $by = 'desc', $page_number, $config['per_page'], $group_by = '', $having = '', $start = $page_number, $end = ''
         );
 
@@ -696,5 +697,245 @@ class Master extends MY_Controller {
         $partials = array('content' => 'list_wellness_plus', 'left_menu' => 'left_menu', 'header' => 'header');
         $this->template->load('template', $partials, $data);
     }
-    
+
+    function load_editor()
+    {
+        //code for ckeditor start
+        $this->load->library('ckeditor');
+
+        $this->ckeditor->basePath = base_url().'assets/ckeditor/';
+        $this->ckeditor->config['toolbar'] = array(
+                array( 'Source', '-', 'Bold', 'Italic', 'Underline', '-','Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo','-','NumberedList','BulletedList')
+                                                    );//'Full';
+        $this->ckeditor->config['language'] = 'en';//$this->ckeditor->config['width'] = '530px';
+        $this->ckeditor->config['height'] = '200px';
+        $this->ckeditor->config['resize_enabled'] = false;
+        //code end ckeditor
+    }
+    //**************** W.O.W section **************//
+
+    function list_cms(){
+        $add_condition = array();
+        if($this->input->post('filtor') == 'pages'){
+           $add_condition = array(CMS_PAGE.'.page_parent'=>0);
+        }elseif($this->input->post('filtor') == 'posts'){
+           $add_condition = array(CMS_PAGE.'.page_parent not like' => '0');
+        }else{
+            $add_condition = array();
+        }//print_r($add_condition);
+        $selected_lang = ($this->session->userdata('language'))?$this->session->userdata('language'):1;
+        /* Pagination Code Start */
+        $this->load->library('pagination');
+        $config['base_url'] = base_url() . 'admin/master/list_cms/';
+        /* Row Count Code */
+        $config['total_rows'] = $this->Custom_model->row_count(CMS_PAGE, array(CMS_PAGE . '.id'), $add_condition );
+
+        $config['use_page_numbers'] = TRUE;
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '<li>';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '<li>';
+        $config['per_page'] = 20;
+        $config['prev_link'] = '&lt;';
+        $config['prev_tag_open'] = '<li>';
+        $config['prev_tag_close'] = '</li>';
+        $config['next_link'] = '&gt;';
+        $config['next_tag_open'] = '<li>';
+        $config['next_tag_close'] = '</li>';
+        $config['cur_tag_open'] = '<li class="disabled"><a href="javascript:void(0)">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+        //print_r($config);die;
+        $this->pagination->initialize($config);
+        $data['page_link'] = $this->pagination->create_links();
+        $page_number = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
+        $page_number = ($page_number != 0) ? $page_number - 1 : $page_number;
+        /* Pagination Code End */
+
+        $data['cms_list'] = $this->Custom_model->fetch_data(CMS_PAGE,
+                array(CMS_PAGE.'.id', CMS_PAGE.'.page_name', CMS_PAGE.'.created_by', CMS_LANG.'.title', CMS_LANG.'.cms_page_id'),
+                $add_condition,
+                array(CMS_LANG => CMS_LANG.'.cms_page_id='.CMS_PAGE.'.id AND '.CMS_LANG.'.language_id='.$selected_lang),
+                '',//CMS_LANG.'language_id'.$selected_lang,
+                $order = CMS_PAGE . '.id',
+                $by = 'desc',
+                $page_number,
+                $config['per_page'],
+                $group_by = '',
+                $having = '',
+                $start = $page_number,
+                $end = ''
+        );//echo '<pre>';print_r($data['cms_list']);
+
+
+        $partials = array('content' => 'list_cms', 'left_menu' => 'left_menu', 'header' => 'header');
+        $this->template->load('template', $partials, $data);
+    }
+
+    function add_cms(){
+
+        $selected_lang = ($this->session->userdata('language'))?$this->session->userdata('language'):1;
+
+        //fetch added page name from the cms table for template parent selection.
+        $data['page_name'] = $this->Custom_model->fetch_data(CMS_PAGE,
+                array(CMS_PAGE .'.id', CMS_PAGE.'.page_name'),
+                array(CMS_PAGE.'.status' => '1'),
+                array(),
+                $search = '',
+                $order = CMS_PAGE . '.id',
+                $by = 'desc'
+        );
+
+        $this->load_editor();//load ckeditor.
+
+        //slug url settings
+        $config = array(
+            'field' => 'slug',
+            'title' => 'title',
+            'table' => 'sft_cms_page',
+            'id' => 'id',
+            'replacement' => 'dash'
+        );
+        $this->load->library('slug', $config);//echo 'aaaaa-'.$slug = $this->slug->create_uri('esdf sdfsdf');
+
+        if($this->input->post('submit')){
+            if ($this->input->post('page_name') == "") {
+                $this->session->set_flashdata('error_message', 'Please enter page name.');
+                redirect(base_url() . 'admin/master/add_cms');
+            }elseif ($this->input->post('title') == "") {
+                $this->session->set_flashdata('error_message', 'Please enter title');
+                redirect(base_url() . 'admin/master/edit_cms');
+            }elseif ($this->input->post('media_ids') == "") {
+                $this->session->set_flashdata('error_message', 'Please select media which suitable to given title.');
+                redirect(base_url() . 'admin/master/list_cms');
+            }   else {
+                $slug = $this->slug->create_uri($this->input->post('page_name'));// create slug url.
+                $ins_data['page_name']   = $this->input->post('page_name');
+                $ins_data['slug'] = $slug;
+                $ins_data['page_parent']   = $this->input->post('page_parent');
+                $ins_data['page_template'] = $this->input->post('page_template');
+                $ins_data['created_by'] = $this->session->userdata['user_data']->id;//print_r($ins_data);die;
+
+                // add data to cms master table
+                $res = $this->Custom_model->insert_data($ins_data, CMS_PAGE);
+                if ($res != FALSE) {
+                    $ins_inner['cms_page_id']  = $res;
+                    $ins_inner['title']   = $this->input->post('title');
+                    $ins_inner['content'] = $this->input->post('content');
+                    $ins_inner['media_ids'] = $this->input->post('media_ids');
+                    $ins_inner['language_id'] = $selected_lang;
+                    $inner = $this->Custom_model->insert_data($ins_inner, CMS_LANG);
+                    if($inner!=FALSE){
+                        $this->session->set_flashdata('success_message', 'CMS page added successfully.');
+                        redirect(base_url() . 'admin/master/list_cms');
+                    }else{
+                        $this->Custom_model->delete_row(CMS_PAGE, array('id'=>$res));
+                        $this->session->set_flashdata('error_message', 'Please try again.');
+                        redirect(base_url() . 'admin/master/add_cms');
+                    }
+                } else {
+                    $this->session->set_flashdata('error_message', 'Please try again.');
+                    redirect(base_url() . 'admin/master/add_cms');
+                }
+            }
+        }
+
+        $partials = array('content' => 'add_cms', 'left_menu' => 'left_menu', 'header' => 'header');
+        $this->template->load('template', $partials, $data);
+    }
+    function edit_cms($id=NULL){
+        $selected_lang = ($this->session->userdata('language'))?$this->session->userdata('language'):1;
+
+        //fetch added page name from the cms table for template parent selection.
+        $data['page_name'] = $this->Custom_model->fetch_data(CMS_PAGE,
+                array(CMS_PAGE .'.id', CMS_PAGE.'.page_name'),
+                array(CMS_PAGE.'.status' => '1'),
+                array(),
+                $search = '',
+                $order = CMS_PAGE . '.id',
+                $by = 'desc'
+        );
+
+        $this->load_editor();//load ckeditor
+
+        //check page is exist or not.
+        $cms_id = decode_url($id);
+        $chk_cms_exist = $this->Custom_model->row_present_check(CMS_PAGE, array('id'=>$cms_id));
+        if($chk_cms_exist==false){
+            redirect(base_url() . 'admin/master/list_cms');
+        }
+
+        $cms_details = $this->Custom_model->fetch_data(CMS_PAGE,
+            array(CMS_PAGE.'.id',CMS_PAGE.'.slug',CMS_PAGE.'.page_name',CMS_PAGE.'.page_parent',CMS_PAGE.'.page_template',
+                 CMS_LANG.'.id as cms_lang_row_id', CMS_LANG.'.cms_page_id', CMS_LANG.'.title', CMS_LANG.'.content', CMS_LANG.'.media_ids',),
+            array(),
+            array(CMS_LANG => CMS_LANG.'.cms_page_id='.CMS_PAGE.'.id  AND '.CMS_PAGE.'.id ='.$cms_id),
+            CMS_LANG.'language_id'.$selected_lang
+            );
+        $data['cms_details'] = $cms_details[0];//echo '<pre>';print_r($data['cms_details']);
+
+        //slug url settings
+        $config = array(
+            'field' => 'slug',
+            'title' => 'title',
+            'table' => 'sft_cms_page',
+            'id' => 'id',
+            'replacement' => 'dash'
+        );
+        $this->load->library('slug', $config);
+
+        if($this->input->post('submit')){
+            if ($this->input->post('page_name') == "") {
+                $this->session->set_flashdata('error_message', 'Please enter page name.');
+                redirect(base_url() . 'admin/master/edit_cms');
+            }elseif ($this->input->post('slug') == "") {
+                $this->session->set_flashdata('error_message', 'Please enter slug.');
+                redirect(base_url() . 'admin/master/edit_cms');
+            }elseif ($this->input->post('title') == "") {
+                $this->session->set_flashdata('error_message', 'Please enter title');
+                redirect(base_url() . 'admin/master/edit_cms');
+            }elseif ($this->input->post('media_ids') == "") {
+                $this->session->set_flashdata('error_message', 'Please select media which suitable to given title.');
+                redirect(base_url() . 'admin/master/edit_cms');
+            }   else {
+                $cms_page_id = $data['cms_details']->id;
+                $slug = $this->slug->create_uri($this->input->post('slug'), $cms_page_id);// create slug url.
+                $ins_data['page_name']   = $this->input->post('page_name');
+                $ins_data['slug'] = $slug;
+                $ins_data['page_parent']   = $this->input->post('page_parent');
+                $ins_data['page_template'] = $this->input->post('page_template');
+                $ins_data['created_by'] = $this->session->userdata['user_data']->id;//print_r($ins_data);die;
+
+                // save modified data to cms master table
+                $res = $this->Custom_model->edit_data($ins_data, array('id'=>$cms_page_id), CMS_PAGE);
+                if ($res != FALSE) {
+                    $cms_lang_id = $data['cms_details']->cms_lang_row_id;
+                    $inner_data['title'] = $this->input->post('title');
+                    $inner_data['content'] = $this->input->post('content');
+                    $inner_data['media_ids'] = $this->input->post('media_ids');//print_r($inner_data);die;
+                    //save modified data to details table.
+                    $res1 = $this->Custom_model->edit_data($inner_data, array('id'=>$cms_lang_id), CMS_LANG);
+                    if ($res1 != FALSE){
+                        $this->session->set_flashdata('success_message', 'CMS page updated successfully.');
+                        redirect(base_url() . 'admin/master/list_cms');
+                    }
+                    else{
+                        $this->session->set_flashdata('error_message', 'Please try again..');
+                        redirect(base_url() . 'admin/master/edit_cms');
+                    }
+
+                }else {
+                    $this->session->set_flashdata('error_message', 'Please try again.');
+                    redirect(base_url() . 'admin/master/edit_cms');
+                }
+
+            }
+        }
+
+        $partials = array('content' => 'edit_cms', 'left_menu' => 'left_menu', 'header' => 'header');
+        $this->template->load('template', $partials, $data);
+    }
+
+     //**************** end W.O.W section **************//
 }

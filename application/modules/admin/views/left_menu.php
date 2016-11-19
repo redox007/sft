@@ -4,53 +4,62 @@
        <div class="menu_section">
                 <h3></h3>
                 <ul class="nav side-menu">
-                  
+
                   <li><a href="<?php echo base_url(); ?>admin"><i class="fa fa-windows"></i> Dashboard </a>
-                    
+
                   </li>
                   <li><a><i class="fa fa-sitemap"></i> Master <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        
+
                         <li><a>Wellness Type<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
                             <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/list_wellness_type">List Type</a>
                             </li>
                             <li><a href="<?php echo base_url(); ?>admin/master/add_wellnes_type">Add Type</a>
-                            </li>                           
+                            </li>
                           </ul>
                         </li>
-                        
-                        
+
+
                          <li><a>Countries<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
                             <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/list_countries">List Countries</a>
                             </li>
                             <li><a href="<?php echo base_url(); ?>admin/master/add_countries">Add Country</a>
-                            </li>                           
+                            </li>
                           </ul>
                         </li>
-                        
-                        
+
+
                         <li><a>Partners<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
                             <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/list_partner">List Partner</a>
                             </li>
                             <li><a href="<?php echo base_url(); ?>admin/master/add_partner">Add Partner</a>
-                            </li>                           
+                            </li>
                           </ul>
                         </li>
-                        
-                        
+
+
                         <li><a>Program Management<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
                             <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/list_wellness_program">List Program</a>
                             </li>
                             <li><a href="<?php echo base_url(); ?>admin/master/add_wellnes_program">Add Program</a>
-                            </li>                           
+                            </li>
+                          </ul>
+                        </li>
+
+                        <li><a>CMS Management<span class="fa fa-chevron-down"></span></a>
+                          <ul class="nav child_menu">
+                            <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/list_cms">List Pages</a>
+                            </li>
+                            <li><a href="<?php echo base_url(); ?>admin/master/add_cms">Add Page</a>
+                            </li>
                           </ul>
                         </li>
                     </ul>
-                  </li>                                    
+                  </li>
                 </ul>
               </div>
     </div>
