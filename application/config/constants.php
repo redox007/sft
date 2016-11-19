@@ -98,5 +98,13 @@ defined('WELLNESS_TYPE_LANG') ? null : define('WELLNESS_TYPE_LANG', 'sft_wellnes
 defined('WELLNESS_PROGRAM') ? null : define('WELLNESS_PROGRAM', 'sft_wellness_program');
 defined('WELLNESS_PROGRAM_LANG') ? null : define('WELLNESS_PROGRAM_LANG', 'sft_wellness_program_lang');
 
+defined('COUNTRY') ? null : define('COUNTRY', 'sft_country');
+defined('COUNTRY_LANG') ? null : define('COUNTRY_LANG', 'sft_country_language');
+
+defined('WELLNESS') ? null : define('WELLNESS', 'sft_wellness');
+defined('WELLNESS_LANG') ? null : define('WELLNESS_LANG', 'sft_wellness_lang');
+
+defined('ITINERARY') ? null : define('ITINERARY', 'sft_itinerary');
+
 defined('UPLOAD_PATH') ? null : define('UPLOAD_PATH', 'uploads/');
 

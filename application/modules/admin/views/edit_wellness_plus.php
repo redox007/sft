@@ -11,7 +11,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Add Wellness Plus</h2>
+                    <h2>Edit Wellness Plus</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -41,7 +41,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Wellness Name <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" name="wellness_name" id="wellness_name" required="required" class="form-control col-md-7 col-xs-12">
+                                <input type="text" name="wellness_name" id="wellness_name" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $wellness_details->wellness_name; ?>">
                             </div>
                         </div>
                         
@@ -49,7 +49,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Wellness Name in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?>  <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" name="wellness_name_lang" id="wellness_name_lang" required="required" class="form-control col-md-7 col-xs-12">
+                                <input type="text" name="wellness_name_lang" id="wellness_name_lang" required="required" class="form-control col-md-7 col-xs-12" value="<?php echo $wellness_details->wellness_name_lang; ?>">
                             </div>
                         </div>
                         
@@ -63,7 +63,7 @@
                                     if (!empty($wellness_type)) {
                                         foreach ($wellness_type as $type) {
                                             ?>
-                                            <option value="<?php echo $type->id; ?>"><?php echo $type->wellness_type; ?></option>
+                                            <option value="<?php echo $type->id; ?>" <?php echo ($wellness_details->type == $type->id)?"selected":""; ?> ><?php echo $type->wellness_type; ?></option>
                                             <?php
                                         }
                                     }
@@ -82,7 +82,7 @@
                                     if (!empty($partner)) {
                                         foreach ($partner as $p) {
                                             ?>
-                                            <option value="<?php echo $p->id; ?>"><?php echo $p->partner_name; ?></option>
+                                            <option value="<?php echo $p->id; ?>" <?php echo ($wellness_details->partner_id == $p->id)?"selected":""; ?>><?php echo $p->partner_name; ?></option>
                                             <?php
                                         }
                                     }
@@ -95,7 +95,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name"> Number Of Days <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="no_of_day" name="no_of_day"  class="form-control col-md-7 col-xs-12">
+                                <input type="text" id="no_of_day" name="no_of_day"  class="form-control col-md-7 col-xs-12" value="<?php echo $wellness_details->no_of_day; ?>" >
                             </div>
                         </div>
 
@@ -103,7 +103,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name"> Price <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="price" name="price"  class="form-control col-md-7 col-xs-12">
+                                <input type="text" id="price" name="price"  class="form-control col-md-7 col-xs-12" value="<?php echo $wellness_details->price; ?>" >
                             </div>
                         </div>
 
@@ -111,14 +111,14 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Short Description in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <textarea class="form-control col-md-7 col-xs-12" name="short_description" id="short_description" ></textarea>                                
+                                <textarea class="form-control col-md-7 col-xs-12" name="short_description" id="short_description" ><?php echo $wellness_details->short_description; ?></textarea>                                
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Description in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <textarea class="form-control col-md-7 col-xs-12" name="description" id="description" ></textarea>                                
+                                <textarea class="form-control col-md-7 col-xs-12" name="description" id="description" ><?php echo $wellness_details->description; ?></textarea>                                
                             </div>
                         </div>
                         
@@ -130,7 +130,16 @@
                         <input type="button" id="add" value="Add" class="btn btn-dark" />
                         <input type="button" id="del" value="Remove" class="btn btn-danger" />
 
-                        <div class="dynamic_text"></div>            
+                        <div class="dynamic_text">
+                            <?php if(!empty($itinerary)){ foreach($itinerary as $inkey=>$itn){ ?>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name"> Itinerary </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12"><div></div>
+                                  <textarea name="Itinerary[]" class="form-control col-md-7 col-xs-12" placeholder="Day <?php echo $inkey+1; ?>"><?php echo $itn->description; ?></textarea></div></div>
+                            <?php }} ?>
+                            
+                            
+                        </div>            
                         <div class="form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                                 <button type="submit" class="btn btn-primary">Cancel</button>
