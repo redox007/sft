@@ -73,7 +73,15 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Title">Title <span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Oreder">Order<span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="number" id="sort_order" min="0" oninput="validity.valid||(value='');" name="sort_order" class="form-control col-md-7 col-xs-12" value="0">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Title">Title in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?><span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input type="text" id="title" name="title" class="form-control col-md-7 col-xs-12">
@@ -81,7 +89,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Content">Content
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Content">Content in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <?php echo $this->ckeditor->editor("content");?>

@@ -41,8 +41,7 @@
                             <thead>
                                 <tr class="headings">
                                     <th>Sl.No.</th>
-                                    <th>Title</th>
-                                    <th>Page Name</th>
+                                    <th>Title In <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?></th>
                                     <th>Author</th>
                                     <th>Action</th>
                                 </tr>
@@ -59,10 +58,9 @@
                                         <tr>
                                             <td><?php echo ($key + 1) . '.' ?></td>
                                             <td><?php echo isset($cms->title) ? $cms->title : ""; ?></td>
-                                            <td><?php echo isset($cms->page_name) ? $cms->page_name : ""; ?></td>
                                             <td><?php echo isset($user_name) ?  $user_name : ""; ?></td>
                                             <td>
-                                                <a href="<?php echo base_url('admin/master/edit_cms') . '/' . encode_url($cms->cms_page_id); ?>" >
+                                                <a href="<?php echo base_url('admin/master/edit_cms') . '/' . ($cms->id); ?>" >
                                                     <i class="fa fa-edit"></i>
 
                                                 </a>
