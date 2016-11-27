@@ -111,3 +111,5 @@ defined('ITINERARY') ? null : define('ITINERARY', 'sft_itinerary');
 
 defined('UPLOAD_PATH') ? null : define('UPLOAD_PATH', 'uploads/');
 
+defined('HOME_PAGE_SETTINGS') ? null : define('HOME_PAGE_SETTINGS', 'sft_home_page_settings');
+defined('HOME_PAGE_SETTINGS_LANG') ? null : define('HOME_PAGE_SETTINGS_LANG', 'sft_home_page_settings_lang');
