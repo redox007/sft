@@ -117,3 +117,6 @@ ALTER TABLE `sft_home_page_settings_lang`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+ALTER TABLE `sft_home_page_settings` ADD `footer_media` INT NOT NULL AFTER `ajmj_media`;
+ALTER TABLE `sft_home_page_settings_lang` ADD `footer_desc` TEXT NOT NULL AFTER `ajmj_desc`;

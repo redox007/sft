@@ -100,18 +100,54 @@
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="" method="post">
                         <div id="tabs">
                             <ul class="nav nav-tabs">
+                                <!--<li id="basic_setting"><a href="javascript:void(0);" onclick="tab_sel('basic_setting');">Basic Settings</a></li>-->
                                 <li id="welcome_text" class="active"><a href="javascript:void(0);" onclick="tab_sel('welcome_text');">Welcome Text</a></li>
                                 <li id="offers"><a href="javascript:void(0);" onclick="tab_sel('offers');">Best Offers</a></li>
-                                <li id="new_toors"><a href="javascript:void(0);" onclick="tab_sel('new_toors');">New Toors</a></li>
-                                <li id="choose_us"><a href="javascript:void(0);" onclick="tab_sel('choose_us');">Why chooses us</a></li>
-                                <li id="set_portfolio"><a href="javascript:void(0);" onclick="tab_sel('set_portfolio');">Set Portfolio</a></li>
+                                <li id="new_tours"><a href="javascript:void(0);" onclick="tab_sel('new_tours');">Hot Destination</a></li>
+                                <li id="choose_us"><a href="javascript:void(0);" onclick="tab_sel('choose_us');">Why choose us</a></li>
+                                <li id="set_portfolio"><a href="javascript:void(0);" onclick="tab_sel('set_portfolio');">SFT Portfolio</a></li>
                                 <li id="library"><a href="javascript:void(0);" onclick="tab_sel('library');">Library</a></li>
                                 <li id="our_partners"><a href="javascript:void(0);" onclick="tab_sel('our_partners');">Our Partners</a></li>
                                 <li id="ajmj_club"><a href="javascript:void(0);" onclick="tab_sel('ajmj_club');">AJMJ Club</a></li>
+                                <li id="footer"><a href="javascript:void(0);" onclick="tab_sel('footer');">Footer</a></li>
                             </ul>
-                            <div class="my_div tab-pane active" id="welcome_text_details">
+                            <!--<div class="my_div tab-pane active" id="basic_setting_details">
                                 <div class="form-group">
-                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="welcome text">Welcome text Title in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?><span class="required">*</span>
+                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Site Title">Site Title in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?><span class="required">*</span>
+                                   </label>
+                                   <div class="col-md-6 col-sm-6 col-xs-12">
+                                       <input type="text" id="site_title" name="site_title" class="form-control col-md-7 col-xs-12" value="<?php echo isset($home_page_details->site_title)?$home_page_details->site_title:" "; ?>">
+                                   </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Contact Info">Contact Info in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?><span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <textarea name="contact_info" class="form-control col-md-7 col-xs-12" style="resize: none;"><?php echo isset($home_page_details->contact_info)?$home_page_details->contact_info:"";?></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Email">Email<span class="required">*</span>
+                                   </label>
+                                   <div class="col-md-6 col-sm-6 col-xs-12">
+                                       <input type="text" id="email" name="email" class="form-control col-md-7 col-xs-12" value="<?php echo isset($home_page_details->email)?$home_page_details->email:" "; ?>">
+                                   </div>
+                                </div>
+
+                                <div class="form-group">
+                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Contact No.">Contact No.<span class="required">*</span>
+                                   </label>
+                                   <div class="col-md-6 col-sm-6 col-xs-12">
+                                       <input type="text" id="contact_no" name="contact_no" class="form-control col-md-7 col-xs-12" value="<?php echo isset($home_page_details->contact_no)?$home_page_details->contact_no:""; ?>">
+                                   </div>
+                                </div>
+
+                            </div>--> <!--end of Basic Setting div-->
+                            <div class="my_div tab-pane active" id="welcome_text_details" style="display: block;">
+                                <div class="form-group">
+                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Title">Title in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?><span class="required">*</span>
                                    </label>
                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                        <input type="text" id="welcome_text_title" name="welcome_txt_title" class="form-control col-md-7 col-xs-12" value="<?php echo isset($home_page_details->welcome_txt_title)?$home_page_details->welcome_txt_title:" "; ?>">
@@ -136,7 +172,7 @@
                             </div> <!--end of welcome text div-->
                             <div id="offers_details" class="my_div tab-pane" style="display: none;">
                                 <div class="form-group">
-                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Best offer Title">Best offer Title in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?><span class="required">*</span>
+                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Title">Title in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?><span class="required">*</span>
                                    </label>
                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                        <input type="text" id="best_offer_title" name="best_offer_title" class="form-control col-md-7 col-xs-12" value="<?php echo isset($home_page_details->best_offer_title)?$home_page_details->best_offer_title:" "; ?>">
@@ -144,16 +180,16 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Best offer details">Best offer details in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Details">Details in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <?php echo $this->ckeditor->editor("best_offer_desc", isset($home_page_details->best_offer_desc)?$home_page_details->best_offer_desc:"");?>
                                     </div>
                                 </div>
                             </div> <!--end of offer div-->
-                            <div id="new_toors_details" class="my_div tab-pane" style="display: none;">
+                            <div id="new_tours_details" class="my_div tab-pane" style="display: none;">
                                 <div class="form-group">
-                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="New toors title">New toors Title in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?><span class="required">*</span>
+                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Title in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?><span class="required">*</span>
                                    </label>
                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                        <input type="text" id="toor_title" name="toor_title" class="form-control col-md-7 col-xs-12" value="<?php echo isset($home_page_details->toor_title)?$home_page_details->toor_title:" "; ?>">
@@ -161,7 +197,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="New toors content">New toors details in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="details">Details in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <?php echo $this->ckeditor->editor("toor_desc", isset($home_page_details->toor_desc)?$home_page_details->toor_desc:"");?>
@@ -169,7 +205,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Picture">New toor media
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Picture">Select Video
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                     <div class="pv" id="preview1">
@@ -224,7 +260,7 @@
                             </div> <!--end of choose us div-->
                             <div id="set_portfolio_details" class="my_div tab-pane" style="display: none;">
                                 <div class="form-group">
-                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Portfolio Title">Portfolio Title in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?><span class="required">*</span>
+                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Title">Title in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?><span class="required">*</span>
                                    </label>
                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                        <input type="text" id="portfolio_title" name="portfolio_title" class="form-control col-md-7 col-xs-12" value="<?php echo isset($home_page_details->portfolio_title)?$home_page_details->portfolio_title:" "; ?>">
@@ -232,7 +268,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Portfolio details">Portfolio details in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Details">Details in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <?php echo $this->ckeditor->editor("portfolio_desc", isset($home_page_details->portfolio_desc)?$home_page_details->portfolio_desc:"");?>
@@ -241,7 +277,7 @@
                             </div> <!--end of portfolio div-->
                             <div id="library_details" class="my_div tab-pane" style="display: none;">
                                 <div class="form-group">
-                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Library Title">Library Title in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?><span class="required">*</span>
+                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Title">Title in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?><span class="required">*</span>
                                    </label>
                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                        <input type="text" id="library_title" name="library_title" class="form-control col-md-7 col-xs-12" value="<?php echo isset($home_page_details->library_title)?$home_page_details->library_title:" "; ?>">
@@ -249,7 +285,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Library details">Library details in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Details">Details in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <?php echo $this->ckeditor->editor("library_desc", isset($home_page_details->library_desc)?$home_page_details->library_desc:"");?>
@@ -257,21 +293,21 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Picture">Picture
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Picture">Add Library Media(s)
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <div class="pv" id="preview2">
-                                        <?php load_medias(isset($home_page_details->library_media)?$home_page_details->library_media:"", $input_media_id = '#input-media-library', true); ?>
-                                    </div>
-                                        <input id="input-media-library" type="hidden" value="<?php echo isset($home_page_details->library_media)?$home_page_details->library_media:1 ?>" name="library_media" />
-                                    <!-- Large modal -->
-                                    <button type="button" class="btn btn-primary media-button" data-input-field="#input-media-library"  data-preview="#preview2" >Media</button>
+                                        <div class="pv" id="preview2">
+                                            <?php load_medias(isset($home_page_details->library_media)? [ $home_page_details->library_media ]:"[]", $input_media_id = '#input-media-library'); ?>
+                                        </div>
+                                            <input id="input-media-library" type="hidden" value="<?php echo isset($home_page_details->library_media)?$home_page_details->library_media:""; ?>" name="library_media" />
+                                        <!-- Large modal -->
+                                        <button type="button" class="btn btn-primary media-button" data-is-multi="true" data-input-field="#input-media-library"  data-preview="#preview2" >Media</button>
                                     </div>
                                 </div>
                             </div> <!--end of portfolio div-->
                             <div id="our_partners_details" class="my_div tab-pane" style="display: none;">
                                 <div class="form-group">
-                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Partners title">Partners Title in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?><span class="required">*</span>
+                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Title">Title in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?><span class="required">*</span>
                                    </label>
                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                        <input type="text" id="partner_title" name="partner_title" class="form-control col-md-7 col-xs-12" value="<?php echo isset($home_page_details->partner_title)?$home_page_details->partner_title:" "; ?>">
@@ -279,28 +315,28 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Partners details">Partners details in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Details">Details in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <?php echo $this->ckeditor->editor("partner_desc", isset($home_page_details->partner_desc)?$home_page_details->partner_desc:"");?>
                                     </div>
                                 </div>
 
-                                <!--<div class="form-group">-->
-                                <!--    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Picture">Picture-->
-                                <!--    </label>-->
-                                <!--    <div class="col-md-6 col-sm-6 col-xs-12">-->
-                                <!--    <div class="pv" id="preview3">-->
-                                        <?php //load_medias(isset($home_page_details->partner_media)?$home_page_details->partner_media:"", $input_media_id = '#input-media-partner', true); ?>
-                                <!--    </div>-->
-                                <!--        <input id="input-media-partner" type="hidden" value="<?php //echo isset($home_page_details->partner_media)?$home_page_details->partner_media:1 ?>" name="partner_media" />-->
-                                <!--    <button type="button" class="btn btn-primary media-button" data-input-field="#input-media-partner"  data-preview="#preview3" >Media</button>-->
-                                <!--    </div>-->
-                                <!--</div>-->
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Picture">Add Logo(s)
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="pv" id="preview3">
+                                        <?php load_medias(isset($home_page_details->partner_media)?[ $home_page_details->partner_media ]:"[]", $input_media_id = '#input-media-partner'); ?>
+                                    </div>
+                                    <input id="input-media-partner" type="hidden" value="<?php echo isset($home_page_details->partner_media)?$home_page_details->partner_media:'' ?>" name="partner_media" />
+                                    <button type="button" class="btn btn-primary media-button" data-input-field="#input-media-partner" data-is-multi="true" data-preview="#preview3" >Media</button>
+                                    </div>
+                                </div>
                             </div> <!--end of portfolio div-->
                             <div id="ajmj_club_details" class="my_div tab-pane" style="display: none;">
                                 <div class="form-group">
-                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="AJMJ Club Title">AJMJ Club Title in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?><span class="required">*</span>
+                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Title">Title in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?><span class="required">*</span>
                                    </label>
                                    <div class="col-md-6 col-sm-6 col-xs-12">
                                        <input type="text" id="ajmj_title" name="ajmj_title" class="form-control col-md-7 col-xs-12" value="<?php echo isset($home_page_details->ajmj_title)?$home_page_details->ajmj_title:" "; ?>">
@@ -308,7 +344,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for=">AJMJ Club details">AJMJ Club details in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for=">Details">Details in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <?php echo $this->ckeditor->editor("ajmj_desc", isset($home_page_details->ajmj_desc)?$home_page_details->ajmj_desc:"");?>
@@ -316,7 +352,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Picture">Picture
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Picture">Select Image
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                     <div class="pv" id="preview4">
@@ -327,7 +363,29 @@
                                     <button type="button" class="btn btn-primary media-button" data-input-field="#input-media-ajmj"  data-preview="#preview4" >Media</button>
                                     </div>
                                 </div>
-                            </div> <!--end of portfolio div-->
+                            </div> <!--end of ajmj div-->
+                            <div id="footer_details" class="my_div tab-pane" style="display: none;">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Footer Logo">Footer Logo <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <div class="pv" id="preview5">
+                                            <?php load_medias(isset($home_page_details->footer_media)?$home_page_details->footer_media:"", $input_media_id = '#input-media-footer', true); ?>
+                                        </div>
+                                        <input id="input-media-footer" type="hidden" value="<?php echo isset($home_page_details->footer_media)?$home_page_details->footer_media:"1"?>" name="footer_media" />
+                                        <button type="button" class="btn btn-primary media-button" data-input-field="#input-media-footer"  data-preview="#preview5" >Media</button>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for=">Details">Details in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <?php echo $this->ckeditor->editor("footer_desc", isset($home_page_details->footer_desc)?$home_page_details->footer_desc:"");?>
+                                    </div>
+                                </div>
+
+                            </div> <!--end of footer div-->
                             <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
