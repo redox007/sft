@@ -113,3 +113,6 @@ defined('UPLOAD_PATH') ? null : define('UPLOAD_PATH', 'uploads/');
 
 defined('HOME_PAGE_SETTINGS') ? null : define('HOME_PAGE_SETTINGS', 'sft_home_page_settings');
 defined('HOME_PAGE_SETTINGS_LANG') ? null : define('HOME_PAGE_SETTINGS_LANG', 'sft_home_page_settings_lang');
+
+defined('BASIC_SETTINGS') ? null : define('BASIC_SETTINGS', 'sft_basic_settings');
+defined('BASIC_SETTINGS_LANG') ? null : define('BASIC_SETTINGS_LANG', 'sft_basic_settings_lang');
