@@ -1,0 +1,20 @@
+.flagstrap {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+}
+
+.flagstrap-icon {
+    display: block;
+		float:left;
+    width: 21px;
+    height: 21px;
+    background: url(../images/home/flags.png) no-repeat 0 0;
+}
+
+.flagstrap-icon.flagstrap-us {
+    background-position: 0 0;
+}
+.flagstrap-icon.flagstrap-vn {
+    background-position: -21px 0;	
+}

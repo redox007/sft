@@ -104,10 +104,19 @@ defined('WOW_LANG') ? null : define('CMS_LANG', 'sft_cms_language');
 defined('COUNTRY') ? null : define('COUNTRY', 'sft_country');
 defined('COUNTRY_LANG') ? null : define('COUNTRY_LANG', 'sft_country_language');
 
+defined('CONTINENT') ? null : define('CONTINENT', 'continent');
+defined('CONTINENT_LANG') ? null : define('CONTINENT_LANG', 'continent_lang');
+
 defined('WELLNESS') ? null : define('WELLNESS', 'sft_wellness');
 defined('WELLNESS_LANG') ? null : define('WELLNESS_LANG', 'sft_wellness_lang');
+defined('WELLNESS_IMAGE') ? null : define('WELLNESS_IMAGE', 'sft_wellness_image');
+
 
 defined('ITINERARY') ? null : define('ITINERARY', 'sft_itinerary');
+
+
+defined('AWARD') ? null : define('AWARD', 'sft_award');
+defined('AWARD_PARTNER') ? null : define('AWARD_PARTNER', 'sft_award_partner');
 
 defined('UPLOAD_PATH') ? null : define('UPLOAD_PATH', 'uploads/');
 

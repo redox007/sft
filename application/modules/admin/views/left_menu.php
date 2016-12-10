@@ -23,6 +23,15 @@
                            </li>
                          </ul>
                        </li>
+                       
+                         <li><a>Continent<span class="fa fa-chevron-down"></span></a>
+                         <ul class="nav child_menu">
+                           <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/list_continents">List Continents</a>
+                           </li>
+                           <li><a href="<?php echo base_url(); ?>admin/master/add_continents">Add Continents</a>
+                           </li>
+                         </ul>
+                       </li>
                         <li><a>Partners<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
                             <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/list_partner">List Partner</a>
