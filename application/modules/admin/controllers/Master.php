@@ -1073,6 +1073,107 @@ class Master extends MY_Controller {
         $partials = array('content' => 'best_of_best', 'left_menu' => 'left_menu', 'header' => 'header');
         $this->template->load('template', $partials, $data);
     }
+    
+    
+    function edit_best_of_best($id=NULL){
+        $award_id= decode_url($id);
+        $chk_award = $this->Custom_model->row_present_check(AWARD, array('id'=>$award_id));
+        if($chk_award==FALSE){
+            redirect(base_url() . 'admin/master/best_of_best');
+        }
+        
+        $data['awards'] =  $this->Custom_model->fetch_data(PARTNER,
+                array(PARTNER.'.*',AWARD_PARTNER.'.partner_id'),
+                array(),
+                array(
+                    AWARD_PARTNER=>AWARD_PARTNER.'.partner_id='.PARTNER.'.id AND '.AWARD_PARTNER.'.award_id='.$chk_award,
+                    ));
+        if ($this->input->post('submit')) {
+             if ($this->input->post('partner_id') == "") {
+                $this->session->set_flashdata('error_message', 'Please select partner name');
+                redirect(base_url() . 'admin/master/edit_best_of_best');
+            }else {
+                $partner_id = $this->input->post('partner_id');
+                $chk_partner = $this->Custom_model->row_present_check(AWARD_PARTNER, array('award_id'=>$award_id));
+                if($chk_partner==FALSE){  //insert
+                    $this->Custom_model->insert_data(array('award_id'=>$award_id,'partner_id'=>$partner_id), AWARD_PARTNER);
+                }else{ //edit
+                    $this->Custom_model->edit_data(array('partner_id'=>$partner_id), array('award_id'=>$award_id), AWARD_PARTNER);
+                }
+                $this->session->set_flashdata('success_message', 'Partner Added successfully');
+                redirect(base_url() . 'admin/master/best_of_best');
+            }
+        }
+        $partials = array('content' => 'edit_best_of_best', 'left_menu' => 'left_menu', 'header' => 'header');
+        $this->template->load('template', $partials, $data);
+    }
+
+     function best_of_region(){        
+        $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
+        if($selected_lang==1){
+            $fields=array(
+                AWARD.'.id',
+                AWARD.'.name_in_english as award',
+                PARTNER.'.partner_name',
+                AWARD_PARTNER.'.partner_id'
+                );
+        }else{
+            $fields=array(
+                AWARD.'.id',
+                AWARD.'.name_in_vietnamese as award',
+                PARTNER.'.partner_name',
+                AWARD_PARTNER.'.partner_id'
+                );
+        }
+        
+        $data['awards']= $this->Custom_model->fetch_data(AWARD,
+                $fields,
+                array('type'=>2),
+                array(
+                    AWARD_PARTNER=>AWARD_PARTNER.'.award_id='.AWARD.'.id',
+                    PARTNER=>PARTNER.'.id='.AWARD_PARTNER.'.partner_id'));   
+        
+        
+        $data['all_partner'] = $this->Custom_model->fetch_data(PARTNER,array('*'),array(),array());
+                
+        
+        $partials = array('content' => 'best_of_region', 'left_menu' => 'left_menu', 'header' => 'header');
+        $this->template->load('template', $partials, $data);
+    }
+    
+    
+    function edit_best_of_region($id=NULL){
+        $award_id= decode_url($id);
+        $chk_award = $this->Custom_model->row_present_check(AWARD, array('id'=>$award_id));
+        if($chk_award==FALSE){
+            redirect(base_url() . 'admin/master/best_of_region');
+        }
+        
+        $data['awards'] =  $this->Custom_model->fetch_data(PARTNER,
+                array(PARTNER.'.*',AWARD_PARTNER.'.partner_id'),
+                array(),
+                array(
+                    AWARD_PARTNER=>AWARD_PARTNER.'.partner_id='.PARTNER.'.id AND '.AWARD_PARTNER.'.award_id='.$chk_award,
+                    ));
+        if ($this->input->post('submit')) {
+             if ($this->input->post('partner_id') == "") {
+                $this->session->set_flashdata('error_message', 'Please select partner name');
+                redirect(base_url() . 'admin/master/edit_best_of_region');
+            }else {
+                $partner_id = $this->input->post('partner_id');
+                $chk_partner = $this->Custom_model->row_present_check(AWARD_PARTNER, array('award_id'=>$award_id));
+                if($chk_partner==FALSE){  //insert
+                    $this->Custom_model->insert_data(array('award_id'=>$award_id,'partner_id'=>$partner_id), AWARD_PARTNER);
+                }else{ //edit
+                    $this->Custom_model->edit_data(array('partner_id'=>$partner_id), array('award_id'=>$award_id), AWARD_PARTNER);
+                }
+                $this->session->set_flashdata('success_message', 'Partner Added successfully');
+                redirect(base_url() . 'admin/master/best_of_region');
+            }
+        }
+        $partials = array('content' => 'edit_best_of_region', 'left_menu' => 'left_menu', 'header' => 'header');
+        $this->template->load('template', $partials, $data);
+    }
 
     
 }

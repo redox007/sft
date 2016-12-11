@@ -4,6 +4,7 @@
             <h3></h3>
             <ul class="nav side-menu">
                 <li><a href="<?php echo base_url(); ?>admin"><i class="fa fa-windows"></i> Dashboard </a></li>
+                
                 <li>
                     <a><i class="fa fa-sitemap"></i> Master <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -50,7 +51,18 @@
                         </li>
                     </ul>
                 </li>
-
+                
+                 <li><a><i class="fa fa-clone"></i> Best Of Best <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/best_of_best">List Best Of Best</a></li>                        
+                    </ul>
+                </li>
+                 <li><a><i class="fa fa-clone"></i> Best Of Region <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/best_of_region">List Best Of Regiont</a></li>                        
+                    </ul>
+                </li>
+                
                 <li><a><i class="fa fa-clone"></i> CMS Management <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/cms/list_cms">List Pages</a></li>
