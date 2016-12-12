@@ -59,7 +59,7 @@
                 <li>
                     <a><i class="fa fa-laptop"></i>Settings <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li><a href="<?php echo base_url(); ?>admin/settings/settings">Settings<span class="fa "></span></a></li>
+                        <li><a href="<?php echo base_url(); ?>admin/settings/general_settings">General Settings<span class="fa "></span></a></li>
                         <li><a href="<?php echo base_url(); ?>admin/settings/home_page_settings">HomePage Settings<span class="fa "></span></a></li>
                     </ul>
                 </li>

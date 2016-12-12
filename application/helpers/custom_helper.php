@@ -44,3 +44,42 @@ function get_admin_username($id)
         $CI->ckeditor->config['skin'] = 'Moono Color';
         $CI->ckeditor->config['removePlugins'] = 'elementspath';
     }
+
+    /* This function is used to grab video id from youtube embeded code
+     * $embeded_code : embeded YouYube code
+     * @author : Poorvi Gandhi
+     * @since : 09th dec 2016
+     */
+    function get_youtube_video_id($embeded_code)
+    {
+        if($embeded_code == '')
+            return false;
+
+        $pattern = '/embed\/([\w+\-+]+)[\"\?]/';
+        preg_match($pattern, $embeded_code, $matches);
+        return @$matches[1];
+    }
+
+    /* This function is used to get youtube video thumb from youtube embeded code
+     * $embeded_code : embeded YouYube code
+     * $thumb_name : type of thumb. [check list of thumb at https://www.sitepoint.com/youtube-video-thumbnail-urls/]
+     * @author : Poorvi Gandhi
+     * @since : 09th dec 2016
+     */
+    function youtube_video_thumb($embeded_code, $thumb_name='hqdefault.jpg')
+    {
+        $img_src = '';
+        $video_id = get_youtube_video_id($embeded_code);
+        if($video_id != ''){
+            $video_url = "https://img.youtube.com/vi/".$video_id."/".$thumb_name;
+            $check_img_exist = get_headers($video_url);
+            $returned_res = '';
+            if(!empty($check_img_exist)){
+                $returned_res = $check_img_exist[0];
+            }
+            if(strpos($returned_res, '200') ){
+                $img_src = $video_url;
+            }
+        }
+        return $img_src;
+    }

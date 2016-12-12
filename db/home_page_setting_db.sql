@@ -120,3 +120,7 @@ ALTER TABLE `sft_home_page_settings_lang`
 
 ALTER TABLE `sft_home_page_settings` ADD `footer_media` INT NOT NULL AFTER `ajmj_media`;
 ALTER TABLE `sft_home_page_settings_lang` ADD `footer_desc` TEXT NOT NULL AFTER `ajmj_desc`;
+
+ALTER TABLE `sft_home_page_settings` CHANGE `toor_media` `toor_media` TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL, CHANGE `library_media` `library_media` TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL, CHANGE `partner_media` `partner_media` TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL, CHANGE `ajmj_media` `ajmj_media` TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
+
+ALTER TABLE `sft_home_page_settings` ADD `library_videos` TEXT NULL DEFAULT NULL AFTER `toor_media`;

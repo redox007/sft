@@ -1,3 +1,4 @@
+
 <script type="text/javascript" src="<?php echo base_url();?>assets/ckeditor/ckeditor.js"></script>
 <style type="text/css">
 .nav-tabs {
@@ -205,15 +206,22 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Picture">Select Video
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Picture">Add Youtube embeded code
                                     </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <div class="pv" id="preview1">
-                                        <?php load_medias(isset($home_page_details->toor_media)?$home_page_details->toor_media:"", $input_media_id = '#input-media-toor', true); ?>
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <textarea rows="3" class="form-control col-md-5 col-xs-12" id="toor_media" name="toor_media" style="resize: none;"><?php echo isset($home_page_details->toor_media)?$home_page_details->toor_media:1?></textarea>
                                     </div>
-                                        <input id="input-media-toor" type="hidden" value="<?php echo isset($home_page_details->toor_media)?$home_page_details->toor_media:1?>" name="toor_media" />
-                                    <!-- Large modal -->
-                                    <button type="button" class="btn btn-primary media-button" data-input-field="#input-media-toor"  data-preview="#preview1" >Media</button>
+                                    <div class="">
+                                        <?php $img_src = '';
+                                        if($home_page_details->toor_media != ''){
+                                            $img_src = youtube_video_thumb($home_page_details->toor_media);//embeded url
+                                        }
+                                        if($img_src != ''){
+                                            $video_id = get_youtube_video_id($home_page_details->toor_media);?>
+                                            <a href="#myModal" data-toggle="modal">
+                                                <img id="show_toor_medias" title="click to play video" src="<?php echo $img_src;?>" alt="video_thumb" width="70">
+                                            </a>
+                                        <?php }?>
                                     </div>
                                 </div>
                             </div> <!--end of new toor div-->
@@ -299,10 +307,49 @@
                                         <div class="pv" id="preview2">
                                             <?php load_medias(isset($home_page_details->library_media)? [ $home_page_details->library_media ]:"[]", $input_media_id = '#input-media-library'); ?>
                                         </div>
-                                            <input id="input-media-library" type="hidden" value="<?php echo isset($home_page_details->library_media)?$home_page_details->library_media:""; ?>" name="library_media" />
-                                        <!-- Large modal -->
-                                        <button type="button" class="btn btn-primary media-button" data-is-multi="true" data-input-field="#input-media-library"  data-preview="#preview2" >Media</button>
+                                        <input id="input-media-library" type="hidden" value="<?php echo isset($home_page_details->library_media)?$home_page_details->library_media:""; ?>" name="library_media" />
+                                        <button type="button" class="btn btn-primary media-button" data-is-multi="true" data-input-field="#input-media-library"  data-preview="#preview2" >Select Image(s)</button>
                                     </div>
+
+                                </div>
+                                 <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="button" id="add" value="Add Video" class="btn btn-dark" />
+                                        <input type="button" id="del" value="Remove Video" class="btn btn-danger" />
+                                    </div>
+                                 </div>
+                                <div class="dynamic_text">
+                                    <?php if($home_page_details->library_videos != ''){
+                                        $library_video = explode('||', $home_page_details->library_videos);
+                                        foreach($library_video as $key=>$video){?>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name"> Add embeded YouTube video </label>
+                                                <div class="col-md-5 col-sm-5 col-xs-12">
+                                                    <textarea name="library_videos[]" id="library_videos_<?php echo $key;?>" class="form-control col-md-5 col-xs-12" style="resize: none;" placeholder="Video <?php echo $key;?>"> <?php echo $video; ?></textarea>
+                                                </div>
+                                                <div class="">
+                                                    <?php $img_src = '';
+                                                    if($video != ''){
+                                                        $img_src = youtube_video_thumb($video);//embeded url
+                                                    }
+                                                    if($img_src != ''){
+                                                        $video_id = get_youtube_video_id($video);?>
+                                                        <a href="#myModal" data-toggle="modal">
+                                                            <img id="show_library_medias_<?php echo $key;?>" title="click to play video" src="<?php echo $img_src;?>" alt="video_thumb" width="70">
+                                                        </a>
+                                                        <script type="text/javascript">
+                                                            $('#show_library_medias_<?php echo $key;?>').click(function (e) {
+                                                                $("#myModal").on('show.bs.modal', function(){
+                                                                    $("#yvideo").html($('#library_videos_<?php echo $key;?>').val());
+                                                                });
+                                                            });
+                                                        </script>
+                                                    <?php }?>
+                                                </div>
+                                            </div>
+                                        <?php }?>
+                                    <?php }?>
                                 </div>
                             </div> <!--end of portfolio div-->
                             <div id="our_partners_details" class="my_div tab-pane" style="display: none;">
@@ -397,6 +444,20 @@
 </div>
 </div>
 
+<!-- Modal HTML -->
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">YouTube Video</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="yvideo"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 <script type="text/javascript">
     <?php if ($this->session->userdata('tab_data') != '') {?>
@@ -408,5 +469,77 @@
         $('div .my_div.tab-pane').removeClass('active').hide();
         $('#'+id).prop('class', 'active');
         $('#'+id+'_details').prop('class', 'my_div tab-pane active').show();
+        //$('.validation').remove('.validation');
     }
+
+    $(document).ready(function () {
+        $('#show_toor_medias').click(function (e) {
+            $("#myModal").on('show.bs.modal', function(){
+                $("#yvideo").html($('#toor_media').val());
+            });
+        });
+
+        $("#myModal").on('hide.bs.modal', function(){
+            $("#yvideo").html('');
+        });
+
+        $('.form-control').focus(function () {
+            $('.validation').remove('.validation');
+        });
+        $('#submit').click(function (e) {
+            $('.validation').remove('.validation');
+           if ($('#welcome_text_title').val() == "") {
+                $("#welcome_text_title").parent().append("<div class='validation'>Please enter welcome text title.</div>");
+                tab_sel('welcome_text');
+                return false;
+            }else if ($('#best_offer_title').val() == "") {
+                $("#best_offer_title").parent().append("<div class='validation'>Please enter best offer title.</div>");
+                tab_sel('offers');
+                return false;
+            } else if ($('#toor_title').val() == "") {
+                $("#toor_title").parent().append("<div class='validation'>Please enter toor title</div>");
+                tab_sel('new_toors');
+                return false;
+            } else if ($('#why_choose_title').val() == "") {
+                $("#why_choose_title").parent().append("<div class='validation'>Please enter why choose us title.</div>");
+                tab_sel('choose_us');
+                return false;
+            } else if ($('#portfolio_title').val() == "") {
+                $("#portfolio_title").parent().append("<div class='validation'>Please enter portfolio title. </div>");
+                tab_sel('set_portfolio');
+                return false;
+            }else if ($('#library_title').val() == "") {
+                $("#library_title").parent().append("<div class='validation'>Please enter library title. </div>");
+                tab_sel('library');
+                return false;
+            }else if ($('#library_media').val() == "") {
+                $("#library_media").parent().append("<div class='validation'>Library media(s) can not be empty. </div>");
+                tab_sel('library');
+                return false;
+            }else if ($('#partner_title').val() == "") {
+                $("#partner_title").parent().append("<div class='validation'>Please enter partner title. </div>");
+                tab_sel('our_partners');
+                return false;
+            }else if ($('#partner_media').val() == "") {
+                $("#partner_media").parent().append("<div class='validation'>Partner logo(s) can not be empty. </div>");
+                tab_sel('our_partners');
+                return false;
+            }else if ($('#ajmj_title').val() == "") {
+                $("#ajmj_title").parent().append("<div class='validation'>Please enter AJMJ title.</div>");
+                tab_sel('ajmj_club');
+                return false;
+            } else {
+                return true;
+            }
+        });
+
+        $('#add').click(function () {
+            var cnt = $('.dynamic_text').find('.form-group').length + 1;
+            $('.dynamic_text').append('<div class="form-group"><label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name"> Add embeded YouTube video </label><div class="col-md-5 col-sm-5 col-xs-12"><textarea name="library_videos[]" id="library_videos_' + cnt + '" class="form-control col-md-5 col-xs-12" placeholder="Video ' + cnt + '"></textarea></div></div>');
+        });
+        $('#del').click(function () {
+            $('.dynamic_text').find('.form-group').last().remove();
+        });
+
+    });
 </script>

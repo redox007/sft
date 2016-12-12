@@ -55,7 +55,7 @@ class Settings extends MY_Controller {
                 redirect(base_url() . 'admin/settings/home_page_settings');
             }elseif ($this->input->post('why_choose_title') == "") {
                 $this->session->set_userdata('tab_data', 'choose_us');
-                $this->session->set_flashdata('error_message', 'Please enter why choose title.');
+                $this->session->set_flashdata('error_message', 'Please enter why choose us title.');
                 redirect(base_url() . 'admin/settings/home_page_settings');
             }elseif ($this->input->post('portfolio_title') == "") {
                 $this->session->set_userdata('tab_data', 'set_portfolio');
@@ -84,7 +84,13 @@ class Settings extends MY_Controller {
             }  else {
                 $this->session->set_userdata('tab_data', '');
                 $master_data = array();
+
+                $library_videos = '';
+                if($this->input->post('library_videos') != ''){
+                    $library_videos = implode('||', $this->input->post('library_videos'));
+                }
                 $master_data['toor_media'] = $this->input->post('toor_media');
+                $master_data['library_videos'] = $library_videos;
                 $master_data['library_media'] = $this->input->post('library_media');
                 $master_data['partner_media'] = $this->input->post('partner_media');
                 $master_data['ajmj_media'] = $this->input->post('ajmj_media');
@@ -92,7 +98,7 @@ class Settings extends MY_Controller {
                 $master_data['created_by'] = $this->session->userdata['user_data']->id;//print_r($master_data);die;
 
                 $details_data = $this->input->post();
-                unset($details_data['toor_media']);unset($details_data['library_media']);unset($details_data['partner_media']);
+                unset($details_data['toor_media']);unset($details_data['library_videos']);unset($details_data['library_media']);unset($details_data['partner_media']);
                 unset($details_data['ajmj_media']);unset($details_data['submit']);
 
                 // save modified data to table
@@ -115,7 +121,7 @@ class Settings extends MY_Controller {
      * @author : Poorvi Gandhi
      * @since : 29-11-2016
     */
-    function settings()
+    function general_settings()
     {
         $selected_lang = ($this->session->userdata('language'))?$this->session->userdata('language'):1;
         $data['selected_lang'] = $selected_lang;
@@ -132,13 +138,13 @@ class Settings extends MY_Controller {
         if($this->input->post('submit')){
             if ($this->input->post('site_address') == "") {
                 $this->session->set_flashdata('error_message', 'Site Address should not be an empty.');
-                redirect(base_url() . 'admin/settings/settings');
+                redirect(base_url() . 'admin/settings/general_settings');
             }elseif ($this->input->post('site_email') == "") {
                 $this->session->set_flashdata('error_message', 'Site Email should not be an empty.');
-                redirect(base_url() . 'admin/settings/settings');
+                redirect(base_url() . 'admin/settings/general_settings');
             }elseif ($this->input->post('site_contact_no') == "") {
                 $this->session->set_flashdata('error_message', 'Site Contact No. should not be an empty');
-                redirect(base_url() . 'admin/settings/settings');
+                redirect(base_url() . 'admin/settings/general_settings');
             }  else {
                 $master_data = $details_data = array();
                 $master_data['site_email'] = $this->input->post('site_email');
@@ -154,11 +160,11 @@ class Settings extends MY_Controller {
                 } else {
                     $this->session->set_flashdata('error_message', 'Please Try Again.');
                 }
-                redirect(base_url() . 'admin/settings/settings');
+                redirect(base_url() . 'admin/settings/general_settings');
             }
         }
 
-        $partials = array('content' => 'settings/settings', 'left_menu' => 'left_menu', 'header' => 'header');
+        $partials = array('content' => 'settings/general_settings', 'left_menu' => 'left_menu', 'header' => 'header');
         $this->template->load('template', $partials, $data);
     }
 
