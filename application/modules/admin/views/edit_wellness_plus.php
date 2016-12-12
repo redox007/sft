@@ -75,7 +75,28 @@
                                 </select>                                        
                             </div>
                         </div>
-
+                            
+                            
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Program <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select name="program_id" id="program_id" class="form-control col-md-7 col-xs-12" >
+                                        <option value="">Select</option>
+                                        <?php
+                                        if (!empty($programs)) {
+                                            foreach ($programs as $pro) {
+                                                ?>
+                                                <option value="<?php echo $pro->id; ?>"><?php echo $pro->program; ?></option>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                                    </select>                                        
+                                </div>
+                            </div>
+                            
+                            
                            <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Partner <span class="required">*</span>
                             </label>
@@ -86,7 +107,7 @@
                                     if (!empty($partner)) {
                                         foreach ($partner as $p) {
                                             ?>
-                                            <option value="<?php echo $p->id; ?>" <?php echo ($wellness_details->partner_id == $p->id)?"selected":""; ?>><?php echo $p->partner_name; ?></option>
+                                            <option value="<?php echo $p->id; ?>" <?php echo ($partner_id == $p->id)?"selected":""; ?>><?php echo $p->partner_name; ?></option>
                                             <?php
                                         }
                                     }
@@ -157,6 +178,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name"> Itinerary </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12"><div></div>
+                                        <input type="text" name="Itinerary_title[]" class="form-control col-md-7 col-xs-12" placeholder="Title" value="<?php echo $itn->wellness_title; ?>"  /><br/>      
                                   <textarea name="Itinerary[]" class="form-control col-md-7 col-xs-12" placeholder="Day <?php echo $inkey+1; ?>"><?php echo $itn->description; ?></textarea></div></div>
                             <?php }} ?>
                             </div> 
@@ -236,7 +258,7 @@
 
             var days = $('.dynamic_text').find('.form-group').length + 1;
 
-            $('.dynamic_text').append('<div class="form-group"><label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name"> Itinerary </label><div class="col-md-6 col-sm-6 col-xs-12"><div></div><textarea name="Itinerary[]" class="form-control col-md-7 col-xs-12" placeholder="Day ' + days + '"></textarea></div></div>');
+           $('.dynamic_text').append('<div class="form-group"><label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name"> Itinerary </label><div class="col-md-6 col-sm-6 col-xs-12"><div></div><input type="text" name="Itinerary_title[]" class="form-control col-md-7 col-xs-12" placeholder="Title"  /><br/><textarea name="Itinerary[]" class="form-control col-md-7 col-xs-12" placeholder="Day ' + days + '"></textarea></div></div>');
 
 
         });

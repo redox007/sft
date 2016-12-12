@@ -35,7 +35,7 @@
                     <?php } ?>
 
                     <br />
-                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="" method="post">
+<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="" method="post">
 
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Partner Name <span class="required">*</span>
@@ -136,28 +136,30 @@
 </div>
 
 <script>
-    $(document).ready(function(){   
-        
-        $('.form-control').focus(function(){
+    $(document).ready(function () {
+
+        $('.form-control').focus(function () {
             $('.validation').remove('.validation');
-        });              
-        $('#submit').click(function(e){        
-           if($('#partner_name').val()==""){         
-               $("#partner_name").parent().append("<div class='validation'>Please enter partner name</div>");
-                return false;
-           }else if($('#wellness_type_id').val()==""){         
-               $("#wellness_type_id").parent().append("<div class='validation'>Please select wellness type</div>");
-                return false;
-           }else if($('#country_id').val()==""){         
-               $("#country_id").parent().append("<div class='validation'>Please select country </div>");
-                return false;
-           }else if($('#continent_id').val()==""){         
-               $("#continent_id").parent().append("<div class='validation'>Please select continent </div>");
-                return false;
-           }else{
-               return true;                 
-           }
         });
+        $('#submit').click(function (e) {
+            if ($('#partner_name').val() == "") {
+                $("#partner_name").parent().append("<div class='validation'>Please enter partner name</div>");
+                return false;
+            } else if ($('#wellness_type_id').val() == "") {
+                $("#wellness_type_id").parent().append("<div class='validation'>Please select wellness type</div>");
+                return false;
+            } else if ($('#country_id').val() == "") {
+                $("#country_id").parent().append("<div class='validation'>Please select country </div>");
+                return false;
+            } else if ($('#continent_id').val() == "") {
+                $("#continent_id").parent().append("<div class='validation'>Please select continent </div>");
+                return false;
+            } else {
+                return true;
+            }
+        });
+        
+       
     });
 </script>
 
