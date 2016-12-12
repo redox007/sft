@@ -363,6 +363,7 @@ class Master extends MY_Controller {
 
         $data['wellness_type'] = $this->Custom_model->fetch_data(WELLNESS_TYPE, array('id', 'wellness_type'), array(), array());
         $data['country'] = $this->Custom_model->fetch_data(COUNTRY, array('id', 'code'), array(), array());
+        $data['continent'] = $this->Custom_model->fetch_data(CONTINENT, array('id', 'continent_name'), array(), array());
 
         if ($this->input->post('submit')) {
             if ($this->input->post('partner_name') == "") {
@@ -374,11 +375,15 @@ class Master extends MY_Controller {
             } else if ($this->input->post('country_id') == "") {
                 $this->session->set_flashdata('error_message', 'Please select country');
                 redirect(base_url() . 'admin/master/add_partner');
-            } else {
+            } else if ($this->input->post('continent_id') == "") {
+                $this->session->set_flashdata('error_message', 'Please select continent');
+                redirect(base_url() . 'admin/master/add_partner');
+            }else {
                 $ins_data['partner_logo'] = $this->input->post('media_ids');
                 $ins_data['partner_name'] = $this->input->post('partner_name');
                 $ins_data['wellness_type_id'] = $this->input->post('wellness_type_id');
                 $ins_data['country_id'] = $this->input->post('country_id');
+                $ins_data['continent_id'] = $this->input->post('continent_id');                
                 $ins_data['status'] = 1;
                 $res = $this->Custom_model->insert_data($ins_data, PARTNER);
                 if ($res != false) {
@@ -398,6 +403,7 @@ class Master extends MY_Controller {
     function edit_partner($id = NULL) {
         $data['wellness_type'] = $this->Custom_model->fetch_data(WELLNESS_TYPE, array('id', 'wellness_type'), array(), array());
         $data['country'] = $this->Custom_model->fetch_data(COUNTRY, array('id', 'code'), array(), array());
+        $data['continent'] = $this->Custom_model->fetch_data(CONTINENT, array('id', 'continent_name'), array(), array());
         $partner_id = decode_url($id);
         $chk_partner = $this->Custom_model->row_present_check(PARTNER, array('id' => $partner_id));
         if ($chk_partner == false) {
@@ -416,6 +422,7 @@ class Master extends MY_Controller {
                 $ins_data['partner_name'] = $this->input->post('partner_name');
                 $ins_data['wellness_type_id'] = $this->input->post('wellness_type_id');
                 $ins_data['country_id'] = $this->input->post('country_id');
+                $ins_data['continent_id'] = $this->input->post('continent_id');
                 $ins_data['status'] = 1;
                 $res = $this->Custom_model->edit_data($ins_data, array('id' => $partner_id), PARTNER);
 
@@ -591,9 +598,10 @@ class Master extends MY_Controller {
         $data['countries'] = $this->Custom_model->fetch_data(COUNTRY, array('id', 'code'), array(), array());
         $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
         $data['selected_lang'] = $selected_lang;
-
+         $this->load_editor();//load ckeditor.
+         
         if ($this->input->post('submit')) {
-
+           
             if ($this->input->post('wellness_name') == "") {
                 $this->session->set_flashdata('error_message', 'Please enter wellness name');
                 redirect(base_url() . 'admin/master/add_wellnes_plus');
@@ -616,9 +624,37 @@ class Master extends MY_Controller {
                 $ins_data['no_of_day'] = $this->input->post('no_of_day');
                 $ins_data['price'] = $this->input->post('price');
                 $ins_data['code'] = $this->Custom_model->generateRandomString(8);
-
+                
+                if (!empty($_FILES['pdf'])) {
+                    $img_url = $_FILES['pdf']['name'];
+                    $file_info = pathinfo($img_url);
+                    $filename = $file_info['filename'] . "_" . time() . "." . $file_info['extension'];
+                    $ext = $file_info['extension'];
+                    $uploads_dir = $_SERVER['DOCUMENT_ROOT'] .'/uploads/pdf/'.$filename;
+                    if (move_uploaded_file($_FILES["pdf"]["tmp_name"], $uploads_dir)) {
+                         $ins_data['pdf'] = $filename;
+                    } 
+                }
+                                
                 $res = $this->Custom_model->insert_data($ins_data, WELLNESS);
                 if ($res != FALSE) {
+                    //ad media //
+                    
+                    if($this->input->post('media_ids')!=""){
+                       $media_name =  explode(",", $this->input->post('media_ids'));
+                       
+                       if(!empty($media_name)){
+                           foreach($media_name as $media){
+                                $media_insert['wellness_id'] = $res;
+                                $media_insert['media_id'] = $media;
+                                $this->Custom_model->insert_data($media_insert, WELLNESS_IMAGE);
+                           }
+                       }
+                    }
+                    
+                    
+                    
+                    
                     $ins_inner['welness_id'] = $res;
                     $ins_inner['wellness_name_lang'] = $this->input->post('wellness_name_lang');
                     $ins_inner['language_id'] = $selected_lang;
@@ -702,7 +738,7 @@ class Master extends MY_Controller {
         $partials = array('content' => 'list_wellness_plus', 'left_menu' => 'left_menu', 'header' => 'header');
         $this->template->load('template', $partials, $data);
     }
-
+    
     function edit_wellness_plus($wellness_id=NULL){
 
         $data['wellness_type'] = $this->Custom_model->fetch_data(WELLNESS_TYPE, array('id', 'wellness_type'), array(), array());
@@ -726,14 +762,26 @@ class Master extends MY_Controller {
                 array(WELLNESS.'.id'=>$id),
                 array(WELLNESS_LANG=>WELLNESS_LANG.'.welness_id='.WELLNESS.'.id AND '.WELLNESS_LANG.'.language_id='.$selected_lang));
         $data['wellness_details']=$wellness_details[0];
-
+        
+        
+        $wellness_media = $this->Custom_model->fetch_data(WELLNESS_IMAGE,array('media_id'),array('wellness_id'=>$id));
+        $media ="";
+        if(!empty($wellness_media)){
+            foreach($wellness_media  as $m){
+                $media .=$m->media_id.",";
+            }
+            
+            $media = substr($media,0,-1);
+        }
+        $data['media'] = $media;
+        
         $data['itinerary']=$this->Custom_model->fetch_data(ITINERARY,
                 array('*'),
                 array(
                     'welness_id'=>$id,
                     'language_id'=>$selected_lang
                     ));
-
+        $this->load_editor();//load ckeditor.
           if ($this->input->post('submit')) {
 
             if ($this->input->post('wellness_name') == "") {
@@ -758,9 +806,45 @@ class Master extends MY_Controller {
                 $ins_data['no_of_day'] = $this->input->post('no_of_day');
                 $ins_data['price'] = $this->input->post('price');
                 //$ins_data['code'] = $this->Custom_model->generateRandomString(8);
+                
+                if (!empty($_FILES['pdf'])) { 
+                   
+                    $img_url = $_FILES['pdf']['name'];
+                    $file_info = pathinfo($img_url);
+                    $filename = $file_info['filename'] . "_" . time() . "." . $file_info['extension'];
+                    $ext = $file_info['extension'];
+                    $uploads_dir = $_SERVER['DOCUMENT_ROOT'] .'/uploads/pdf/'.$filename;
+                    if (move_uploaded_file($_FILES["pdf"]["tmp_name"], $uploads_dir)) {
+                        
+                         //if pdf exit remove from folder//
+                        if($wellness_details[0]->pdf!=""){
+                            if (!file_exists('uploads/pdf/'.$wellness_details[0]->pdf)) {
+                                unlink('uploads/pdf/'.$wellness_details[0]->pdf);      
+                            }
+                        }
+                        
+                         $ins_data['pdf'] = $filename;
+                    } 
+                }
+                
                 $this->Custom_model->edit_data($ins_data, array('id'=>$id), WELLNESS);
 
-
+                    
+                
+                if($this->input->post('media_ids')!=""){
+                        
+                       $this->Custom_model->delete_row(WELLNESS_IMAGE, array('wellness_id'=>$id)); 
+                       $media_name =  explode(",", $this->input->post('media_ids'));
+                       
+                       if(!empty($media_name)){
+                           foreach($media_name as $media){
+                                $media_insert['wellness_id'] = $id;
+                                $media_insert['media_id'] = $media;
+                                $this->Custom_model->insert_data($media_insert, WELLNESS_IMAGE);
+                           }
+                       }
+                    }
+                    
 
                     $ins_inner['wellness_name_lang'] = $this->input->post('wellness_name_lang');
                     $ins_inner['short_description'] = $this->input->post('short_description');
@@ -791,4 +875,305 @@ class Master extends MY_Controller {
         $partials = array('content' => 'edit_wellness_plus', 'left_menu' => 'left_menu', 'header' => 'header');
         $this->template->load('template', $partials, $data);
     }
+    
+    
+    
+    function load_editor()
+    {
+        //code for ckeditor start
+        $this->load->library('ckeditor');
+
+        $this->ckeditor->basePath = base_url().'assets/ckeditor/';
+        $this->ckeditor->config['toolbar'] = array(
+                array( 'Source', '-', 'Bold', 'Italic', 'Underline', '-','Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo','-','NumberedList','BulletedList')
+                                                    );//'Full';
+        $this->ckeditor->config['language'] = 'en';//$this->ckeditor->config['width'] = '530px';
+        $this->ckeditor->config['height'] = '200px';
+        $this->ckeditor->config['resize_enabled'] = false;
+        //code end ckeditor
+    }
+
+ 
+    
+     //************ continent ****************//
+
+
+    function list_continents() {
+        $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
+        $data['selected_lang'] = $selected_lang;
+        /* Pagination Code Start */
+        $this->load->library('pagination');
+        $config['base_url'] = base_url() . 'admin/master/list_continents/';
+        /* Row Count Code */
+        $config['total_rows'] = $this->Custom_model->row_count(CONTINENT, array(), array());
+
+        $config['use_page_numbers'] = TRUE;
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '<li>';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '<li>';
+        $config['per_page'] = 20;
+        $config['prev_link'] = '&lt;';
+        $config['prev_tag_open'] = '<li>';
+        $config['prev_tag_close'] = '</li>';
+        $config['next_link'] = '&gt;';
+        $config['next_tag_open'] = '<li>';
+        $config['next_tag_close'] = '</li>';
+        $config['cur_tag_open'] = '<li class="disabled"><a href="javascript:void(0)">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+        //print_r($config);die;
+        $this->pagination->initialize($config);
+        $data['page_link'] = $this->pagination->create_links();
+        $page_number = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
+        $page_number = ($page_number != 0) ? $page_number - 1 : $page_number;
+        /* Pagination Code End */
+
+
+        $data['continents'] = $this->Custom_model->fetch_data(CONTINENT, array(
+            CONTINENT . '.*',
+            CONTINENT_LANG . '.continent',            
+            CONTINENT_LANG . '.language_id'
+                ), array(), array(CONTINENT_LANG => CONTINENT_LANG . '.continent_id=' . CONTINENT . '.id AND ' . CONTINENT_LANG . '.language_id=' . $selected_lang), $search = '', $order = CONTINENT . '.id', $by = 'desc', $page_number, $config['per_page'], $group_by = '', $having = '', $start = $page_number, $end = ''
+        );
+
+
+
+        $partials = array('content' => 'list_continents', 'left_menu' => 'left_menu', 'header' => 'header');
+        $this->template->load('template', $partials, $data);
+    }
+
+    function add_continents() {
+        $data = array();
+        $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
+        $data['selected_lang'] = $selected_lang;
+        if ($this->input->post('submit')) {
+
+            if ($this->input->post('continent_name') == "") {
+                $this->session->set_flashdata('error_message', 'Please enter continent name');
+                redirect(base_url() . 'admin/master/add_continents');
+            } else if ($this->input->post('continent') == "") {
+                $this->session->set_flashdata('error_message', 'Please enter continent ');
+                redirect(base_url() . 'admin/master/add_countries');
+            } else {
+
+                $ins_data['continent_name'] = $this->input->post('continent_name');
+
+                $res = $this->Custom_model->insert_data($ins_data, CONTINENT);
+                if ($res != FALSE) {
+                    $ins_inner['continent_id'] = $res;
+                    $ins_inner['language_id'] = $selected_lang;                    
+                    $ins_inner['continent'] = $this->input->post('continent');
+
+                    $inner = $this->Custom_model->insert_data($ins_inner, CONTINENT_LANG);
+                    if ($inner != FALSE) {
+                        $this->session->set_flashdata('success_message', 'Continent added successfully.');
+                        redirect(base_url() . 'admin/master/list_continents');
+                    } else {
+                        $this->Custom_model->delete_row(COUNTRY, array('id' => $res));
+                        $this->session->set_flashdata('error_message', 'Please try again.');
+                        redirect(base_url() . 'admin/master/add_continents');
+                    }
+                } else {
+                    $this->session->set_flashdata('error_message', 'Please try again.');
+                    redirect(base_url() . 'admin/master/add_continents');
+                }
+            }
+        }
+
+        $partials = array('content' => 'add_continents', 'left_menu' => 'left_menu', 'header' => 'header');
+        $this->template->load('template', $partials, $data);
+    }
+
+    function edit_continents($id = NULL) {
+        $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
+        $data['selected_lang'] = $selected_lang;
+        $continent_id = decode_url($id);
+        $chk_continent = $this->Custom_model->row_present_check(CONTINENT, array('id' => $continent_id));
+        if ($chk_continent == false) {
+            redirect(base_url() . 'admin/master/list_continents');
+        }
+
+        $continent_details = $this->Custom_model->fetch_data(CONTINENT, array(
+            CONTINENT . '.*',
+            CONTINENT_LANG . '.language_id',
+            CONTINENT_LANG . '.continent'
+                ), array(CONTINENT . '.id' => $continent_id), array(CONTINENT_LANG => CONTINENT . '.id=' . CONTINENT_LANG . '.continent_id AND ' . CONTINENT_LANG . '.language_id=' . $selected_lang . '|left')
+        );
+
+        $data['continent_details'] = $continent_details[0];
+
+        if ($this->input->post('submit')) {
+             if ($this->input->post('continent_name') == "") {
+                $this->session->set_flashdata('error_message', 'Please enter continent name');
+                redirect(base_url() . 'admin/master/add_continents');
+            } else if ($this->input->post('continent') == "") {
+                $this->session->set_flashdata('error_message', 'Please enter continent ');
+                redirect(base_url() . 'admin/master/add_countries');
+            } else {
+
+                //insert image to welness type//
+                $ins_type['continent_name'] = $this->input->post('continent_name');
+                $this->Custom_model->edit_data($ins_type, array('id' => $continent_id), CONTINENT);
+
+                $chk_row = $this->Custom_model->row_present_check(CONTINENT_LANG, array('continent_id' => $continent_id, 'language_id' => $selected_lang));
+                if ($chk_row == FALSE) {
+                    $ins_inner['language_id'] = $selected_lang;
+                    $ins_inner['continent_id'] = $continent_id;
+                    $ins_inner['continent'] = $this->input->post('continent');
+                    $inner = $this->Custom_model->insert_data($ins_inner, CONTINENT_LANG);
+                    $this->session->set_flashdata('success_message', 'Continent updated successfully.');
+                    redirect(base_url() . 'admin/master/list_continents');
+                } else {
+                    $ins_data['continent'] = $this->input->post('continent');
+                    //$ins_data['short_description'] = $this->input->post('short_description');
+                    $res = $this->Custom_model->edit_data($ins_data, array('continent_id' => $continent_id, 'language_id' => $selected_lang), CONTINENT_LANG);
+
+                    $this->session->set_flashdata('success_message', 'Continent updated successfully.');
+                    redirect(base_url() . 'admin/master/list_continents');
+                }
+            }
+        }
+
+        $partials = array('content' => 'edit_continents', 'left_menu' => 'left_menu', 'header' => 'header');
+        $this->template->load('template', $partials, $data);
+    }
+
+    //*********** end continent ************//
+    function best_of_best(){        
+        $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
+        if($selected_lang==1){
+            $fields=array(
+                AWARD.'.id',
+                AWARD.'.name_in_english as award',
+                PARTNER.'.partner_name',
+                AWARD_PARTNER.'.partner_id'
+                );
+        }else{
+            $fields=array(
+                AWARD.'.id',
+                AWARD.'.name_in_vietnamese as award',
+                PARTNER.'.partner_name',
+                AWARD_PARTNER.'.partner_id'
+                );
+        }
+        
+        $data['awards']= $this->Custom_model->fetch_data(AWARD,
+                $fields,
+                array('type'=>1),
+                array(
+                    AWARD_PARTNER=>AWARD_PARTNER.'.award_id='.AWARD.'.id',
+                    PARTNER=>PARTNER.'.id='.AWARD_PARTNER.'.partner_id'));   
+        
+        
+        $data['all_partner'] = $this->Custom_model->fetch_data(PARTNER,array('*'),array(),array());
+                
+        
+        $partials = array('content' => 'best_of_best', 'left_menu' => 'left_menu', 'header' => 'header');
+        $this->template->load('template', $partials, $data);
+    }
+    
+    
+    function edit_best_of_best($id=NULL){
+        $award_id= decode_url($id);
+        $chk_award = $this->Custom_model->row_present_check(AWARD, array('id'=>$award_id));
+        if($chk_award==FALSE){
+            redirect(base_url() . 'admin/master/best_of_best');
+        }
+        
+        $data['awards'] =  $this->Custom_model->fetch_data(PARTNER,
+                array(PARTNER.'.*',AWARD_PARTNER.'.partner_id'),
+                array(),
+                array(
+                    AWARD_PARTNER=>AWARD_PARTNER.'.partner_id='.PARTNER.'.id AND '.AWARD_PARTNER.'.award_id='.$chk_award,
+                    ));
+        if ($this->input->post('submit')) {
+             if ($this->input->post('partner_id') == "") {
+                $this->session->set_flashdata('error_message', 'Please select partner name');
+                redirect(base_url() . 'admin/master/edit_best_of_best');
+            }else {
+                $partner_id = $this->input->post('partner_id');
+                $chk_partner = $this->Custom_model->row_present_check(AWARD_PARTNER, array('award_id'=>$award_id));
+                if($chk_partner==FALSE){  //insert
+                    $this->Custom_model->insert_data(array('award_id'=>$award_id,'partner_id'=>$partner_id), AWARD_PARTNER);
+                }else{ //edit
+                    $this->Custom_model->edit_data(array('partner_id'=>$partner_id), array('award_id'=>$award_id), AWARD_PARTNER);
+                }
+                $this->session->set_flashdata('success_message', 'Partner Added successfully');
+                redirect(base_url() . 'admin/master/best_of_best');
+            }
+        }
+        $partials = array('content' => 'edit_best_of_best', 'left_menu' => 'left_menu', 'header' => 'header');
+        $this->template->load('template', $partials, $data);
+    }
+
+     function best_of_region(){        
+        $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
+        if($selected_lang==1){
+            $fields=array(
+                AWARD.'.id',
+                AWARD.'.name_in_english as award',
+                PARTNER.'.partner_name',
+                AWARD_PARTNER.'.partner_id'
+                );
+        }else{
+            $fields=array(
+                AWARD.'.id',
+                AWARD.'.name_in_vietnamese as award',
+                PARTNER.'.partner_name',
+                AWARD_PARTNER.'.partner_id'
+                );
+        }
+        
+        $data['awards']= $this->Custom_model->fetch_data(AWARD,
+                $fields,
+                array('type'=>2),
+                array(
+                    AWARD_PARTNER=>AWARD_PARTNER.'.award_id='.AWARD.'.id',
+                    PARTNER=>PARTNER.'.id='.AWARD_PARTNER.'.partner_id'));   
+        
+        
+        $data['all_partner'] = $this->Custom_model->fetch_data(PARTNER,array('*'),array(),array());
+                
+        
+        $partials = array('content' => 'best_of_region', 'left_menu' => 'left_menu', 'header' => 'header');
+        $this->template->load('template', $partials, $data);
+    }
+    
+    
+    function edit_best_of_region($id=NULL){
+        $award_id= decode_url($id);
+        $chk_award = $this->Custom_model->row_present_check(AWARD, array('id'=>$award_id));
+        if($chk_award==FALSE){
+            redirect(base_url() . 'admin/master/best_of_region');
+        }
+        
+        $data['awards'] =  $this->Custom_model->fetch_data(PARTNER,
+                array(PARTNER.'.*',AWARD_PARTNER.'.partner_id'),
+                array(),
+                array(
+                    AWARD_PARTNER=>AWARD_PARTNER.'.partner_id='.PARTNER.'.id AND '.AWARD_PARTNER.'.award_id='.$chk_award,
+                    ));
+        if ($this->input->post('submit')) {
+             if ($this->input->post('partner_id') == "") {
+                $this->session->set_flashdata('error_message', 'Please select partner name');
+                redirect(base_url() . 'admin/master/edit_best_of_region');
+            }else {
+                $partner_id = $this->input->post('partner_id');
+                $chk_partner = $this->Custom_model->row_present_check(AWARD_PARTNER, array('award_id'=>$award_id));
+                if($chk_partner==FALSE){  //insert
+                    $this->Custom_model->insert_data(array('award_id'=>$award_id,'partner_id'=>$partner_id), AWARD_PARTNER);
+                }else{ //edit
+                    $this->Custom_model->edit_data(array('partner_id'=>$partner_id), array('award_id'=>$award_id), AWARD_PARTNER);
+                }
+                $this->session->set_flashdata('success_message', 'Partner Added successfully');
+                redirect(base_url() . 'admin/master/best_of_region');
+            }
+        }
+        $partials = array('content' => 'edit_best_of_region', 'left_menu' => 'left_menu', 'header' => 'header');
+        $this->template->load('template', $partials, $data);
+    }
+
+    
 }

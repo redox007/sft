@@ -63,7 +63,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Wellness Type <span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Country <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select id="country_id" name="country_id" class="form-control col-md-7 col-xs-12" >
@@ -79,6 +79,26 @@
                                
                             </div>
                         </div>
+                        
+                        
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Continent <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select id="continent_id" name="continent_id" class="form-control col-md-7 col-xs-12" >
+                                    <option value="">Select</option>
+                                    <?php 
+                                    if(!empty($continent)){
+                                        foreach ($continent as $cont){ ?>
+                                            <option value="<?php echo $cont->id; ?>" <?php echo ($partner_details->continent_id==$cont->id)?"selected":""; ?> ><?php echo $cont->continent_name; ?></option>
+                                       <?php  }
+                                    }
+                                    ?>
+                                </select>
+                               
+                            </div>
+                        </div>
+                        
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Partner Logo 
                             </label>
@@ -130,6 +150,9 @@
                 return false;
            }else if($('#country_id').val()==""){         
                $("#country_id").parent().append("<div class='validation'>Please select country </div>");
+                return false;
+           }else if($('#continent_id').val()==""){         
+               $("#continent_id").parent().append("<div class='validation'>Please select continent </div>");
                 return false;
            }else{
                return true;                 
