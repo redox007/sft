@@ -692,6 +692,9 @@ class Master extends MY_Controller {
         $data['selected_lang'] = $selected_lang;
         
         $data['partner_id']=  decode_url($partner_id);
+        
+        $data['rooms'] = $this->Custom_model->fetch_data(ROOM, array('id', 'room_type'), array('partner_id'=>decode_url($partner_id)), array());
+        
          $this->load_editor();//load ckeditor.
          
         if ($this->input->post('submit')) {
@@ -716,6 +719,7 @@ class Master extends MY_Controller {
                 $ins_data['type'] = $this->input->post('type');
                 $ins_data['partner_id'] = $this->input->post('partner_id');
                 $ins_data['program_id'] = $this->input->post('program_id');
+                $ins_data['room_id'] = $this->input->post('room_id');                
                 $ins_data['no_of_day'] = $this->input->post('no_of_day');
                 $ins_data['price'] = $this->input->post('price');
                 $ins_data['code'] = $this->Custom_model->generateRandomString(8);
@@ -847,6 +851,9 @@ class Master extends MY_Controller {
         $partner_id= decode_url($partner_id);
         $data['partner_id']=$partner_id;
         $id= decode_url($wellness_id);
+        
+        $data['rooms'] = $this->Custom_model->fetch_data(ROOM, array('id', 'room_type'), array('partner_id'=>decode_url($partner_id)), array());
+        
         $chk_welless = $this->Custom_model->row_present_check(WELLNESS, array('id'=>$id));
         if($chk_welless==FALSE){
             redirect(base_url() . 'admin/master/list_wellness_plus');
@@ -904,6 +911,7 @@ class Master extends MY_Controller {
                 $ins_data['type'] = $this->input->post('type');
                 $ins_data['partner_id'] = $this->input->post('partner_id');
                 $ins_data['program_id'] = $this->input->post('program_id');
+                $ins_data['room_id'] = $this->input->post('room_id');
                 $ins_data['no_of_day'] = $this->input->post('no_of_day');
                 $ins_data['price'] = $this->input->post('price');
                 //$ins_data['code'] = $this->Custom_model->generateRandomString(8);

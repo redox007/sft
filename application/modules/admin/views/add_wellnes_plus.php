@@ -88,7 +88,24 @@
                                     </select>                                        
                                 </div>
                             </div>
-                            
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Room <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select name="room_id" id="room_id" class="form-control col-md-7 col-xs-12" >
+                                        <option value="">Select</option>
+                                        <?php
+                                        if (!empty($rooms)) {
+                                            foreach ($rooms as $rm) {
+                                                ?>
+                                                <option value="<?php echo $rm->id; ?>"><?php echo $rm->room_type; ?></option>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                                    </select>                                        
+                                </div>
+                            </div>
                             
                             
                             <div class="form-group">
@@ -230,7 +247,10 @@
             }else if ($('#partner_id').val() == "") {
                 $("#partner_id").parent().append("<div class='validation'>Please select partner</div>");
                 return false;
-            } else if ($('#no_of_day').val() == "") {
+            } else if ($('#room_id').val() == "") {
+                $("#room_id").parent().append("<div class='validation'>Please select room</div>");
+                return false;
+            }else if ($('#no_of_day').val() == "") {
                 $("#no_of_day").parent().append("<div class='validation'>Please enter number of days in wellness </div>");
                 return false;
             } else if ($('#price').val() == "") {

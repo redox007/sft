@@ -191,7 +191,8 @@ class Custom_model extends CI_Model {
             return false;
         }
     }
-function generateRandomString($length = 10) {
+    
+    function generateRandomString($length = 10) {
         $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         //$characters = '0123456789';
         $randomString = '';
@@ -200,6 +201,37 @@ function generateRandomString($length = 10) {
         }
         return $randomString;
     }
-}
+    }
+    
+    
+    function get_home_data($item_no, $user_no) {
+        $query = $this->get_multiple_result("call item_details(" . $item_no . "," . $user_no . ")");
+        return $query;
+    }
+    
+    function get_multiple_result($query) {
+        $k = 0;
+        $arr_results_sets = array();
 
+
+        if (mysqli_multi_query($this->db->conn_id, $query)) {
+
+            do {
+                $result = mysqli_store_result($this->db->conn_id);
+
+                //print_r($result);
+                if ($result) {
+                    $l = 0;
+                    while ($row = $result->fetch_object()) {
+                        //print_r($row);
+                        $arr_results_sets[$k][$l] = $row;
+                        $l++;
+                    }
+                }
+                $k++;
+            } while (mysqli_more_results($this->db->conn_id) && mysqli_next_result($this->db->conn_id));
+        }
+
+        return $arr_results_sets;
+    }
 ?>
