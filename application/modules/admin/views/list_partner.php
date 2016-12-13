@@ -6,12 +6,14 @@
     </div>
     <div class="clearfix"></div>
     <div class="row">
+        
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
                     <h2>List Partner</h2>
 
                     <div class="clearfix"></div>
+                    
                 </div>
                 <div class="x_content">
                     <?php if ($this->session->flashdata('error_message')) { ?>
@@ -32,7 +34,8 @@
                                     <th>Partner Name</th> 
                                     <th>Wellness Type</th>
                                     <th>Country Code</th> 
-                                    <th>Action</th>              
+                                    <th>Action</th>    
+                                   
                                 </tr>
                             </thead>
                             <tbody>
@@ -40,12 +43,16 @@
                                     <?php foreach ($partners as $key => $partner) { ?>
                                         <tr>
                                             <td><?php echo ($key + 1) . '.' ?></td>
-                                            <td><?php echo isset($partner->partner_name) ? $partner->partner_name : ""; ?></td>                                                   
+                                            <td><a href="<?php echo base_url('admin/master/view_partner') . '/' . encode_url($partner->id); ?>" ><?php echo isset($partner->partner_name) ? $partner->partner_name : ""; ?></a></td>                                                   
                                             <td><?php echo isset($partner->wellness_type) ? $partner->wellness_type : ""; ?></td>                                                   
                                             <td><?php echo isset($partner->code) ? $partner->code : ""; ?></td>                                                   
                                             <td>
                                                 <a href="<?php echo base_url('admin/master/edit_partner') . '/' . encode_url($partner->id); ?>" >
                                                     <i class="fa fa-edit"></i>
+
+                                                </a>|
+                                                <a href="<?php echo base_url('admin/master/view_partner') . '/' . encode_url($partner->id); ?>" >
+                                                    <i class="fa fa-eye"></i>
 
                                                 </a>
                                             </td>

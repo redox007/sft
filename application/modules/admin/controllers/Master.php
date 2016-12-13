@@ -360,7 +360,7 @@ class Master extends MY_Controller {
     }
 
     function add_partner() {
-
+        $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
         $data['wellness_type'] = $this->Custom_model->fetch_data(WELLNESS_TYPE, array('id', 'wellness_type'), array(), array());
         $data['country'] = $this->Custom_model->fetch_data(COUNTRY, array('id', 'code'), array(), array());
         $data['continent'] = $this->Custom_model->fetch_data(CONTINENT, array('id', 'continent_name'), array(), array());
@@ -387,6 +387,7 @@ class Master extends MY_Controller {
                 $ins_data['status'] = 1;
                 $res = $this->Custom_model->insert_data($ins_data, PARTNER);
                 if ($res != false) {
+                    
                     $this->session->set_flashdata('success_message', 'Partner added successfully.');
                     redirect(base_url() . 'admin/master/list_partner');
                 } else {
@@ -399,7 +400,95 @@ class Master extends MY_Controller {
         $partials = array('content' => 'add_partner', 'left_menu' => 'left_menu', 'header' => 'header');
         $this->template->load('template', $partials, $data);
     }
+    
+    function view_partner($id = NULL){
+        $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
+        $data['selected_lang']=$selected_lang;
+         $data['wellness_type'] = $this->Custom_model->fetch_data(WELLNESS_TYPE, array('id', 'wellness_type'), array(), array());
+        $data['country'] = $this->Custom_model->fetch_data(COUNTRY, array('id', 'code'), array(), array());
+        $data['continent'] = $this->Custom_model->fetch_data(CONTINENT, array('id', 'continent_name'), array(), array());
+        $partner_id = decode_url($id);
+        $data['partner_id']=$partner_id;
+        $chk_partner = $this->Custom_model->row_present_check(PARTNER, array('id' => $partner_id));
+        if ($chk_partner == false) {
+            redirect(base_url() . 'admin/master/list_partner');
+        }
+        
+        //list program //
+        $get_type = $this->Custom_model->fetch_data(PARTNER,array('wellness_type_id'),array('id'=>$partner_id));
+         $data['wellness_plus'] = $this->Custom_model->fetch_data(WELLNESS, array(
+            WELLNESS . '.*',
+            PARTNER.'.partner_name',
+                ),
+                array(WELLNESS.'.type'=>$get_type[0]->wellness_type_id,'partner_id'=>$partner_id),
+                array(
+            PARTNER => PARTNER . '.id=' . WELLNESS . '.partner_id'),
+                $search = '', $order = WELLNESS . '.id', $by = 'desc');
+        //end list program // 
+        
+        
+      //fetch room list // 
+        
+       $rooms =  $this->Custom_model->fetch_data(ROOM,
+                array(ROOM.'.*',ROOM_LANG.'.room_name',ROOM_LANG.'.language_id'),
+                array(ROOM.'.partner_id'=>$partner_id),
+                array(ROOM_LANG=>ROOM_LANG.'.room_id='.ROOM.'.id AND '.ROOM_LANG.'.language_id='.$selected_lang)
+                );
+        
+        $data['rooms']= $rooms;
+         if ($this->input->post('submit')) {
+            if ($this->input->post('partner_name') == "") {
+                $this->session->set_flashdata('error_message', 'Please enter partner name');
+                redirect(base_url() . 'admin/master/view_partner');
+            } else {
+                $ins_data['partner_logo'] = $this->input->post('media_ids');
+                $ins_data['partner_name'] = $this->input->post('partner_name');
+                $ins_data['wellness_type_id'] = $this->input->post('wellness_type_id');
+                $ins_data['country_id'] = $this->input->post('country_id');
+                $ins_data['continent_id'] = $this->input->post('continent_id');
+                $ins_data['status'] = 1;
+                $res = $this->Custom_model->edit_data($ins_data, array('id' => $partner_id), PARTNER);
 
+                $this->session->set_flashdata('success_message', 'Partner updated successfully.');
+                redirect(base_url() . 'admin/master/list_partner');
+            }
+        }
+        
+        
+        $partner_data = $this->Custom_model->fetch_data(PARTNER_AWARD,array('*'),array('language_id'=>$selected_lang,'partner_id'=>$partner_id));
+        
+        
+        $data['partner_data'] = $partner_data;
+        if ($this->input->post('submit_award')) {
+            if ($this->input->post('award') == "") {
+                $this->session->set_flashdata('error_message', 'Please enter partner name');
+                redirect(base_url() . 'admin/master/view_partner');
+            } else {
+                    if(!empty($partner_data)){
+                        $this->Custom_model->delete_row(PARTNER_AWARD, array('language_id'=>$selected_lang,'partner_id'=>$partner_id));
+                    }
+                    $awards = $this->input->post('award');  
+                    if(!empty($awards)){
+                        foreach($awards as $item){
+                            $award_ins['language_id'] = $selected_lang;                
+                            $award_ins['partner_id'] = $partner_id;
+                            $award_ins['award'] = $item;
+                            $this->Custom_model->insert_data($award_ins, PARTNER_AWARD);
+                        }
+                    }
+
+                $this->session->set_flashdata('success_message', 'Award Added successfully.');
+                redirect(base_url() . 'admin/master/view_partner');
+            }
+        }
+        
+        
+        $partner_details = $this->Custom_model->fetch_data(PARTNER, array('*'), array('id' => $partner_id));
+        $data['partner_details'] = $partner_details[0];
+        $partials = array('content' => 'view_partner', 'left_menu' => 'left_menu', 'header' => 'header');
+        $this->template->load('template', $partials, $data);
+    }
+    
     function edit_partner($id = NULL) {
         $data['wellness_type'] = $this->Custom_model->fetch_data(WELLNESS_TYPE, array('id', 'wellness_type'), array(), array());
         $data['country'] = $this->Custom_model->fetch_data(COUNTRY, array('id', 'code'), array(), array());
@@ -592,12 +681,20 @@ class Master extends MY_Controller {
 
     //**************** end welness type **************//
 
-    function add_wellnes_plus() {
+    function add_wellnes_plus($partner_id =NULL) {
         $data['wellness_type'] = $this->Custom_model->fetch_data(WELLNESS_TYPE, array('id', 'wellness_type'), array(), array());
         $data['partner'] = $this->Custom_model->fetch_data(PARTNER, array('id', 'partner_name'), array(), array());
         $data['countries'] = $this->Custom_model->fetch_data(COUNTRY, array('id', 'code'), array(), array());
+        $data['programs'] = $this->Custom_model->fetch_data(WELLNESS_PROGRAM, array('id', 'program'), array(), array());
+        
+        
         $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
         $data['selected_lang'] = $selected_lang;
+        
+        $data['partner_id']=  decode_url($partner_id);
+        
+        $data['rooms'] = $this->Custom_model->fetch_data(ROOM, array('id', 'room_type'), array('partner_id'=>decode_url($partner_id)), array());
+        
          $this->load_editor();//load ckeditor.
          
         if ($this->input->post('submit')) {
@@ -621,6 +718,8 @@ class Master extends MY_Controller {
                 $ins_data['wellness_name'] = $this->input->post('wellness_name');
                 $ins_data['type'] = $this->input->post('type');
                 $ins_data['partner_id'] = $this->input->post('partner_id');
+                $ins_data['program_id'] = $this->input->post('program_id');
+                $ins_data['room_id'] = $this->input->post('room_id');                
                 $ins_data['no_of_day'] = $this->input->post('no_of_day');
                 $ins_data['price'] = $this->input->post('price');
                 $ins_data['code'] = $this->Custom_model->generateRandomString(8);
@@ -663,17 +762,19 @@ class Master extends MY_Controller {
                     $inner = $this->Custom_model->insert_data($ins_inner, WELLNESS_LANG);
                     if ($inner != FALSE) {
                         $Itinerary = $this->input->post('Itinerary');
+                        $Itinerary_title = $this->input->post('Itinerary_title');                                                
                         if(!empty($Itinerary)){
                             foreach ($Itinerary as $key=>$val){
                                 $ins_intinerary['day_number'] = $key+1;
                                 $ins_intinerary['language_id'] = $selected_lang;
-                                $ins_intinerary['welness_id'] = $res;
+                                $ins_intinerary['welness_id'] = $res;                                
+                                $ins_intinerary['wellness_title'] = isset($Itinerary_title[$key])?$Itinerary_title[$key]:"";
                                 $ins_intinerary['description'] = $val;
                                 $inner = $this->Custom_model->insert_data($ins_intinerary, ITINERARY);
                             }
                         }
                         $this->session->set_flashdata('success_message', 'Wellness added successfully.');
-                        redirect(base_url() . 'admin/master/list_wellness_plus');
+                        redirect(base_url() . 'admin/master/list_partner');
                     } else {
                         $this->Custom_model->delete_row(WELLNESS, array('id' => $res));
                         $this->session->set_flashdata('error_message', 'Please try again.');
@@ -739,14 +840,20 @@ class Master extends MY_Controller {
         $this->template->load('template', $partials, $data);
     }
     
-    function edit_wellness_plus($wellness_id=NULL){
+    function edit_wellness_plus($partner_id =NULL,$wellness_id=NULL){
 
         $data['wellness_type'] = $this->Custom_model->fetch_data(WELLNESS_TYPE, array('id', 'wellness_type'), array(), array());
         $data['partner'] = $this->Custom_model->fetch_data(PARTNER, array('id', 'partner_name'), array(), array());
         $data['countries'] = $this->Custom_model->fetch_data(COUNTRY, array('id', 'code'), array(), array());
+        $data['programs'] = $this->Custom_model->fetch_data(WELLNESS_PROGRAM, array('id', 'program'), array(), array());
         $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
         $data['selected_lang'] = $selected_lang;
+        $partner_id= decode_url($partner_id);
+        $data['partner_id']=$partner_id;
         $id= decode_url($wellness_id);
+        
+        $data['rooms'] = $this->Custom_model->fetch_data(ROOM, array('id', 'room_type'), array('partner_id'=>decode_url($partner_id)), array());
+        
         $chk_welless = $this->Custom_model->row_present_check(WELLNESS, array('id'=>$id));
         if($chk_welless==FALSE){
             redirect(base_url() . 'admin/master/list_wellness_plus');
@@ -803,6 +910,8 @@ class Master extends MY_Controller {
                 $ins_data['wellness_name'] = $this->input->post('wellness_name');
                 $ins_data['type'] = $this->input->post('type');
                 $ins_data['partner_id'] = $this->input->post('partner_id');
+                $ins_data['program_id'] = $this->input->post('program_id');
+                $ins_data['room_id'] = $this->input->post('room_id');
                 $ins_data['no_of_day'] = $this->input->post('no_of_day');
                 $ins_data['price'] = $this->input->post('price');
                 //$ins_data['code'] = $this->Custom_model->generateRandomString(8);
@@ -854,12 +963,16 @@ class Master extends MY_Controller {
 
 
                         $Itinerary = $this->input->post('Itinerary');
+                        $Itinerary_title = $this->input->post('Itinerary_title');      
+                        
                         if(!empty($Itinerary)){
                             $this->Custom_model->delete_row(ITINERARY, array('welness_id' => $id,'language_id'=>$selected_lang));
+                            
                             foreach ($Itinerary as $key=>$val){
                                 $ins_intinerary['day_number'] = $key+1;
                                 $ins_intinerary['language_id'] = $selected_lang;
                                 $ins_intinerary['welness_id'] = $id;
+                                $ins_intinerary['wellness_title'] = isset($Itinerary_title[$key])?$Itinerary_title[$key]:"";
                                 $ins_intinerary['description'] = $val;
                                 $inner = $this->Custom_model->insert_data($ins_intinerary, ITINERARY);
                             }
@@ -1175,5 +1288,166 @@ class Master extends MY_Controller {
         $this->template->load('template', $partials, $data);
     }
 
+    
+    
+    
+    
+    
+     //**************** room **************//
+
+  
+
+    function add_room($partner_id = NULL) {
+        $partner_id = decode_url($partner_id);
+        $chk_partner_id = $this->Custom_model->row_present_check(PARTNER, array('id'=>$partner_id));
+        if($chk_partner_id==FALSE){
+            redirect(base_url().'admin/master/list_partner');
+        }
+        $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
+        $data['selected_lang'] = $selected_lang;
+        
+        if ($this->input->post('submit')) {
+                
+            
+            if ($this->input->post('room_type') == "") {
+                $this->session->set_flashdata('error_message', 'Please enter room type');
+                redirect(base_url() . 'admin/master/add_room');
+            } else if ($this->input->post('room_name') == "") {
+                $this->session->set_flashdata('error_message', 'Please enter room type');
+                redirect(base_url() . 'admin/master/add_room');
+            } else {
+               
+                $ins_data['partner_id'] = $partner_id;
+                $ins_data['room_type'] = $this->input->post('room_type');
+                
+                $res = $this->Custom_model->insert_data($ins_data, ROOM);
+                if ($res != FALSE) {
+                    $ins_inner['room_id'] = $res;                    
+                    $ins_inner['language_id'] = $selected_lang;
+                    $ins_inner['room_name'] = $this->input->post('room_name');
+                    $inner = $this->Custom_model->insert_data($ins_inner, ROOM_LANG);
+                    if ($inner != FALSE) {
+                        //add room media
+                    if($this->input->post('media_ids')!=""){
+                       $media_name =  explode(",", $this->input->post('media_ids'));
+                       
+                       if(!empty($media_name)){
+                           foreach($media_name as $media){
+                               
+                               $chk_media = $this->Custom_model->row_present_check(ROOM_IMAGE, array('room_id'=>$res,'media_id'=>$media));
+                               if($chk_media==FALSE){
+                                $media_insert['room_id'] = $res;
+                                $media_insert['media_id'] = $media;
+                                $this->Custom_model->insert_data($media_insert, ROOM_IMAGE);
+                               }
+                           }
+                       }
+                    }
+                    
+                        
+                        $this->session->set_flashdata('success_message', 'Room added successfully.');
+                        redirect(base_url() . 'admin/master/list_partner');
+                    } else {                       
+                        $this->session->set_flashdata('error_message', 'Please try again.');
+                        redirect(base_url() . 'admin/master/add_room');
+                    }
+                } else {
+                    $this->session->set_flashdata('error_message', 'Please try again.');
+                    redirect(base_url() . 'admin/master/add_room');
+                }
+            }
+        }
+
+        $partials = array('content' => 'add_room', 'left_menu' => 'left_menu', 'header' => 'header');
+        $this->template->load('template', $partials, $data);
+    }
+
+    function edit_room($parner_id=NULL,$room_id = NULL) {
+        $partner_id = decode_url($parner_id);
+        $room_id = decode_url($room_id);
+        $chk_partner_id = $this->Custom_model->row_present_check(PARTNER, array('id'=>$partner_id));
+        if($chk_partner_id==FALSE){
+            redirect(base_url().'admin/master/list_partner');
+        }
+        $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
+        $data['selected_lang'] = $selected_lang;
+        
+        //********fetch room details ********//
+        $room_details=$this->Custom_model->fetch_data(ROOM,
+                array(ROOM.'.*',ROOM_LANG.'.language_id',ROOM_LANG.'.room_name'),
+                array(ROOM.'.id'=>$room_id,ROOM.'.partner_id'=>$partner_id),
+                array(ROOM_LANG=>ROOM_LANG.'.room_id='.ROOM.'.id AND '.ROOM_LANG.'.language_id='.$selected_lang));
+        $data['room_details']= $room_details[0];
+        $room_images = $this->Custom_model->fetch_data(ROOM_IMAGE,
+                array('*'),
+                array(ROOM_IMAGE.'.room_id'=>$room_id),
+                array()
+                );
+        $media ="";
+        if(!empty($room_images)){
+            foreach($room_images  as $m){
+                $media .=$m->media_id.",";
+            }
+            
+            $media = substr($media,0,-1);
+        }
+        $data['room_images'] = $media;
+        
+        
+        
+        if ($this->input->post('submit')) {                            
+            if ($this->input->post('room_type') == "") {
+                $this->session->set_flashdata('error_message', 'Please enter room type');
+                redirect(base_url() . 'admin/master/add_room');
+            } else if ($this->input->post('room_name') == "") {
+                $this->session->set_flashdata('error_message', 'Please enter room type');
+                redirect(base_url() . 'admin/master/add_room');
+            } else {
+               
+            
+                $ins_data['room_type'] = $this->input->post('room_type');
+                $this->Custom_model->edit_data($ins_data, array('id'=>$room_id), ROOM);
+                
+                $chk= $this->Custom_model->row_present_check(ROOM_LANG, array('room_id'=>$room_id,'language_id'=>$selected_lang));
+                 if( $chk==FALSE){                   
+                    $ins_inner['language_id'] = $selected_lang;
+                    $ins_inner['room_name'] = $this->input->post('room_name');
+                    $inner = $this->Custom_model->insert_data($ins_inner, ROOM_LANG);
+                 }else{
+                      $ins_lang['room_name'] = $this->input->post('room_name');
+                    $this->Custom_model->edit_data($ins_lang, array('room_id'=>$room_id,'language_id'=>$selected_lang), ROOM_LANG);
+                 }
+                   
+                        //add room media
+                    if($this->input->post('media_ids')!=""){
+                       $media_name =  explode(",", $this->input->post('media_ids'));
+                       
+                       if(!empty($media_name)){
+                           foreach($media_name as $media){
+                               
+                               $chk_media = $this->Custom_model->row_present_check(ROOM_IMAGE, array('room_id'=>$res,'media_id'=>$media));
+                               if($chk_media==FALSE){
+                                $media_insert['room_id'] = $room_id;
+                                $media_insert['media_id'] = $media;
+                                $this->Custom_model->insert_data($media_insert, ROOM_IMAGE);
+                               }
+                           }
+                       }
+                    }
+                    
+                        
+                        $this->session->set_flashdata('success_message', 'Room added successfully.');
+                        redirect(base_url() . 'admin/master/list_partner');
+               
+            }
+        }
+
+        $partials = array('content' => 'edit_room', 'left_menu' => 'left_menu', 'header' => 'header');
+        $this->template->load('template', $partials, $data);
+    }
+
+    //**************** end room **************//
+    
+    
     
 }

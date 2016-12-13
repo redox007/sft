@@ -9,6 +9,8 @@
 
         <title>SFT Admin | Login</title>
 
+		<link rel="shortcut icon" href="<?php echo base_url(); ?>front/images/sft_wellness_fav_icon.png">
+
         <!-- Bootstrap -->
         <link href="<?php echo base_url(); ?>theme/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <!-- Font Awesome -->
@@ -60,8 +62,8 @@
                                 <br />
 
                                 <div>
-									<h1><i class="fa fa-paw"></i> SFT Wellness</h1>
-                                    <p>© <?php echo date('Y'); ?> All Rights Reserved. SFT</p>
+									<h1><img src="<?php echo base_url(); ?>front/images/sft_wellness_logo.png" alt="SFTWellness" /></h1>
+                                    <p>&copy; <?php echo date('Y'); ?> All Rights Reserved. SFT Corporation.</p>
                                 </div>
                             </div>
                         </form>

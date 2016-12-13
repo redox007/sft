@@ -16,16 +16,7 @@
                             </li>
                           </ul>
                         </li>
-                        <li><a>Countries<span class="fa fa-chevron-down"></span></a>
-                         <ul class="nav child_menu">
-                           <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/list_countries">List Countries</a>
-                           </li>
-                           <li><a href="<?php echo base_url(); ?>admin/master/add_countries">Add Country</a>
-                           </li>
-                         </ul>
-                       </li>
-                       
-                         <li><a>Continent<span class="fa fa-chevron-down"></span></a>
+						<li><a>Continents<span class="fa fa-chevron-down"></span></a>
                          <ul class="nav child_menu">
                            <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/list_continents">List Continents</a>
                            </li>
@@ -33,6 +24,22 @@
                            </li>
                          </ul>
                        </li>
+                        <li><a>Countries<span class="fa fa-chevron-down"></span></a>
+                         <ul class="nav child_menu">
+                           <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/list_countries">List Countries</a>
+                           </li>
+                           <li><a href="<?php echo base_url(); ?>admin/master/add_countries">Add Country</a>
+                           </li>
+                         </ul>
+                       </li>     
+                       <li><a>Programs<span class="fa fa-chevron-down"></span></a>
+                          <ul class="nav child_menu">
+                            <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/list_wellness_program">List Programs</a>
+                            </li>
+                            <li><a href="<?php echo base_url(); ?>admin/master/add_wellnes_program">Add Program</a>
+                            </li>
+                          </ul>
+                        </li>
                         <li><a>Partners<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
                             <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/list_partner">List Partner</a>
@@ -40,26 +47,18 @@
                             <li><a href="<?php echo base_url(); ?>admin/master/add_partner">Add Partner</a>
                             </li>
                           </ul>
-                        </li>
-                        <li><a>Program Management<span class="fa fa-chevron-down"></span></a>
-                          <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/list_wellness_program">List Program</a>
-                            </li>
-                            <li><a href="<?php echo base_url(); ?>admin/master/add_wellnes_program">Add Program</a>
-                            </li>
-                          </ul>
-                        </li>
+                        </li>                        
                     </ul>
                 </li>
                 
-                 <li><a><i class="fa fa-clone"></i> Best Of Best <span class="fa fa-chevron-down"></span></a>
+                 <li><a><i class="fa fa-trophy"></i> Best of Best <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/best_of_best">List Best Of Best</a></li>                        
+                        <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/best_of_best">List Best of Best</a></li>                        
                     </ul>
                 </li>
-                 <li><a><i class="fa fa-clone"></i> Best Of Region <span class="fa fa-chevron-down"></span></a>
+                 <li><a><i class="fa fa-globe"></i> Best in Region <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/best_of_region">List Best Of Regiont</a></li>                        
+                        <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/best_of_region">List Best in Region</a></li>                        
                     </ul>
                 </li>
                 
@@ -70,24 +69,31 @@
                     </ul>
                 </li>
 
-                <li><a><i class="fa fa-edit"></i> Wellness Plus <span class="fa fa-chevron-down"></span></a>
+<!--                <li><a><i class="fa fa-edit"></i> Wellness Plus <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li><a href="<?php echo base_url('admin/master/list_wellness_plus'); ?>">List</a></li>
-                        <li><a href="<?php echo base_url('admin/master/add_wellnes_plus'); ?>">Add</a></li>
+                        <li><a href="<?php //echo base_url('admin/master/list_wellness_plus'); ?>">List</a></li>
+                        <li><a href="<?php //echo base_url('admin/master/add_wellnes_plus'); ?>">Add</a></li>
                     </ul>
-                </li>
+                </li>-->
 
                 <li>
-                    <a><i class="fa fa-laptop"></i>Settings <span class="fa fa-chevron-down"></span></a>
+                    <a><i class="fa fa-cog"></i>Settings <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="<?php echo base_url(); ?>admin/settings/general_settings">General Settings<span class="fa "></span></a></li>
                         <li><a href="<?php echo base_url(); ?>admin/settings/home_page_settings">HomePage Settings<span class="fa "></span></a></li>
+                    </ul>
+                </li>
+                
+                <li><a><i class="fa fa-video-camera"></i> Media <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li class="sub_menu"><a href="<?php echo base_url(); ?>media">Add Media</a></li>                        
                     </ul>
                 </li>
             </ul>
         </div>
     </div>
 </div>
+
 
 <!-- /sidebar menu -->
 

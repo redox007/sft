@@ -117,6 +117,13 @@ defined('ITINERARY') ? null : define('ITINERARY', 'sft_itinerary');
 
 defined('AWARD') ? null : define('AWARD', 'sft_award');
 defined('AWARD_PARTNER') ? null : define('AWARD_PARTNER', 'sft_award_partner');
+defined('PARTNER_AWARD') ? null : define('PARTNER_AWARD', 'sft_partner_award');
+
+
+defined('ROOM') ? null : define('ROOM', 'stf_room');
+defined('ROOM_LANG') ? null : define('ROOM_LANG', 'sft_room_lang');
+defined('ROOM_IMAGE') ? null : define('ROOM_IMAGE', 'sft_room_image');
+
 
 defined('UPLOAD_PATH') ? null : define('UPLOAD_PATH', 'uploads/');
 

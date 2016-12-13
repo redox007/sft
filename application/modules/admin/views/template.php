@@ -9,6 +9,8 @@
 
         <title>SFT Admin | Dashboard </title>
 
+		<link rel="shortcut icon" href="<?php echo base_url(); ?>front/images/sft_wellness_fav_icon.png">
+
         <!-- Bootstrap -->
         <link href="<?php echo base_url(); ?>theme/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <!-- Font Awesome -->
@@ -30,13 +32,21 @@
                 <div class="col-md-3 left_col">
                     <div class="left_col scroll-view">
                         <div class="navbar nav_title" style="border: 0;">
-                            <a href="<?php echo base_url(); ?>admin" class="site_title"><i class="fa fa-paw"></i> <span>SFT Wellness </span></a>
+                            <a href="<?php echo base_url(); ?>admin" class="site_title"><img src="<?php echo base_url(); ?>front/images/sft_wellness_logo.png" height="40" alt="SFTWellness" />&nbsp;&nbsp;<span>Admin Panel </span></a>
                         </div>
 
                         <div class="clearfix"></div>
 
                         <!-- menu profile quick info -->
-
+						<div class="profile clearfix">
+						  <div class="profile_pic">
+							<img src="<?php echo base_url(); ?>front/images/vivian.jpg" alt="Admin" class="img-circle profile_img" />
+						  </div>
+						  <div class="profile_info">
+							<span>Welcome,</span>
+							<h2>Vivian Nguyen</h2>
+						  </div>
+						</div>
                         <!-- /menu profile quick info -->
 
                         <br />

@@ -7,14 +7,7 @@
     <div class="clearfix"></div>
     <div class="row">
 
-
-
-
-
         <div class="col-md-12 col-sm-12 col-xs-12">
-
-
-
 
             <div class="x_panel">
 
@@ -75,18 +68,58 @@
                                     </select>                                        
                                 </div>
                             </div>
-
+                            
+                            
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Program <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select name="program_id" id="program_id" class="form-control col-md-7 col-xs-12" >
+                                        <option value="">Select</option>
+                                        <?php
+                                        if (!empty($programs)) {
+                                            foreach ($programs as $pro) {
+                                                ?>
+                                                <option value="<?php echo $pro->id; ?>"><?php echo $pro->program; ?></option>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                                    </select>                                        
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Room <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select name="room_id" id="room_id" class="form-control col-md-7 col-xs-12" >
+                                        <option value="">Select</option>
+                                        <?php
+                                        if (!empty($rooms)) {
+                                            foreach ($rooms as $rm) {
+                                                ?>
+                                                <option value="<?php echo $rm->id; ?>"><?php echo $rm->room_type; ?></option>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                                    </select>                                        
+                                </div>
+                            </div>
+                            
+                            
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Partner <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <select name="partner_id" id="partner_id" class="form-control col-md-7 col-xs-12" >
+                                    <select name="partner_id" id="partner_id" class="form-control col-md-7 col-xs-12" readonly="readonly" >
                                         <option value="">Select</option>
                                         <?php
+                                        
                                         if (!empty($partner)) {
                                             foreach ($partner as $p) {
                                                 ?>
-                                                <option value="<?php echo $p->id; ?>"><?php echo $p->partner_name; ?></option>
+                                                <option value="<?php echo $p->id; ?>" <?php echo ($partner_id == $p->id)?"selected":""; ?> ><?php echo $p->partner_name; ?></option>
                                                 <?php
                                             }
                                         }
@@ -154,8 +187,6 @@
                             <div class="dynamic_text"></div> 
 
                         </div>  
-
-
                         <div id="media" class="tab-pane fade">
                             <h2>Media</h2>
                             <div class="ln_solid"></div> 
@@ -210,10 +241,16 @@
             } else if ($('#type').val() == "") {
                 $("#type").parent().append("<div class='validation'>Please select wellness type</div>");
                 return false;
-            } else if ($('#partner_id').val() == "") {
+            }else if ($('#program_id').val() == "") {
+                $("#program_id").parent().append("<div class='validation'>Please select program</div>");
+                return false;
+            }else if ($('#partner_id').val() == "") {
                 $("#partner_id").parent().append("<div class='validation'>Please select partner</div>");
                 return false;
-            } else if ($('#no_of_day').val() == "") {
+            } else if ($('#room_id').val() == "") {
+                $("#room_id").parent().append("<div class='validation'>Please select room</div>");
+                return false;
+            }else if ($('#no_of_day').val() == "") {
                 $("#no_of_day").parent().append("<div class='validation'>Please enter number of days in wellness </div>");
                 return false;
             } else if ($('#price').val() == "") {
@@ -227,7 +264,7 @@
 
             var days = $('.dynamic_text').find('.form-group').length + 1;
 
-            $('.dynamic_text').append('<div class="form-group"><label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name"> Itinerary </label><div class="col-md-6 col-sm-6 col-xs-12"><div></div><textarea name="Itinerary[]" class="form-control col-md-7 col-xs-12" placeholder="Day ' + days + '"></textarea></div></div>');
+            $('.dynamic_text').append('<div class="form-group"><label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name"> Itinerary </label><div class="col-md-6 col-sm-6 col-xs-12"><div></div><input type="text" name="Itinerary_title[]" class="form-control col-md-7 col-xs-12" placeholder="Title"  /><br/><textarea name="Itinerary[]" class="form-control col-md-7 col-xs-12" placeholder="Day ' + days + '"></textarea></div></div>');
 
 
         });

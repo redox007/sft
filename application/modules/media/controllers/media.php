@@ -17,6 +17,7 @@ class Media extends MY_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('media_model');
+		$this->load->model('Custom_model');
         $this->output->set_header('Access-Control-Allow-Origin: *');
         $this->load->config('media');
         $this->media_sizes = $this->config->item('media_sizes');
