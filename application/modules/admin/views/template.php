@@ -17,7 +17,7 @@
         <link href="<?php echo base_url(); ?>theme/vendors/nprogress/nprogress.css" rel="stylesheet">
         <!-- bootstrap-wysiwyg -->
         <link href="<?php echo base_url(); ?>theme/vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
-        
+
          <script src="<?php echo base_url(); ?>theme/vendors/jquery/dist/jquery.min.js"></script>
         <!-- Custom styling plus plugins -->
         <link href="<?php echo base_url(); ?>theme/build/css/custom.min.css" rel="stylesheet">
@@ -58,7 +58,7 @@
                     <!-- footer content -->
                     <footer>
                         <div class="pull-right">
-                            SFT wellness - admin panel 
+                            SFT wellness - admin panel
                         </div>
                         <div class="clearfix"></div>
                     </footer>
@@ -157,7 +157,7 @@
             <!-- /compose -->
 
             <!-- jQuery -->
-           
+
             <!-- Bootstrap -->
             <script src="<?php echo base_url(); ?>theme/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
             <!-- FastClick -->
@@ -186,16 +186,16 @@
         $('.buttonNext').addClass('btn btn-success');
         $('.buttonPrevious').addClass('btn btn-primary');
         $('.buttonFinish').addClass('btn btn-default');
-        
-        
+
+
                     $('#lang').change(function () {
-                        
+
                         $.ajax({
                             type: 'POST',
                             url: "<?php echo base_url(); ?>admin/set_language",
                             data: {language: $(this).val() },
                             success: function (data, textStatus, jqXHR) {
-                                
+
                                 if(data==1){
                                    window.location.reload() ;
                                 }
@@ -273,7 +273,7 @@
                 $('#compose, .compose-close').click(function () {
                     $('.compose').slideToggle();
                 });
-            </script>>
+            </script>
             <!-- /compose -->
     </body>
 </html>
