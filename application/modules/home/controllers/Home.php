@@ -31,7 +31,7 @@ class Home extends MY_Controller {
     */
     function index()
     {
-        $home_page_id = $selected_lang = ($this->session->userdata('language'))?$this->session->userdata('language'):2;
+        $home_page_id = $selected_lang = ($this->session->userdata('language'))?$this->session->userdata('language'):1;
         $data['selected_lang'] = $selected_lang;
 
         // get home page settings from the admin.
