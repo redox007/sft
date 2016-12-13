@@ -44,22 +44,22 @@
 
 <body>
 <!-- START REVOLUTION SLIDER 4.6.5 fullscreen mode -->
-<div id="wrapper" class="tp-banner-container"> 
-  
+<div id="wrapper" class="tp-banner-container">
+
   <!-- overlay start work after open mobile nav -->
   <div class="overlay"></div>
-  <!-- overlay start work after open mobile nav --> 
-  
+  <!-- overlay start work after open mobile nav -->
+
   <!-- overlay gradient -->
   <div class="overlay-banner"></div>
   <!-- overlay gradient -->
-  <header> 
+  <header>
     <!-- mobile menu start -->
     <div class="hidden-lg mobile-menu clearfix"> <span class="mobile-header-icon mobile"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <i class="fa fa-search" aria-hidden="true"></i></span>
       <button type="button" class="hamburger is-closed" data-toggle="offcanvas"> <span class="hamb-top"></span> <span class="hamb-middle"></span> <span class="hamb-bottom"></span> </button>
       <a class="navbar-brand" href="http://www.patamanager.org/Members/8333" target="_blank"><img src="<?php echo base_url(); ?>front/images/sft_wellness_logo.png" alt=""></a> </div>
     <!-- mobile menu end -->
-    
+
     <nav class="navbar hidden-lg" id="sidebar-wrapper" role="navigation">
       <div class="container">
         <ul class="nav navbar-nav navbar-right">
@@ -172,7 +172,7 @@
         </ul>
       </div>
     </nav>
-    
+
     <!-- Sidebar -->
     <nav class="navbar visible-lg" data-spy="affix" data-offset-top="50" id="" role="navigation">
       <div class="container">
@@ -286,12 +286,12 @@
         </ul>
       </div>
     </nav>
-    <!-- /#sidebar-wrapper --> 
+    <!-- /#sidebar-wrapper -->
   </header>
-  
+
   <?php echo isset($banner)?$banner:""; ?>
 </div>
-<!-- /#wrapper --> 
+<!-- /#wrapper -->
 
 
 <?php echo isset($content)?$content:""; ?>
@@ -301,7 +301,7 @@
     <div class="row">
       <div class="col-sm-12 col-md-3 clearfix footer-comp-description">
         <figure><a href="javascript:void(0)"><img src="<?php echo base_url(); ?>front/images/sft_wellness_logo.png" alt=""></a></figure>
-        <p>As a global wellness company operating tours on all seven continents. G Wellness realizes that questions.</p>
+        <?php echo $home_footer->footer_desc;?>
       </div>
       <div class="col-md-9 clearfix footer-right">
         <div class="row">
@@ -388,7 +388,7 @@
 
 <!-- Modal window for sign in / sign up start -->
 <div class="modal fade" id="loginModal" role="dialog">
-  <div class="modal-dialog"> 
+  <div class="modal-dialog">
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
@@ -416,7 +416,7 @@
   </div>
 </div>
 <div class="modal fade" id="signUpModal" role="dialog">
-  <div class="modal-dialog"> 
+  <div class="modal-dialog">
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
@@ -444,31 +444,31 @@
     </div>
   </div>
 </div>
-<!-- Modal window for sign in / sign up end --> 
+<!-- Modal window for sign in / sign up end -->
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
-<script src="<?php echo base_url(); ?>front/js/jquery.min.js"></script> 
-<!-- Include all compiled plugins (below), or include individual files as needed --> 
-<script src="<?php echo base_url(); ?>front/js/bootstrap.min.js"></script> 
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug --> 
-<script src="<?php echo base_url(); ?>front/js/ie10-viewport-bug-workaround.js"></script> 
-<!-- fontawesome --> 
-<script src="https://use.fontawesome.com/1c6768a440.js"></script> 
-<!-- bootstarp mouse hover plugin --> 
-<script src="<?php echo base_url(); ?>front/js/bootstrap-dropdownhover.js"></script> 
-<!-- bootstarp Nvigation plugin --> 
-<script src="<?php echo base_url(); ?>front/js/navigation.js"></script> 
-<!-- OWl Carousel plugin --> 
-<script src="<?php echo base_url(); ?>front/js/owl.carousel.js"></script> 
-<!-- SLIDER REVOLUTION 4.x SCRIPTS  --> 
-<script type="text/javascript" src="<?php echo base_url(); ?>front/rs-plugin/js/jquery.themepunch.plugins.min.js"></script> 
-<script type="text/javascript" src="<?php echo base_url(); ?>front/rs-plugin/js/jquery.themepunch.revolution.min.js"></script> 
-<!-- Flag  --> 
-<script src="<?php echo base_url(); ?>front/js/jquery.flagstrap.min.js"></script> 
-<!-- Rev Slider  --> 
-<script src="<?php echo base_url(); ?>front/js/rev-slider.js"></script> 
-<!-- Home Owl Slider  --> 
-<script src="<?php echo base_url(); ?>front/js/home-owl-slider.js"></script> 
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="<?php echo base_url(); ?>front/js/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="<?php echo base_url(); ?>front/js/bootstrap.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="<?php echo base_url(); ?>front/js/ie10-viewport-bug-workaround.js"></script>
+<!-- fontawesome -->
+<script src="https://use.fontawesome.com/1c6768a440.js"></script>
+<!-- bootstarp mouse hover plugin -->
+<script src="<?php echo base_url(); ?>front/js/bootstrap-dropdownhover.js"></script>
+<!-- bootstarp Nvigation plugin -->
+<script src="<?php echo base_url(); ?>front/js/navigation.js"></script>
+<!-- OWl Carousel plugin -->
+<script src="<?php echo base_url(); ?>front/js/owl.carousel.js"></script>
+<!-- SLIDER REVOLUTION 4.x SCRIPTS  -->
+<script type="text/javascript" src="<?php echo base_url(); ?>front/rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>front/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+<!-- Flag  -->
+<script src="<?php echo base_url(); ?>front/js/jquery.flagstrap.min.js"></script>
+<!-- Rev Slider  -->
+<script src="<?php echo base_url(); ?>front/js/rev-slider.js"></script>
+<!-- Home Owl Slider  -->
+<script src="<?php echo base_url(); ?>front/js/home-owl-slider.js"></script>
 <script>
 $(document).ready(function () {
 	//flagStrap
