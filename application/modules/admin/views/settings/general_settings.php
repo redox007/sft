@@ -47,7 +47,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Contact Info">Contact Info in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?><span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <textarea name="site_address" class="form-control col-md-7 col-xs-12" style="resize: none;"><?php echo isset($settings->site_address)?$settings->site_address:"";?></textarea>
+                                <textarea id="site_address" name="site_address" class="form-control col-md-7 col-xs-12" style="resize: none;"><?php echo isset($settings->site_address)?$settings->site_address:"";?></textarea>
                             </div>
                         </div>
 
@@ -66,6 +66,14 @@
                                <input type="text" id="site_contact_no" name="site_contact_no" class="form-control col-md-7 col-xs-12" value="<?php echo isset($settings->site_contact_no)?$settings->site_contact_no:""; ?>">
                            </div>
                         </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for=">Details">Footer Details in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <?php echo $this->ckeditor->editor("footer_desc", isset($settings->footer_desc)?$settings->footer_desc:"");?>
+                            </div>
+                        </div>
                         <div class="ln_solid"></div>
                         <div class="form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
@@ -83,3 +91,25 @@
 </div>
 
 </body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.form-control').focus(function () {
+            $('.validation').remove('.validation');
+        });
+        $('#submit').click(function (e) {
+            $('.validation').remove('.validation');
+           if ($('#site_address').val() == "") {
+                $("#site_address").parent().append("<div class='validation'>Site Address should not be an empty.</div>");
+                return false;
+            }else if ($('#site_email').val() == "") {
+                $("#site_email").parent().append("<div class='validation'>Site Email should not be an empty.</div>");
+                return false;
+            } else if ($('#site_contact_no').val() == "") {
+                $("#site_contact_no").parent().append("<div class='validation'>Site Contact No. should not be an empty</div>");
+                return false;
+            } else {
+                return true;
+            }
+        });
+    });
+</script>

@@ -134,6 +134,8 @@ class Settings extends MY_Controller {
 
         $data['settings'] = $basic_settings[0];//echo '<pre>';print_r($data['settings']);die;
 
+        $this->load->helper('custom_helper'); load_editor();//load ckeditor
+
         //save data
         if($this->input->post('submit')){
             if ($this->input->post('site_address') == "") {
@@ -143,7 +145,7 @@ class Settings extends MY_Controller {
                 $this->session->set_flashdata('error_message', 'Site Email should not be an empty.');
                 redirect(base_url() . 'admin/settings/general_settings');
             }elseif ($this->input->post('site_contact_no') == "") {
-                $this->session->set_flashdata('error_message', 'Site Contact No. should not be an empty');
+                $this->session->set_flashdata('error_message', 'Site Contact No. should not be an empty.');
                 redirect(base_url() . 'admin/settings/general_settings');
             }  else {
                 $master_data = $details_data = array();
@@ -152,6 +154,7 @@ class Settings extends MY_Controller {
                 $master_data['created_on'] = date('Y-m-d H:i:s');
 
                 $details_data['site_address'] = $this->input->post('site_address');
+                $details_data['footer_desc'] = $this->input->post('footer_desc');
                 // save modified data to table
                 $res = $this->Custom_model->edit_data($master_data, array('id'=>1), BASIC_SETTINGS);
                 $res1 = $this->Custom_model->edit_data($details_data, array('id'=>$selected_lang, 'language_id' => $selected_lang), BASIC_SETTINGS_LANG);

@@ -149,7 +149,7 @@
           <li> <a href="javascript:void(0)">W.O.W </a> </li>
           <li> <a href="javascript:void(0)">ajmj club </a> </li>
           <li> <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Make an Enquiry</a> </li>
-          <li class="dropdown call-now"> <a href="tel:+84901007997" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-skype" aria-hidden="true"></i> +84 90 10 07 997</a>
+          <li class="dropdown call-now"> <a href="tel:<?php echo trim($page_footer->site_contact_no, ' ');?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-skype" aria-hidden="true"></i> <?php echo $page_footer->site_contact_no;?></a>
             <ul class="dropdown-menu" role="menu">
               <li><a href="javascript:void(0)"><i class="fa fa-comments-o" aria-hidden="true"></i> Live Chat</a></li>
               <li><a href="javascript:void(0)"><i class="fa fa-phone" aria-hidden="true"></i> Request a Callback</a></li>
@@ -263,7 +263,7 @@
           <li> <a href="javascript:void(0)">W.O.W </a> </li>
           <li> <a href="javascript:void(0)">ajmj club </a> </li>
           <li> <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Make an Enquiry</a> </li>
-          <li class="dropdown call-now"> <a href="tel:+84901007997" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-skype" aria-hidden="true"></i> +84 90 10 07 997</a>
+          <li class="dropdown call-now"> <a href="tel:<?php echo trim($page_footer->site_contact_no, ' ');?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-skype" aria-hidden="true"></i> <?php echo $page_footer->site_contact_no;?></a>
             <ul class="dropdown-menu" role="menu">
               <li><a href="javascript:void(0)"><i class="fa fa-comments-o" aria-hidden="true"></i> Live Chat</a></li>
               <li><a href="javascript:void(0)"><i class="fa fa-phone" aria-hidden="true"></i> Request a Callback</a></li>
@@ -301,7 +301,7 @@
     <div class="row">
       <div class="col-sm-12 col-md-3 clearfix footer-comp-description">
         <figure><a href="javascript:void(0)"><img src="<?php echo base_url(); ?>front/images/sft_wellness_logo.png" alt=""></a></figure>
-        <?php echo $home_footer->footer_desc;?>
+        <?php echo $page_footer->footer_desc;?>
       </div>
       <div class="col-md-9 clearfix footer-right">
         <div class="row">
@@ -337,14 +337,14 @@
           <div class="col-xs-6 col-md-3 clearfix">
             <h4>Contact Us</h4>
             <address>
-            109 - 1965 West 4th Ave. Vancouver,BC Canada, V6J1M8
+            <?php echo $page_footer->site_address;?>
             </address>
             <p>
               <label>Email:</label>
-              <a href="mailto:SFTwellness@gmail.com">SFTwellness@gmail.com</a></p>
+              <a href="mailto:<?php echo $page_footer->site_email;?>"><?php echo $page_footer->site_email;?></a></p>
             <p>
               <label>Contact no:</label>
-              <a href="tel:+84901007997" class="contact">+84 901007997</a></p>
+              <a href="tel:<?php echo trim($page_footer->site_contact_no, ' ');?>" class="contact"><?php echo $page_footer->site_contact_no;?></a></p>
           </div>
           <div class="col-xs-6 col-md-4 clearfix">
             <h4>Our Other Links</h4>

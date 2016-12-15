@@ -15,13 +15,14 @@ class Home extends MY_Controller {
     {
         $selected_lang = ($this->session->userdata('language'))?$this->session->userdata('language'):2;
 
-        // get home page footer settings from the admin.
-        $home_details = $this->Custom_model->fetch_data(HOME_PAGE_SETTINGS_LANG,
-            array(HOME_PAGE_SETTINGS_LANG.'.footer_desc'),
-            array(HOME_PAGE_SETTINGS_LANG.'.language_id='.$selected_lang)
+        // get home page footer address from the admin.
+        $footer_details = $this->Custom_model->fetch_data(BASIC_SETTINGS,
+            array(BASIC_SETTINGS.'.site_email', BASIC_SETTINGS.'.site_contact_no' , BASIC_SETTINGS_LANG.'.site_address', BASIC_SETTINGS_LANG.'.footer_desc'),
+            array(),
+            array(BASIC_SETTINGS_LANG => BASIC_SETTINGS_LANG.'.settings_id='.BASIC_SETTINGS.'.id  AND '.BASIC_SETTINGS.'.id =1 AND '. BASIC_SETTINGS_LANG.'.language_id='.$selected_lang . '|left')
         );
 
-        return $home_details[0];//echo '<pre>';print_r($data['home_footer']);die;
+        return $footer_details[0];//echo '<pre>';print_r($footer_details);die;
     }
 
     /*
@@ -95,7 +96,7 @@ class Home extends MY_Controller {
             }
         }//echo '<pre>';print_r($data['library_medias']);die;
 
-        $data['home_footer'] = $this->footer();
+        $data['page_footer'] = $this->footer(); //print_r($data['page_footer']);die;
 
         $partials = array('content' => 'home_content','banner'=>'home_banner');
         $this->template->load('home_template', $partials, $data);

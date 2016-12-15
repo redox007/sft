@@ -101,7 +101,6 @@
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="" method="post">
                         <div id="tabs">
                             <ul class="nav nav-tabs">
-                                <!--<li id="basic_setting"><a href="javascript:void(0);" onclick="tab_sel('basic_setting');">Basic Settings</a></li>-->
                                 <li id="welcome_text" class="active"><a href="javascript:void(0);" onclick="tab_sel('welcome_text');">Welcome Text</a></li>
                                 <li id="offers"><a href="javascript:void(0);" onclick="tab_sel('offers');">Best Offers</a></li>
                                 <li id="new_tours"><a href="javascript:void(0);" onclick="tab_sel('new_tours');">Hot Destination</a></li>
@@ -110,42 +109,7 @@
                                 <li id="library"><a href="javascript:void(0);" onclick="tab_sel('library');">Library</a></li>
                                 <li id="our_partners"><a href="javascript:void(0);" onclick="tab_sel('our_partners');">Our Partners</a></li>
                                 <li id="ajmj_club"><a href="javascript:void(0);" onclick="tab_sel('ajmj_club');">AJMJ Club</a></li>
-                                <li id="footer"><a href="javascript:void(0);" onclick="tab_sel('footer');">Footer</a></li>
                             </ul>
-                            <!--<div class="my_div tab-pane active" id="basic_setting_details">
-                                <div class="form-group">
-                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Site Title">Site Title in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?><span class="required">*</span>
-                                   </label>
-                                   <div class="col-md-6 col-sm-6 col-xs-12">
-                                       <input type="text" id="site_title" name="site_title" class="form-control col-md-7 col-xs-12" value="<?php echo isset($home_page_details->site_title)?$home_page_details->site_title:" "; ?>">
-                                   </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Contact Info">Contact Info in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?><span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <textarea name="contact_info" class="form-control col-md-7 col-xs-12" style="resize: none;"><?php echo isset($home_page_details->contact_info)?$home_page_details->contact_info:"";?></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Email">Email<span class="required">*</span>
-                                   </label>
-                                   <div class="col-md-6 col-sm-6 col-xs-12">
-                                       <input type="text" id="email" name="email" class="form-control col-md-7 col-xs-12" value="<?php echo isset($home_page_details->email)?$home_page_details->email:" "; ?>">
-                                   </div>
-                                </div>
-
-                                <div class="form-group">
-                                   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Contact No.">Contact No.<span class="required">*</span>
-                                   </label>
-                                   <div class="col-md-6 col-sm-6 col-xs-12">
-                                       <input type="text" id="contact_no" name="contact_no" class="form-control col-md-7 col-xs-12" value="<?php echo isset($home_page_details->contact_no)?$home_page_details->contact_no:""; ?>">
-                                   </div>
-                                </div>
-
-                            </div>--> <!--end of Basic Setting div-->
                             <div class="my_div tab-pane active" id="welcome_text_details" style="display: block;">
                                 <div class="form-group">
                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Title">Title in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?><span class="required">*</span>
@@ -411,16 +375,6 @@
                                     </div>
                                 </div>
                             </div> <!--end of ajmj div-->
-                            <div id="footer_details" class="my_div tab-pane" style="display: none;">
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for=">Details">Details in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <?php echo $this->ckeditor->editor("footer_desc", isset($home_page_details->footer_desc)?$home_page_details->footer_desc:"");?>
-                                    </div>
-                                </div>
-
-                            </div> <!--end of footer div-->
                             <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
