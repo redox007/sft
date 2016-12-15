@@ -295,6 +295,9 @@
 
 
 <?php echo isset($content)?$content:""; ?>
+
+<?php echo isset($why_travel_with_us)?$why_travel_with_us:""; ?>
+
 <!-- Footer -->
 <footer>
   <div class="container">
@@ -469,6 +472,8 @@
 <script src="<?php echo base_url(); ?>front/js/rev-slider.js"></script>
 <!-- Home Owl Slider  -->
 <script src="<?php echo base_url(); ?>front/js/home-owl-slider.js"></script>
+
+<script src="<?php echo base_url(); ?>front/js/wellness-owl-slider.js"></script> 
 <script>
 $(document).ready(function () {
 	//flagStrap

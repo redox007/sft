@@ -22,15 +22,20 @@
       </div>
       <div class="clearfix"></div>
       <div class="welcome-arts">
+        <?php 
+        if(isset($page_data[0])){ 
+            foreach($page_data[0] as $concept){
+                $media['url'] = $concept->url;
+                $media['media_name'] = $concept->media_name;
+                $media['raw_name'] = $concept->raw_name;
+                $media['extension'] = $concept->extension;
+            ?>  
         <div class="col-xs-12 col-sm-4"> <a href="javascript:void(0)">
-          <h2> Wellness <span>Plus</span> </h2>
-          <img src="<?php echo base_url(); ?>front/images/welcome-arts/welcome-art-1.jpg" /></a> </div>
-        <div class="col-xs-12 col-sm-4"> <a href="javascript:void(0)">
-          <h2> Medi <span>Plus</span> </h2>
-          <img src="<?php echo base_url(); ?>front/images/welcome-arts/welcome-art-2.jpg" /> </a></div>
-        <div class="col-xs-12 col-sm-4"> <a href="javascript:void(0)">
-          <h2> Beauty <span>Plus</span> </h2>
-          <img src="<?php echo base_url(); ?>front/images/welcome-arts/welcome-art-3.jpg" /></a> </div>
+          <h2> <?php echo $concept->wellness_type; ?> </h2>
+          <img src="<?php echo generate_image_media_url($media, 'type'); ?>" /></a> 
+        </div>
+        <?php }} ?>
+        
       </div>
     </div>
   </div>
@@ -45,36 +50,16 @@
       </div>
       <div class="clearfix"></div>
       <div id="travel-destination-carousel" class="travel-destination-arts owl-carousel">
+          
+          <?php if(isset($page_data[1])){ 
+              foreach($page_data[1] as $travel){ ?>
         <div class="item">
           <figure> <a href="javascript:void(0)"><img src="<?php echo base_url(); ?>front/images/wellness-concepts/travel-dest1.jpg" /></a> </figure>
-          <h4>Thailand Kamalaya</h4>
+          <h4><?php echo $travel->continent_name ?></h4>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sem risus, eleifend sed pharetra id, maximus malesuada dui.</p>
           <a href="javascript:void(0)" class="btn btn-blue learn-more-btn">Learn More</a> </div>
-        <div class="item">
-          <figure> <a href="javascript:void(0)"><img src="<?php echo base_url(); ?>front/images/wellness-concepts/travel-dest2.jpg" /> </a> </figure>
-          <h4>Malaysia Lefayresorts</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sem risus, eleifend sed pharetra id, maximus malesuada dui.</p>
-          <a href="javascript:void(0)" class="btn btn-blue learn-more-btn">Learn More</a> </div>
-        <div class="item">
-          <figure> <a href="javascript:void(0)"><img src="<?php echo base_url(); ?>front/images/wellness-concepts/travel-dest3.jpg" /></a> </figure>
-          <h4>India Ananda</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sem risus, eleifend sed pharetra id, maximus malesuada dui.</p>
-          <a href="javascript:void(0)" class="btn btn-blue learn-more-btn">Learn More</a> </div>
-        <div class="item">
-          <figure> <a href="javascript:void(0)"><img src="<?php echo base_url(); ?>front/images/wellness-concepts/travel-dest1.jpg" /></a> </figure>
-          <h4>Thailand Kamalaya</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sem risus, eleifend sed pharetra id, maximus malesuada dui.</p>
-          <a href="javascript:void(0)" class="btn btn-blue learn-more-btn">Learn More</a> </div>
-        <div class="item">
-          <figure> <a href="javascript:void(0)"><img src="<?php echo base_url(); ?>front/images/wellness-concepts/travel-dest2.jpg" /> </a> </figure>
-          <h4>Malaysia Lefayresorts</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sem risus, eleifend sed pharetra id, maximus malesuada dui.</p>
-          <a href="javascript:void(0)" class="btn btn-blue learn-more-btn">Learn More</a> </div>
-        <div class="item">
-          <figure> <a href="javascript:void(0)"><img src="<?php echo base_url(); ?>front/images/wellness-concepts/travel-dest3.jpg" /></a> </figure>
-          <h4>India Ananda</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sem risus, eleifend sed pharetra id, maximus malesuada dui.</p>
-          <a href="javascript:void(0)" class="btn btn-blue learn-more-btn">Learn More</a> </div>
+          <?php }} ?>
+       
       </div>
     </div>
   </div>
@@ -108,23 +93,5 @@
   </div>
 </div>
 <div class="clearfix"></div>
-<section class="travel-with-wellness">
-  <div class="container">
-    <div class="row">
-      <h3 class="col-xs-12 text-center">Why travel with SFT Wellness?</h3>
-      <div class="col-xs-12 col-sm-6">
-        <section>
-          <h4>Sustainable travel</h4>
-          <p>Help make our world a little bit better, one adventure at a time.</p>
-          <a href="" title="" class="btn btn-blue">Learn More</a> </section>
-      </div>
-      <div class="col-xs-12 col-sm-6">
-        <section>
-          <h4>Travel done differently</h4>
-          <p>100% Guaranteed Departures, Lifetime Deposits™, 24/7 Service</p>
-          <a href="" title="" class="btn btn-blue">Learn More</a> </section>
-      </div>
-    </div>
-  </div>
-</section>
+
 
