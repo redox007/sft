@@ -43,7 +43,7 @@
                                     <?php foreach ($partners as $key => $partner) { ?>
                                         <tr>
                                             <td><?php echo ($key + 1) . '.' ?></td>
-                                            <td><?php echo isset($partner->partner_name) ? $partner->partner_name : ""; ?></td>                                                   
+                                            <td><a href="<?php echo base_url('admin/master/view_partner') . '/' . encode_url($partner->id); ?>" ><?php echo isset($partner->partner_name) ? $partner->partner_name : ""; ?></a></td>                                                   
                                             <td><?php echo isset($partner->wellness_type) ? $partner->wellness_type : ""; ?></td>                                                   
                                             <td><?php echo isset($partner->code) ? $partner->code : ""; ?></td>                                                   
                                             <td>
@@ -52,7 +52,7 @@
 
                                                 </a>|
                                                 <a href="<?php echo base_url('admin/master/view_partner') . '/' . encode_url($partner->id); ?>" >
-                                                    View
+                                                    <i class="fa fa-eye"></i>
 
                                                 </a>
                                             </td>

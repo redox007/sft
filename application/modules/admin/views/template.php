@@ -9,6 +9,8 @@
 
         <title>SFT Admin | Dashboard </title>
 
+		<link rel="shortcut icon" href="<?php echo base_url(); ?>front/images/sft_wellness_fav_icon.png">
+
         <!-- Bootstrap -->
         <link href="<?php echo base_url(); ?>theme/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <!-- Font Awesome -->
@@ -17,7 +19,7 @@
         <link href="<?php echo base_url(); ?>theme/vendors/nprogress/nprogress.css" rel="stylesheet">
         <!-- bootstrap-wysiwyg -->
         <link href="<?php echo base_url(); ?>theme/vendors/google-code-prettify/bin/prettify.min.css" rel="stylesheet">
-        
+
          <script src="<?php echo base_url(); ?>theme/vendors/jquery/dist/jquery.min.js"></script>
         <!-- Custom styling plus plugins -->
         <link href="<?php echo base_url(); ?>theme/build/css/custom.min.css" rel="stylesheet">
@@ -30,13 +32,21 @@
                 <div class="col-md-3 left_col">
                     <div class="left_col scroll-view">
                         <div class="navbar nav_title" style="border: 0;">
-                            <a href="<?php echo base_url(); ?>admin" class="site_title"><i class="fa fa-paw"></i> <span>SFT Wellness </span></a>
+                            <a href="<?php echo base_url(); ?>admin" class="site_title"><img src="<?php echo base_url(); ?>front/images/sft_wellness_logo.png" height="40" alt="SFTWellness" />&nbsp;&nbsp;<span>Admin Panel </span></a>
                         </div>
 
                         <div class="clearfix"></div>
 
                         <!-- menu profile quick info -->
-
+						<div class="profile clearfix">
+						  <div class="profile_pic">
+							<img src="<?php echo base_url(); ?>front/images/vivian.jpg" alt="Admin" class="img-circle profile_img" />
+						  </div>
+						  <div class="profile_info">
+							<span>Welcome,</span>
+							<h2>Vivian Nguyen</h2>
+						  </div>
+						</div>
                         <!-- /menu profile quick info -->
 
                         <br />
@@ -58,7 +68,7 @@
                     <!-- footer content -->
                     <footer>
                         <div class="pull-right">
-                            SFT wellness - admin panel 
+                            SFT wellness - admin panel
                         </div>
                         <div class="clearfix"></div>
                     </footer>
@@ -157,7 +167,7 @@
             <!-- /compose -->
 
             <!-- jQuery -->
-           
+
             <!-- Bootstrap -->
             <script src="<?php echo base_url(); ?>theme/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
             <!-- FastClick -->
@@ -186,16 +196,16 @@
         $('.buttonNext').addClass('btn btn-success');
         $('.buttonPrevious').addClass('btn btn-primary');
         $('.buttonFinish').addClass('btn btn-default');
-        
-        
+
+
                     $('#lang').change(function () {
-                        
+
                         $.ajax({
                             type: 'POST',
                             url: "<?php echo base_url(); ?>admin/set_language",
                             data: {language: $(this).val() },
                             success: function (data, textStatus, jqXHR) {
-                                
+
                                 if(data==1){
                                    window.location.reload() ;
                                 }
@@ -273,7 +283,7 @@
                 $('#compose, .compose-close').click(function () {
                     $('.compose').slideToggle();
                 });
-            </script>>
+            </script>
             <!-- /compose -->
     </body>
 </html>

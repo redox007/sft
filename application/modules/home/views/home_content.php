@@ -4,11 +4,11 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-        <h3>Welcome to <span>SFT Wellness</span></h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vestibulum dignissim dolor vitae aliquet. Pellentesque ante arcu, semper nec est ac, rutrum sodales lorem. Nunc nisi dolor, molestie et ultrices eu, fringilla commodo augue. </p>
+        <h3><?php echo $home_page_data->welcome_txt_title;?></h3>
+        <?php echo $home_page_data->welcome_txt_desc1;?>
         <a href="javascript:void(0);" class="btn btn-blue learn-more-btn">Learn More</a>
         <h4>Whatever your style is, <span>See it your way</span></h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vestibulum dignissim dolor vitae aliquet. Pellentesque ante arcu, semper nec est ac, rutrum sodales lorem.</p>
+        <?php echo $home_page_data->welcome_txt_desc2;?>
       </div>
       <div class="clearfix"></div>
       <div class="welcome-arts">
@@ -25,11 +25,11 @@
     </div>
   </div>
 </div>
-<!-- Welcome Section end --> 
+<!-- Welcome Section end -->
 <!-- Best Offer Section start-->
 <div class="blocks clearfix best-offer">
-  <h3>Best Offers</h3>
-  <span class="description">LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT.</span>
+  <h3><?php echo $home_page_data->best_offer_title;?></h3>
+  <span class="description"><?php echo $home_page_data->best_offer_desc;?></span>
   <div id="bestoffer-carousel" class="offers-portfolio owl-carousel">
     <div class="col-xs-12 col-md-4">
       <section class="clearfix"> <img src="<?php echo base_url(); ?>front/images/offer/offer-port-1.jpg" alt="port-1" />
@@ -103,29 +103,29 @@
     </div>
   </div>
 </div>
-<!-- Best Offer Section end--> 
+<!-- Best Offer Section end-->
 <!-- New Tour Section start-->
 <div class="blocks clearfix new-tour">
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-        <h3>HOT DESTINATION</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vestibulum dignissim dolor vitae aliquet. Pellentesque ante arcu, semper nec est ac, rutrum sodales lorem. Nunc nisi dolor.</p>
+        <h3><?php echo $home_page_data->toor_title;?></h3>
+        <?php echo $home_page_data->toor_desc;?>
         <div class="tour-video clearfix">
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/0_zBL4x4qRg?rel=0" frameborder="0" allowfullscreen></iframe>
+          <?php echo $home_page_data->toor_media;?>
         </div>
         <a href="javascript:void(0);" class="btn btn-blue learn-more-btn">Learn More</a> </div>
     </div>
   </div>
 </div>
-<!-- New Tour Section end--> 
+<!-- New Tour Section end-->
 <!-- Why Choose Us start-->
 <div class="blocks clearfix why-choose-us">
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-        <h3>Why Choose Us</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vestibulum dignissim dolor vitae aliquet. Pellentesque ante arcu, semper nec est ac, rutrum sodales lorem. Nunc nisi dolor.</p>
+        <h3><?php echo $home_page_data->why_choose_title;?></h3>
+        <?php echo $home_page_data->why_choose_desc;?>
       </div>
     </div>
   </div>
@@ -135,30 +135,30 @@
         <li class="col-xs-12 col-sm-6 col-md-4">
           <div>
             <h3>Handpicked Hotels</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vestibulum dignissim dolor vitae aliquet. Pellentesque ante arcu.</p>
+            <?php echo $home_page_data->why_choose_details1;?>
             <a href="javascript:void(0)">Learn More</a></div>
         </li>
         <li class="col-xs-12 col-sm-6 col-md-4">
           <div>
             <h3>World Class Service</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vestibulum dignissim dolor vitae aliquet. Pellentesque ante arcu.</p>
+            <?php echo $home_page_data->why_choose_details2;?>
             <a href="javascript:void(0)">Learn More</a></div>
         </li>
         <li class="col-xs-12 col-sm-6 col-md-4">
           <div>
             <h3>Best Price Guarantee</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vestibulum dignissim dolor vitae aliquet. Pellentesque ante arcu.</p>
+            <?php echo $home_page_data->why_choose_details3;?>
             <a href="javascript:void(0)">Learn More</a></div>
         </li>
       </ul>
     </div>
   </div>
 </div>
-<!-- Why Choose Us end--> 
+<!-- Why Choose Us end-->
 <!-- Portfolio Section start-->
 <div class="blocks container clearfix sft-portfolio">
-  <h3>SFT Portfolio</h3>
-  <p>LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT.</p>
+  <h3><?php echo $home_page_data->portfolio_title;?></h3>
+  <?php echo $home_page_data->portfolio_desc;?>
   <div id="portfolio-carousel" class="owl-carousel portfolio-carousel">
     <div class="item"><a href="http://www.sftadventures.com.vn/" target="_blank"><img class="owl-lazy" data-src="<?php echo base_url(); ?>front/images/portfolio/logo-adventure.png" alt="adventure"></a></div>
     <div class="item"><a href="http://sftcharmingvietnam.com.vn/" target="_blank"><img class="owl-lazy" data-src="<?php echo base_url(); ?>front/images/portfolio/logo-charming.png" alt="charming"></a></div>
@@ -170,49 +170,50 @@
     <div class="item"><a href="http://sftwellness.com.vn/" target="_blank"><img class="owl-lazy" data-src="<?php echo base_url(); ?>front/images/portfolio/logo-wellness.png" alt="wellness"></a></div>
   </div>
 </div>
-<!-- Portfolio Section end--> 
+<!-- Portfolio Section end-->
 <!-- Library Section -->
 <div class="blocks library-section clearfix">
-  <h3>Library</h3>
-  <p>LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT.</p>
+  <h3><?php echo $home_page_data->library_title;?></h3>
+  <?php echo $home_page_data->library_desc;?>
   <div id="library-carousel" class="owl-carousel">
-    <div class="item">
-      <iframe src="https://player.vimeo.com/video/49296549?color=ffffff&title=0&byline=0&portrait=0" width="832" height="600" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+     <?php
+      if(!empty($library_medias)){ //print_r($library_medias);die;
+        foreach($library_medias as $lmedia){?>
+          <div class="item"><?php $str = $lmedia;
+          if(strstr($str, 'medias') == true){?>
+            <h3>LOREM IPSUM DOLOR SIT AMET <span>ON 5<sup>TH</sup> OCTOBER 2016</span></h3>
+            <img src="<?php echo base_url().$lmedia; ?>"/><?php
+          }else{
+            echo $lmedia;
+          }?>
+          </div><?php
+        }
+      }?>
     </div>
-    <div class="item">
-      <h3>LOREM IPSUM DOLOR SIT AMET <span>ON 5<sup>TH</sup> OCTOBER 2016</span></h3>
-      <img src="<?php echo base_url(); ?>front/images/library/img-thumb1.jpg" /></div>
-    <div class="item">
-      <h3>LOREM IPSUM DOLOR SIT AMET <span>ON 5<sup>TH</sup> OCTOBER 2016</span></h3>
-      <img src="<?php echo base_url(); ?>front/images/library/img-thumb2.jpg" /></div>
-    <div class="item">
-      <h3>LOREM IPSUM DOLOR SIT AMET <span>ON 5<sup>TH</sup> OCTOBER 2016</span></h3>
-      <img src="<?php echo base_url(); ?>front/images/library/img-thumb1.jpg" /></div>
-    <div class="item">
-      <h3>LOREM IPSUM DOLOR SIT AMET <span>ON 5<sup>TH</sup> OCTOBER 2016</span></h3>
-      <img src="<?php echo base_url(); ?>front/images/library/img-thumb2.jpg" /></div>
-    <div class="item">
-      <h3>LOREM IPSUM DOLOR SIT AMET <span>ON 5<sup>TH</sup> OCTOBER 2016</span></h3>
-      <img src="<?php echo base_url(); ?>front/images/library/img-thumb1.jpg" /></div>
   </div>
 </div>
 <!-- Partners Section -->
 <div class="blocks our-partner-section clearfix">
   <div class="container">
-    <h3>Our Partners</h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vestibulum dignissim dolor vitae aliquet.</p>
+    <h3><?php echo $home_page_data->partner_title;?></h3>
+    <?php echo $home_page_data->partner_desc;?>
     <div id="partners-carousel" class="owl-carousel partners-carousel">
-      <div class="item"><img class="owl-lazy" data-src="<?php echo base_url(); ?>front/images/partners/g-adventures-logo.jpg" alt="Lazy Owl Image"></div>
-      <div class="item"><img class="owl-lazy" data-src="<?php echo base_url(); ?>front/images/partners/pata-logo.jpg" alt="Lazy Owl Image"></div>
-      <div class="item"><img class="owl-lazy" data-src="<?php echo base_url(); ?>front/images/partners/kamalaya-logo.jpg" alt="Lazy Owl Image"></div>
-      <div class="item"><img class="owl-lazy" data-src="<?php echo base_url(); ?>front/images/partners/g-adventures-logo.jpg" alt="Lazy Owl Image"></div>
-      <div class="item"><img class="owl-lazy" data-src="<?php echo base_url(); ?>front/images/partners/pata-logo.jpg" alt="Lazy Owl Image"></div>
-      <div class="item"><img class="owl-lazy" data-src="<?php echo base_url(); ?>front/images/partners/kamalaya-logo.jpg" alt="Lazy Owl Image"></div>
+      <?php if(!empty($partner_medias)){
+        foreach($partner_medias as $img_name => $logo){?>
+          <div class="item">
+            <img class="owl-lazy" data-src="<?php echo base_url().$logo; ?>" alt="<?php echo $img_name; ?>">
+          </div><?php
+        }
+      }?>
     </div>
   </div>
 </div>
 <!-- Club Section -->
 <div class="blocks container club-section clearfix">
-  <h3>Ajmj club</h3>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vestibulum dignissim dolor vitae aliquet. Pellentesque ante arcu, semper nec est ac, rutrum sodales lorem. Nunc nisi dolor, molestie et ultrices eu, fringilla commodo augue.</p>
-  <img src="<?php echo base_url(); ?>front/images/club/ajmj-club-pic.jpg" /> <a href="javascript:void(0)" class="btn btn-blue learn-more-btn">Learn More</a> </div>
+  <h3><?php echo $home_page_data->ajmj_title;?></h3>
+  <?php echo $home_page_data->ajmj_desc;?><?php
+  if(!empty($ajmj_medias)){?>
+    <img src="<?php echo base_url().$ajmj_medias[0];?>" /> <?php
+  }?>
+  <a href="javascript:void(0)" class="btn btn-blue learn-more-btn">Learn More</a>
+</div>
