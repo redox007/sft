@@ -125,6 +125,8 @@ defined('ROOM_LANG') ? null : define('ROOM_LANG', 'sft_room_lang');
 defined('ROOM_IMAGE') ? null : define('ROOM_IMAGE', 'sft_room_image');
 
 
+defined('MEDIA') ? null : define('MEDIA', 'sft_media');
+
 defined('UPLOAD_PATH') ? null : define('UPLOAD_PATH', 'uploads/');
 
 defined('HOME_PAGE_SETTINGS') ? null : define('HOME_PAGE_SETTINGS', 'sft_home_page_settings');

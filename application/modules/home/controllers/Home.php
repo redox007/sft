@@ -32,6 +32,7 @@ class Home extends MY_Controller {
     */
     function index()
     {
+        $data['hide_search']=true;
         $home_page_id = $selected_lang = ($this->session->userdata('language'))?$this->session->userdata('language'):1;
         $data['selected_lang'] = $selected_lang;
 
@@ -118,4 +119,71 @@ class Home extends MY_Controller {
         }
         return $num == 1 ? $r[0] : $r;
     }
+    
+    
+    
+  function wellness_concepts(){       
+       $page_data = $this->Custom_model->get_wellness_concept_data();      
+       $data['page_data'] = $page_data;              
+       $data['home_footer'] = $this->footer();
+       $partials = array('content' => 'wellness_concepts','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us');
+       $this->template->load('home_template', $partials,$data);
+  }
+  function wellness_destinations(){
+       $continents =$this->Custom_model->fetch_data(CONTINENT,array('*'),array(),array());
+       $data['continents'] = $continents;
+       $data['home_footer'] = $this->footer();
+       $partials = array('content' => 'wellness_destinations','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us');
+       $this->template->load('home_template', $partials,$data);
+  }
+  function wellness_programs(){
+       $language =1; 
+       $programs = $this->Custom_model->fetch_data(WELLNESS_PROGRAM,
+               array(
+                   WELLNESS_PROGRAM.'.*',
+                   WELLNESS_PROGRAM_LANG.'.program_name',
+                   WELLNESS_PROGRAM_LANG.'.short_description'
+                   ),
+               array(WELLNESS_PROGRAM.'.wellness_type_id'=>1),
+               array(WELLNESS_PROGRAM_LANG=>WELLNESS_PROGRAM_LANG.'.wellness_program_id='.WELLNESS_PROGRAM.'.id AND '.WELLNESS_PROGRAM_LANG.'.language_id='.$language));
+       
+       
+       $data['programs']=$programs;
+       $data['home_footer'] = $this->footer();
+       $partials = array('content' => 'wellness_programs','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us');
+       $this->template->load('home_template', $partials,$data);
+  }
+   function wellness_programs_day($program_id=NULL){
+       $language =1;
+       $program_id = decode_url($program_id);
+       $chk_program = $this->Custom_model->row_present_check(WELLNESS_PROGRAM, array('id'=>$program_id));
+       if($chk_program==FALSE){
+           redirect('home/wellness_programs');
+       }        
+       
+       $program_day = $this->Custom_model->fetch_data(WELLNESS,
+               array(
+                   WELLNESS.'.*',
+                   WELLNESS_LANG.'.wellness_name_lang',
+                   WELLNESS_LANG.'.short_description',
+                   WELLNESS_LANG.'.description',
+                   WELLNESS_IMAGE.'.media_id',
+                   MEDIA.'.url',
+                   MEDIA.'.media_name',
+                   MEDIA.'.extension',
+                   MEDIA.'.raw_name'
+                   
+                   ),
+               array(WELLNESS.'.program_id'=>$program_id),
+               array(
+                   WELLNESS_LANG=>WELLNESS_LANG.'.welness_id='.WELLNESS.'.id AND '.WELLNESS_LANG.'.language_id='.$language,
+                   WELLNESS_IMAGE=>WELLNESS_IMAGE.'.wellness_id='.WELLNESS.'.id AND '.WELLNESS_IMAGE.'.id=(SELECT MAX(id) FROM '.WELLNESS_IMAGE.' WHERE '.WELLNESS_IMAGE.'.wellness_id='.WELLNESS.'.id)|join',
+                   MEDIA=>MEDIA.'.id='.WELLNESS_IMAGE.'.media_id'
+               ));
+       $data['program_day']=$program_day;
+       $data['home_footer'] = $this->footer();
+       $partials = array('content' => 'wellness_programs_day','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us');
+       $this->template->load('home_template', $partials,$data);
+  }
+    
 }
