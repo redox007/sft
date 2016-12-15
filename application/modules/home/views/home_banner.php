@@ -104,6 +104,7 @@
   </div>
   <!-- Layer slider end --> 
   
+  <?php if(isset($hide_search)){ ?>
   <!--searchWrapper start-->
   <section class="searchWrapper">
     <form method="post" enctype="multipart/form-data" class="searchField">
@@ -128,3 +129,4 @@
     </form>
   </section>
   <!--searchWrapper end--> 
+  <?php } ?>
