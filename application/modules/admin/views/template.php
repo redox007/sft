@@ -32,7 +32,7 @@
                 <div class="col-md-3 left_col">
                     <div class="left_col scroll-view">
                         <div class="navbar nav_title" style="border: 0;">
-                            <a href="<?php echo base_url(); ?>admin" class="site_title"><img src="<?php echo base_url(); ?>front/images/sft_wellness_logo.png" height="40" alt="SFTWellness" />&nbsp;&nbsp;<span>Admin Panel </span></a>
+                            <a href="<?php echo base_url(); ?>admin" class="site_title"><img src="<?php echo base_url(); ?>front/images/sft_wellness_white_logo.png" height="40" alt="SFTWellness" />&nbsp;&nbsp;<span>Admin Panel </span></a>
                         </div>
 
                         <div class="clearfix"></div>

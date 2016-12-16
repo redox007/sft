@@ -120,19 +120,18 @@ class Home extends MY_Controller {
         return $num == 1 ? $r[0] : $r;
     }
 
-
-
   function wellness_concepts(){
        $page_data = $this->Custom_model->get_wellness_concept_data();
        $data['page_data'] = $page_data;
-       $data['home_footer'] = $this->footer();
+       $data['page_footer'] = $this->footer();
+
        $partials = array('content' => 'wellness_concepts','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us');
        $this->template->load('home_template', $partials,$data);
   }
   function wellness_destinations(){
        $continents =$this->Custom_model->fetch_data(CONTINENT,array('*'),array(),array());
        $data['continents'] = $continents;
-       $data['home_footer'] = $this->footer();
+       $data['page_footer'] = $this->footer();
        $partials = array('content' => 'wellness_destinations','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us');
        $this->template->load('home_template', $partials,$data);
   }
@@ -149,7 +148,7 @@ class Home extends MY_Controller {
 
 
        $data['programs']=$programs;
-       $data['home_footer'] = $this->footer();
+       $data['page_footer'] = $this->footer();
        $partials = array('content' => 'wellness_programs','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us');
        $this->template->load('home_template', $partials,$data);
   }
@@ -181,7 +180,7 @@ class Home extends MY_Controller {
                    MEDIA=>MEDIA.'.id='.WELLNESS_IMAGE.'.media_id'
                ));
        $data['program_day']=$program_day;
-       $data['home_footer'] = $this->footer();
+       $data['page_footer'] = $this->footer();
        $partials = array('content' => 'wellness_programs_day','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us');
        $this->template->load('home_template', $partials,$data);
   }
