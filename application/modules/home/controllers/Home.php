@@ -92,7 +92,7 @@ class Home extends MY_Controller {
                 }
             }
             //make the library media to randomly
-            if(!empty($data['library_medias'])){
+            if(!empty($data['library_medias']) && count($data['library_medias']) > 1){
                 $data['library_medias'] = $this->array_random($data['library_medias'], count($data['library_medias']));
             }
         }//echo '<pre>';print_r($data['library_medias']);die;
@@ -119,12 +119,12 @@ class Home extends MY_Controller {
         }
         return $num == 1 ? $r[0] : $r;
     }
-    
-    
-    
-  function wellness_concepts(){       
-       $page_data = $this->Custom_model->get_wellness_concept_data();      
-       $data['page_data'] = $page_data;              
+
+
+
+  function wellness_concepts(){
+       $page_data = $this->Custom_model->get_wellness_concept_data();
+       $data['page_data'] = $page_data;
        $data['home_footer'] = $this->footer();
        $partials = array('content' => 'wellness_concepts','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us');
        $this->template->load('home_template', $partials,$data);
@@ -137,7 +137,7 @@ class Home extends MY_Controller {
        $this->template->load('home_template', $partials,$data);
   }
   function wellness_programs(){
-       $language =1; 
+       $language =1;
        $programs = $this->Custom_model->fetch_data(WELLNESS_PROGRAM,
                array(
                    WELLNESS_PROGRAM.'.*',
@@ -146,8 +146,8 @@ class Home extends MY_Controller {
                    ),
                array(WELLNESS_PROGRAM.'.wellness_type_id'=>1),
                array(WELLNESS_PROGRAM_LANG=>WELLNESS_PROGRAM_LANG.'.wellness_program_id='.WELLNESS_PROGRAM.'.id AND '.WELLNESS_PROGRAM_LANG.'.language_id='.$language));
-       
-       
+
+
        $data['programs']=$programs;
        $data['home_footer'] = $this->footer();
        $partials = array('content' => 'wellness_programs','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us');
@@ -159,8 +159,8 @@ class Home extends MY_Controller {
        $chk_program = $this->Custom_model->row_present_check(WELLNESS_PROGRAM, array('id'=>$program_id));
        if($chk_program==FALSE){
            redirect('home/wellness_programs');
-       }        
-       
+       }
+
        $program_day = $this->Custom_model->fetch_data(WELLNESS,
                array(
                    WELLNESS.'.*',
@@ -172,7 +172,7 @@ class Home extends MY_Controller {
                    MEDIA.'.media_name',
                    MEDIA.'.extension',
                    MEDIA.'.raw_name'
-                   
+
                    ),
                array(WELLNESS.'.program_id'=>$program_id),
                array(
@@ -185,5 +185,5 @@ class Home extends MY_Controller {
        $partials = array('content' => 'wellness_programs_day','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us');
        $this->template->load('home_template', $partials,$data);
   }
-    
+
 }
