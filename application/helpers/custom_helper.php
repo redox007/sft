@@ -41,7 +41,7 @@ function get_admin_username($id)
         $CI->ckeditor->config['language'] = 'en';//$this->ckeditor->config['width'] = '530px';
         $CI->ckeditor->config['height'] = '200px';
         $CI->ckeditor->config['resize_enabled'] = false;
-        $CI->ckeditor->config['skin'] = 'Moono Color';
+        $CI->ckeditor->config['skin'] = 'moono-lisa';
         $CI->ckeditor->config['removePlugins'] = 'elementspath';
     }
 
