@@ -7,3 +7,4 @@
  */
 
 define('TBL_MEDIA', 'sft_media');
+define('TBL_TEMPLATE', 'sft_email_template');

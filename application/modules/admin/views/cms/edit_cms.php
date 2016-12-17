@@ -1,4 +1,4 @@
-<script type="text/javascript" src="<?php echo base_url();?>assets/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/ckeditor/ckeditor.js"></script>
 <div class="">
     <div class="page-title">
         <div class="title_left">
@@ -38,11 +38,11 @@
                     <br />
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="" method="post">
 
-                         <div class="form-group">
+                        <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="page_name">Page name <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="page_name" name="page_name" class="form-control col-md-7 col-xs-12" value="<?php echo isset($cms_details->page_name)?$cms_details->page_name:" "; ?>">
+                                <input type="text" id="page_name" name="page_name" class="form-control col-md-7 col-xs-12" value="<?php echo isset($cms_details->page_name) ? $cms_details->page_name : " "; ?>">
                             </div>
                         </div>
 
@@ -50,7 +50,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="slug">Slug <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" style="width: auto;" ><?php echo base_url().'master/';?></label><input type="text" id="slug" name="slug" style="width: inherit;float: right;" class="form-control col-md-7 col-xs-12" value="<?php echo isset($cms_details->slug)?str_replace(base_url(), '', $cms_details->slug):" "; ?>">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" style="width: auto;" ><?php echo base_url() . 'master/'; ?></label><input type="text" id="slug" name="slug" style="width: inherit;float: right;" class="form-control col-md-7 col-xs-12" value="<?php echo isset($cms_details->slug) ? str_replace(base_url(), '', $cms_details->slug) : " "; ?>">
                             </div>
                         </div>
 
@@ -58,15 +58,19 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Parent">Parent
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                               <select name="page_parent" id="page_parent" class="form-control col-md-7 col-xs-12">
-                                    <option value="0" <?php if(@$cms_details->page_parent == 0) echo 'selected'?>>No Parent</option>
-                                    <?php if(!empty($page_name)){
-                                        foreach($page_name as $key=>$page){ $select='';
-                                            if(@$cms_details->page_parent == $page->id) $select = 'selected';
-                                            echo '<option value="'.$page->id.'" '. $select.'>'.$page->page_name.'</option>';
+                                <select name="page_parent" id="page_parent" class="form-control col-md-7 col-xs-12">
+                                    <option value="0" <?php if (@$cms_details->page_parent == 0) echo 'selected' ?>>No Parent</option>
+                                    <?php
+                                    if (!empty($page_name)) {
+                                        foreach ($page_name as $key => $page) {
+                                            $select = '';
+                                            if (@$cms_details->page_parent == $page->id)
+                                                $select = 'selected';
+                                            echo '<option value="' . $page->id . '" ' . $select . '>' . $page->page_name . '</option>';
                                         }
-                                    }?>
-                               </select>
+                                    }
+                                    ?>
+                                </select>
                             </div>
                         </div>
 
@@ -74,10 +78,10 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Template">Template
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                               <select name="page_template" id="page_template" class="form-control col-md-7 col-xs-12">
-                                    <option value="default" <?php if(@$cms_details->page_template == 'default') echo 'selected';?>>Default</option>
-                                    <option value="showcase" <?php if(@$cms_details->page_template == 'showcase') echo 'selected';?>>Showcase[List sytle 3X3]</option>
-                               </select>
+                                <select name="page_template" id="page_template" class="form-control col-md-7 col-xs-12">
+                                    <option value="default" <?php if (@$cms_details->page_template == 'default') echo 'selected'; ?>>Default</option>
+                                    <option value="showcase" <?php if (@$cms_details->page_template == 'showcase') echo 'selected'; ?>>Showcase[List sytle 3X3]</option>
+                                </select>
                             </div>
                         </div>
 
@@ -85,23 +89,23 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Oreder">Order
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="number" id="sort_order" name="sort_order" min="0" oninput="validity.valid||(value='');" class="form-control col-md-7 col-xs-12" value="<?php echo isset($cms_details->sort_order)?$cms_details->sort_order: 0; ?>">
+                                <input type="number" id="sort_order" name="sort_order" min="0" oninput="validity.valid||(value='');" class="form-control col-md-7 col-xs-12" value="<?php echo isset($cms_details->sort_order) ? $cms_details->sort_order : 0; ?>">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Title">Title in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?><span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Title">Title in <?php echo ($selected_lang == 1) ? "English" : "Vietnamese"; ?><span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" id="title" name="title" class="form-control col-md-7 col-xs-12" value="<?php echo isset($cms_details->title)?$cms_details->title:""; ?>">
+                                <input type="text" id="title" name="title" class="form-control col-md-7 col-xs-12" value="<?php echo isset($cms_details->title) ? $cms_details->title : ""; ?>">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Content">Content in <?php echo ($selected_lang==1)?"English":"Vietnamese"; ?><span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Content">Content in <?php echo ($selected_lang == 1) ? "English" : "Vietnamese"; ?><span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <?php echo $this->ckeditor->editor("content", isset($cms_details->content)?$cms_details->content:"");?>
+<?php echo $this->ckeditor->editor("content", isset($cms_details->content) ? $cms_details->content : ""); ?>
 
                             </div>
                         </div>
@@ -110,12 +114,12 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Picture">Picture
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                            <div class="pv" id="preview">
-                                <?php load_medias(isset($cms_details->media_id)?$cms_details->media_id:"", $input_media_id = '#input-media', true); ?>
-                            </div>
+                                <div class="pv" id="preview">
+<?php load_medias(isset($cms_details->media_id) ? $cms_details->media_id : "", $input_media_id = '#input-media', true); ?>
+                                </div>
                                 <input id="input-media" type="hidden" value="1" name="media_ids" />
-                            <!-- Large modal -->
-                            <button type="button" class="btn btn-primary media-button" data-input-field="#input-media"  data-preview="#preview" >Media</button>
+                                <!-- Large modal -->
+                                <button type="button" class="btn btn-primary media-button" data-input-field="#input-media"  data-preview="#preview" >Media</button>
                             </div>
                         </div>
 

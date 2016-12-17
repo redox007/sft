@@ -90,6 +90,9 @@ class Modules
 		{
 			/* find the controller */
 			list($class) = CI::$APP->router->locate(explode('/', $module));
+                        
+                        echo "CLASS : $class";
+                        echo "Module : $module";
 	
 			/* controller cannot be located */
 			if (empty($class)) return;

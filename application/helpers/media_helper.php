@@ -9,10 +9,15 @@ function load_media_script() {
     ?>
     <script src="<?php echo base_url(); ?>assets/vendors/jQuery.filer-1.3.0/js/jquery.filer.min.js" type="text/javascript"></script>
     <script src="<?php echo base_url(); ?>assets/js/media.js" type="text/javascript"></script>
+    <!--The Modal-->
     <?php
     $CI = &get_instance();
-    $CI->load->module("media");
+    $CI->load->module("Media");
     $CI->media->media_modal();
+//    echo Modules::run('media/media_modal');
+    ?>
+    <!--The Modal End-->
+    <?php
 }
 
 function load_media_style() {
