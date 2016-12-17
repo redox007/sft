@@ -30,7 +30,7 @@
                 $media['raw_name'] = $concept->raw_name;
                 $media['extension'] = $concept->extension;
             ?>  
-        <div class="col-xs-12 col-sm-4"> <a href="javascript:void(0)">
+          <div class="col-xs-12 col-sm-4"> <a href="<?php echo base_url('home/wellness_plus/'.  encode_url($concept->id)); ?>">
           <h2> <?php echo $concept->wellness_type; ?> </h2>
           <img src="<?php echo generate_image_media_url($media, 'type'); ?>" /></a> 
         </div>

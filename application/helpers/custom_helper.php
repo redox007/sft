@@ -83,3 +83,26 @@ function get_admin_username($id)
         }
         return $img_src;
     }
+    
+    
+    function get_best_of_best(){
+        $CI = get_instance();
+        $awards = $CI->Custom_model->fetch_data(AWARD,
+                array(
+                    AWARD.'.*',
+                    AWARD_PARTNER.'.award_id',
+                    AWARD_PARTNER.'.partner_id'
+                    ),
+                array(),
+                array(AWARD_PARTNER=>AWARD_PARTNER.'.award_id='.AWARD.'.id'));
+        $final_arr=array();
+        if(!empty($awards)){
+            foreach($awards as $item){
+                if(!isset($final_arr[$item->type])){
+                    $final_arr[$item->type] = array();
+                }
+                array_push($final_arr[$item->type], $item);
+            }
+        }
+        return $final_arr;
+    }
