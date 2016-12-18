@@ -8,3 +8,4 @@
 
 define('TBL_MEDIA', 'sft_media');
 define('TBL_TEMPLATE', 'sft_email_template');
+define('TBL_BASIC_SETTINGS', 'sft_basic_settings');
