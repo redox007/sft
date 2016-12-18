@@ -11,16 +11,20 @@
         <?php echo $home_page_data->welcome_txt_desc2;?>
       </div>
       <div class="clearfix"></div>
-      <div class="welcome-arts">
-        <div class="col-xs-12 col-sm-4"> <a href="javascript:void(0)">
-          <h2> Wellness <span>Plus</span> </h2>
-          <img src="<?php echo base_url(); ?>front/images/welcome-arts/welcome-art-1.jpg" /></a> </div>
-        <div class="col-xs-12 col-sm-4"> <a href="javascript:void(0)">
-          <h2> Medi <span>Plus</span> </h2>
-          <img src="<?php echo base_url(); ?>front/images/welcome-arts/welcome-art-2.jpg" /> </a></div>
-        <div class="col-xs-12 col-sm-4"> <a href="javascript:void(0)">
-          <h2> Beauty <span>Plus</span> </h2>
-          <img src="<?php echo base_url(); ?>front/images/welcome-arts/welcome-art-3.jpg" /></a> </div>
+      <div class="welcome-arts"><?php
+        if(!empty($welness_details)){
+          foreach($welness_details as $wellness_type){
+            $type_name = explode(' ', trim($wellness_type->type_name));
+            $media['url'] = $wellness_type->url;
+            $media['media_name'] = $wellness_type->media_name;
+            $media['raw_name'] = $wellness_type->raw_name;
+            $media['extension'] = $wellness_type->extension;?>
+            <div class="col-xs-12 col-sm-4"> <a href="<?php echo base_url('home/wellness_plus/'.  encode_url($wellness_type->id)); ?>">
+              <h2> <?php echo $type_name[0];?><span><?php echo $type_name[1];?></span> </h2>
+              <img src="<?php echo generate_image_media_url($media, 'wellness_type'); ?>"/></a>
+            </div><?php
+          }
+        }?>
       </div>
     </div>
   </div>
@@ -182,7 +186,7 @@
           <div class="item"><?php $str = $lmedia;
           if(strstr($str, 'medias') == true){?>
             <h3>LOREM IPSUM DOLOR SIT AMET <span>ON 5<sup>TH</sup> OCTOBER 2016</span></h3>
-            <img src="<?php echo base_url().$lmedia; ?>"/><?php
+            <img src="<?php echo $lmedia; ?>"/><?php
           }else{
             echo $lmedia;
           }?>
@@ -199,9 +203,13 @@
     <?php echo $home_page_data->partner_desc;?>
     <div id="partners-carousel" class="owl-carousel partners-carousel">
       <?php if(!empty($partner_medias)){
-        foreach($partner_medias as $img_name => $logo){?>
+        foreach($partner_medias as $logo){
+          $media['url'] = $logo->url;
+          $media['media_name'] = $logo->media_name;
+          $media['raw_name'] = $logo->raw_name;
+          $media['extension'] = $logo->extension;?>
           <div class="item">
-            <img class="owl-lazy" data-src="<?php echo base_url().$logo; ?>" alt="<?php echo $img_name; ?>">
+            <img class="owl-lazy" data-src="<?php echo generate_image_media_url($media, 'small'); ?>" alt="<?php echo $logo->partner_name; ?>">
           </div><?php
         }
       }?>
@@ -213,7 +221,7 @@
   <h3><?php echo $home_page_data->ajmj_title;?></h3>
   <?php echo $home_page_data->ajmj_desc;?><?php
   if(!empty($ajmj_medias)){?>
-    <img src="<?php echo base_url().$ajmj_medias[0];?>" /> <?php
+    <img src="<?php echo $ajmj_medias;?>" /> <?php
   }?>
   <a href="javascript:void(0)" class="btn btn-blue learn-more-btn">Learn More</a>
 </div>

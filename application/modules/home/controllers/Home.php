@@ -45,30 +45,36 @@ class Home extends MY_Controller {
 
         $data['home_page_data'] = $home_details[0];//echo '<pre>';print_r($data['home_page_details']);die;
 
-        /* get and make them seperated medias for home page. */
-        $medias = $data['home_page_data']->library_media.','.$data['home_page_data']->ajmj_media ;
-        $homepage_medias = $this->Custom_model->fetch_data(TBL_MEDIA, array(TBL_MEDIA.'.id',TBL_MEDIA.'.url',TBL_MEDIA.'.media_name',TBL_MEDIA.'.raw_name'),array(TBL_MEDIA.'.id'=>$medias));
+        //get wellness type info.
+        $data['welness_details'] = $this->Custom_model->fetch_data(WELLNESS_TYPE,
+            array(WELLNESS_TYPE.'.id', WELLNESS_TYPE_LANG.'.type_name', TBL_MEDIA.'.id as media_id', TBL_MEDIA.'.media_name', TBL_MEDIA.'.extension', TBL_MEDIA.'.raw_name', TBL_MEDIA.'.url' ),
+            array(),
+            array(WELLNESS_TYPE_LANG => WELLNESS_TYPE_LANG.'.wellness_type_id='.WELLNESS_TYPE.'.id  AND '. WELLNESS_TYPE_LANG.'.language_id='.$selected_lang . '|left',
+                  TBL_MEDIA => TBL_MEDIA.'.id='.WELLNESS_TYPE.'.wellness_image'),
+            array(), WELLNESS_TYPE.'.id', 'ASC'
+        );
 
-         // get partner logos.
-        $data['partner_medias'] = array();
-        $partner_data = $this->Custom_model->fetch_data(PARTNER,
-            array(PARTNER.'.partner_name', PARTNER.'.partner_logo', TBL_MEDIA.'.url', TBL_MEDIA.'.media_name'),
+        // get partner logos.
+        $data['partner_medias'] = $this->Custom_model->fetch_data(PARTNER,
+            array(PARTNER.'.partner_name', PARTNER.'.partner_logo', TBL_MEDIA.'.id as media_id', TBL_MEDIA.'.media_name', TBL_MEDIA.'.extension', TBL_MEDIA.'.raw_name', TBL_MEDIA.'.url'),
             array(PARTNER.'.status' => "1"),
             array(TBL_MEDIA => TBL_MEDIA.'.id='.PARTNER.'.partner_logo')
-        );//echo '<pre>';print_r($partner_data);die;
-        if(!empty($partner_data)){
-            foreach($partner_data as $media){
-                $data['partner_medias'][$media->partner_name] = $media->url.'/'.$media->media_name;
-            }
-        }
+        );
+
+        /* find librarby and ajmj media and create media link for home page. */
+        $this->load->helper('media_helper');
+        $medias = $data['home_page_data']->library_media.','.$data['home_page_data']->ajmj_media ;
+        $homepage_medias = $this->Custom_model->fetch_data(TBL_MEDIA, array(TBL_MEDIA.'.id', TBL_MEDIA.'.media_name', TBL_MEDIA.'.extension', TBL_MEDIA.'.raw_name', TBL_MEDIA.'.url'),array(TBL_MEDIA.'.id'=>$medias));
 
         $data['ajmj_medias'] = array();
         if($data['home_page_data']->ajmj_media != ''){
             $ajmj_medias = explode(',', $data['home_page_data']->ajmj_media);
             foreach($ajmj_medias as $media){
-                foreach($homepage_medias as $amedia){ //echo $pmedia->id.'.'.$media;
+                foreach($homepage_medias as $amedia){
                     if($amedia->id == $media){
-                        $data['ajmj_medias'][] = $amedia->url.'/'.$amedia->media_name;
+                        $media1['url'] = $amedia->url;$media1['media_name'] = $amedia->media_name;
+                        $media1['raw_name'] = $amedia->raw_name;$media1['extension'] = $amedia->extension;
+                        $data['ajmj_medias'] = generate_image_media_url($media1, 'ajmj');
                     }
                 }
             }
@@ -81,7 +87,9 @@ class Home extends MY_Controller {
                 foreach($library_medias as $media){
                     foreach($homepage_medias as $lmedia){
                         if($lmedia->id == $media){
-                            $data['library_medias'][] = $lmedia->url.'/'.$lmedia->media_name;
+                            $media1['url'] = $lmedia->url;$media1['media_name'] = $lmedia->media_name;
+                            $media1['raw_name'] = $lmedia->raw_name;$media1['extension'] = $lmedia->extension;
+                            $data['library_medias'][] = generate_image_media_url($media1, 'library');
                         }
                     }
                 }
@@ -98,7 +106,7 @@ class Home extends MY_Controller {
             }
         }//echo '<pre>';print_r($data['library_medias']);die;
 
-        $data['page_footer'] = $this->footer(); //print_r($data['page_footer']);die;
+        $data['page_footer'] = $this->footer();
 
         $partials = array('content' => 'home_content','banner'=>'home_banner','menu'=>'menu');
         $this->template->load('home_template', $partials, $data);
