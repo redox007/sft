@@ -1878,7 +1878,7 @@ footer {
       margin: 0; }
       .travel-destination-sec .travel-destination-arts ul li {
         padding: 0;
-        margin: 30px 0;
+        margin: 0 0 30px;
         list-style-type: none; }
         .travel-destination-sec .travel-destination-arts ul li .destination-point {
           padding: 0 15px; }
@@ -1903,6 +1903,24 @@ footer {
       position: relative;
       padding-right: 75px;
       min-height: 64px; }
+      .travel-destination-sec .travel-destination-arts h4:first-child {
+        text-align: center;
+        padding: 0;
+        margin-bottom: 20px; }
+        .travel-destination-sec .travel-destination-arts h4:first-child:after {
+          content: '';
+          height: 1px;
+          background: #999999;
+          max-width: 180px;
+          display: table;
+          margin: 0 auto;
+          display: table;
+          margin: 10px auto 0;
+          width: 100%;
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          margin-left: -90px; }
       .travel-destination-sec .travel-destination-arts h4 span {
         position: absolute;
         z-index: 1;
@@ -1921,7 +1939,8 @@ footer {
         padding: 0 5px 0 0; }
     .travel-destination-sec .travel-destination-arts p {
       line-height: 26px;
-      margin-bottom: 23px; }
+      margin-bottom: 23px;
+      min-height: 78px; }
     .travel-destination-sec .travel-destination-arts .btn {
       width: 100%;
       padding: 19px 12px; }
