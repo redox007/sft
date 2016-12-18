@@ -52,8 +52,8 @@
                             <ul class="nav child_menu">
                                 <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/etemp">List Template</a>
                                 </li>
-                                <li><a href="<?php echo base_url(); ?>admin/etemp/template">Add Template</a>
-                                </li>
+<!--                                <li><a href="<?php echo base_url(); ?>admin/etemp/template">Add Template</a>
+                                </li>-->
                             </ul>
                         </li>                        
                     </ul>
