@@ -2021,7 +2021,8 @@ footer {
       letter-spacing: normal;
       color: #ffffff; }
       .overview-details .tab-pane .btn.btn-enquiry {
-        background: #008bd1; }
+        background: #008bd1;
+        margin: 0px; }
       .overview-details .tab-pane .btn.btn-widhlist {
         background: #c92e57; }
       .overview-details .tab-pane .btn.btn-pdf {
@@ -2053,7 +2054,7 @@ footer {
           margin-top: 11px; }
       .overview-details .tab-pane .quick-package-view p.price {
         color: #008bd1;
-        margin: 0 0 28px 0; }
+        margin: 15px 0; }
         .overview-details .tab-pane .quick-package-view p.price span {
           display: block;
           letter-spacing: normal; }
@@ -2086,18 +2087,18 @@ footer {
         margin: 0 10px 0 0; }
         .overview-details .tab-pane .quick-package-view p.share a:hover {
           color: #000000; }
+      .overview-details .tab-pane .quick-package-view p.code {
+        font-size: 15px;
+        line-height: 20px;
+        color: #666666;
+        margin: -3px 0 15px;
+        text-align: left; }
+        .overview-details .tab-pane .quick-package-view p.code span {
+          font-weight: 600;
+          font-size: 20px; }
       .overview-details .tab-pane .quick-package-view .right-part {
         float: right;
         width: 182px; }
-        .overview-details .tab-pane .quick-package-view .right-part .code {
-          font-size: 15px;
-          line-height: 20px;
-          color: #666666;
-          margin: 0 0 8px;
-          text-align: center; }
-          .overview-details .tab-pane .quick-package-view .right-part .code span {
-            font-weight: 600;
-            font-size: 20px; }
   .overview-details .online .itinery-information {
     border-bottom: solid 1px #ccc;
     border-top: solid 1px #ccc;
@@ -2152,6 +2153,10 @@ footer {
     border-bottom: solid 1px #ccc;
     height: 700px;
     overflow: auto; }
+    .overview-details .online .day-description li {
+      clear: both;
+      overflow: hidden;
+      margin: 0 0 10px; }
     .overview-details .online .day-description .active .content h3, .overview-details .online .day-description .active .content span {
       color: #008ad2; }
     .overview-details .online .day-description .content {
