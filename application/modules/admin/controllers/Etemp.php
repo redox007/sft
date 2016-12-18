@@ -27,6 +27,9 @@ class Etemp extends MY_Controller {
     }
 
     function template($id = '') {
+        if ($id) {
+            $id = decode_url($id);
+        }
         $data = array();
         if ($id) {
             $data['action'] = 'edit_template';
@@ -34,15 +37,33 @@ class Etemp extends MY_Controller {
             $data['action'] = 'save_template';
         }
 
-        if ($this->input->post('save_template')) {
-            $id = $this->template_model->save_template($this->input->post('template'));
-            redirect(base_url('admin/etemp/template/' . $id));
-        } else if ($this->input->post('edit_template')) {
-            $this->template_model->save_template($this->input->post('template'), $id);
-            redirect(base_url('admin/etemp/template/' . $id));
-        }
         if ($id) {
             $data['template'] = $this->template_model->get_tmplates($id);
+        }
+
+        $this->load->helper(array('form', 'url'));
+        $this->load->library('form_validation');
+
+        $template = $this->input->post('template');
+        $this->form_validation->set_rules('template[name]', 'Name', 'required');
+        $this->form_validation->set_rules('template[content]', 'Content', 'required');
+        $this->form_validation->set_rules('template[mailto]', 'Mailto', 'required');
+        $this->form_validation->set_rules('template[subject]', 'Subject', 'required');
+
+        if ($this->input->post('save_template')) {
+            if ($this->form_validation->run()) {
+                $id = $this->template_model->save_template($template);
+                redirect(base_url('admin/etemp/template/' . $id));
+            } else {
+                $data['template'] = (object) $template;
+            }
+        } else if ($this->input->post('edit_template')) {
+            if ($this->form_validation->run()) {
+                $this->template_model->save_template($template, $id);
+                redirect(base_url('admin/etemp/template/' . encode_url($id)));
+            } else {
+                $data['template'] = (object) $template;
+            }
         }
 
         $this->load->helper('custom_helper');
@@ -50,6 +71,37 @@ class Etemp extends MY_Controller {
 
         $partials = array('content' => 'template-manage/add-template', 'left_menu' => 'left_menu', 'header' => 'header');
         $this->template->load('template', $partials, $data);
+    }
+
+    public function get_template($name) {
+        return $this->template_model->get_tmplates($name);
+    }
+
+    public function mail_template($name, $data, $toemail = '') {
+        $template = $this->get_template($name);
+        $search = array_keys($data);
+        //'[first_name]', '[last_name]', '[email]', '[phone]', '[message]', '[others]'
+        $replace = array_values($data);
+        $mail_body = str_replace($search, $search, $template);
+        $email = $this->db->get(TBL_BASIC_SETTINGS)->row();
+        if ($email) {
+            $email = $email->site_email;
+        }
+        $email = $email ? $email : $template->mailto;
+        if ($toemail) {
+            $email = $toemail;
+        }
+        $this->load->library('email');
+
+        $this->email->from('your@example.com', 'Your Name');
+        $this->email->to('someone@example.com');
+        $this->email->cc('another@another-example.com');
+        $this->email->bcc('them@their-example.com');
+
+        $this->email->subject('Email Test');
+        $this->email->message('Testing the email class.');
+
+        $this->email->send();
     }
 
 }

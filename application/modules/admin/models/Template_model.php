@@ -22,7 +22,7 @@ class Template_model extends MY_Model {
         if (!$id) {
             return $this->db->get(TBL_TEMPLATE)->result();
         } else {
-            return $this->db->get_where(TBL_TEMPLATE, array('id' => $id))->row();
+            return $this->db->or_where(array('id' => $id, 'slug' => $id))->get(TBL_TEMPLATE)->row();
         }
     }
 

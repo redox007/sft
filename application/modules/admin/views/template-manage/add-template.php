@@ -21,21 +21,28 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-
-                    <?php if ($this->session->flashdata('error_message')) { ?>
-                        <div class="alert alert-warning">
-                            <?php echo $this->session->flashdata('error_message'); ?>
-                        </div>
-                    <?php } ?>
-                    <?php if ($this->session->flashdata('success_message')) { ?>
-                        <div class="alert alert-success">
-                            <?php echo $this->session->flashdata('success_message'); ?>
-                        </div>
-                    <?php } ?>
+                    <div class="alert-danger">
+                        <?php echo validation_errors(); ?>
+                    </div>
 
                     <br />
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="" method="post">
 
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="page_name">Mail to <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="page_name" name="template[mailto]" required="" class="form-control col-md-7 col-xs-12" value="<?php echo isset($template->mailto) ? $template->mailto : " "; ?>">
+                                <small>The email id where the mail will be sent.</small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="page_name">Subject <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" id="page_name" name="template[subject]" required="" class="form-control col-md-7 col-xs-12" value="<?php echo isset($template->subject) ? $template->subject : " "; ?>">
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="page_name">Template name <span class="required">*</span>
                             </label>
@@ -49,6 +56,13 @@
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <?php echo $this->ckeditor->editor("template[content]", isset($template->content) ? $template->content : ""); ?>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Content">Tags
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <p class="text-danger" style="padding-top: 10px;"><strong>[first_name]  [last_name]  [email]  [phone]  [message]  [others]</strong></p>
                             </div>
                         </div>
 

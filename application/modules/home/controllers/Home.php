@@ -162,9 +162,8 @@ class Home extends MY_Controller {
                    AWARD_PARTNER=>AWARD_PARTNER.'.award_id='.AWARD.'.id',
                    PARTNER=>PARTNER.'.id='.AWARD_PARTNER.'.partner_id'));
 
-
-
-       $data['best_of_best'] =$best_of_best;
+        $data['best_of_best'] =$best_of_best;
+	//echo '<pre>'; print_r($data);
 
        $data['page_footer'] = $this->footer();
        $partials = array('content' => 'best_of_best','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');

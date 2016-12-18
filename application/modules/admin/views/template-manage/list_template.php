@@ -39,7 +39,7 @@
                                             <td><?php echo ($key + 1) . '.' ?></td>
                                             <td><?php echo isset($type->name) ? $type->name : ""; ?></td>   
                                             <td>
-                                                <a href="<?php echo base_url('admin/etemp/template/' . $type->id); ?>" >
+                                                <a href="<?php echo base_url('admin/etemp/template/' . encode_url($type->id)); ?>" >
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                             </td>
@@ -59,5 +59,5 @@
     </div>
 
 </div>
-
+<?php print_r(get_email_template('registration')); ?>
 
