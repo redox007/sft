@@ -2242,10 +2242,8 @@ footer {
     .wellness-enquery .room-type li, .wellness-enquery li li {
       float: left;
       margin: 0 0 15px; }
-      .wellness-enquery .room-type li:nth-child(even), .wellness-enquery li li:nth-child(even) {
-        float: right; }
   .wellness-enquery .room-type {
-    margin: 0 20px; }
+    margin: 0 15px; }
   .wellness-enquery .enquery-submit-area {
     max-width: 900px;
     margin: 50px auto 20px; }
