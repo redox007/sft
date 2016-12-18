@@ -246,6 +246,10 @@ img {
 .navbar.affix .navbar-nav > li.select-language .dropdown-menu li a {
   color: #ffffff; }
 
+.captcha-container {
+  display: table;
+  margin: 0 auto 30px; }
+
 @media (min-width: 2000px) {
   .container {
     width: 1930px; } }
@@ -2252,7 +2256,7 @@ footer {
       font-weight: 600; }
     .wellness-enquery .enquery-submit-area .btn {
       width: 100%;
-      max-width: 360px; }
+      max-width: 320px; }
 
 .nav-tabs {
   border: none; }
