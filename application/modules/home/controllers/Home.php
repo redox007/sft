@@ -46,18 +46,19 @@ class Home extends MY_Controller {
         $data['home_page_data'] = $home_details[0];//echo '<pre>';print_r($data['home_page_details']);die;
 
         /* get and make them seperated medias for home page. */
-        $medias = $data['home_page_data']->library_media.','.$data['home_page_data']->partner_media.','.$data['home_page_data']->ajmj_media ;
+        $medias = $data['home_page_data']->library_media.','.$data['home_page_data']->ajmj_media ;
         $homepage_medias = $this->Custom_model->fetch_data(TBL_MEDIA, array(TBL_MEDIA.'.id',TBL_MEDIA.'.url',TBL_MEDIA.'.media_name',TBL_MEDIA.'.raw_name'),array(TBL_MEDIA.'.id'=>$medias));
 
+         // get partner logos.
         $data['partner_medias'] = array();
-        if($data['home_page_data']->partner_media != ''){
-            $partner_medias = explode(',', $data['home_page_data']->partner_media);
-            foreach($partner_medias as $media){
-                foreach($homepage_medias as $pmedia){
-                    if($pmedia->id == $media){
-                        $data['partner_medias'][$pmedia->raw_name] = $pmedia->url.'/'.$pmedia->media_name;
-                    }
-                }
+        $partner_data = $this->Custom_model->fetch_data(PARTNER,
+            array(PARTNER.'.partner_name', PARTNER.'.partner_logo', TBL_MEDIA.'.url', TBL_MEDIA.'.media_name'),
+            array(PARTNER.'.status' => "1"),
+            array(TBL_MEDIA => TBL_MEDIA.'.id='.PARTNER.'.partner_logo')
+        );//echo '<pre>';print_r($partner_data);die;
+        if(!empty($partner_data)){
+            foreach($partner_data as $media){
+                $data['partner_medias'][$media->partner_name] = $media->url.'/'.$media->media_name;
             }
         }
 
@@ -121,7 +122,7 @@ class Home extends MY_Controller {
     }
 
   function wellness_concepts(){
-       $page_data = $this->Custom_model->get_wellness_concept_data();       
+       $page_data = $this->Custom_model->get_wellness_concept_data();
        $data['page_data'] = $page_data;
        $data['page_footer'] = $this->footer();
 
@@ -130,11 +131,11 @@ class Home extends MY_Controller {
            'banner'=>'home_banner',
            'why_travel_with_us'=>'why_travel_with_us',
            'menu'=>'menu');
-       
+
        $this->template->load('home_template', $partials,$data);
   }
-  
-  function wellness_plus($id=NULL){      
+
+  function wellness_plus($id=NULL){
        $id = decode_url($id);
        $data['id']=$id;
        $chk_program = $this->Custom_model->row_present_check(WELLNESS_TYPE, array('id'=>$id));
@@ -145,8 +146,8 @@ class Home extends MY_Controller {
        $partials = array('content' => 'wellness_plus','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
        $this->template->load('home_template', $partials,$data);
   }
-  
-  function best_of_best($wellnes_type=NULL,$best=NULL){   
+
+  function best_of_best($wellnes_type=NULL,$best=NULL){
        $wellnes_type = decode_url($wellnes_type);
        $best = decode_url($best);
        $data['wellnes_type']=$wellnes_type;
@@ -160,11 +161,11 @@ class Home extends MY_Controller {
                array(
                    AWARD_PARTNER=>AWARD_PARTNER.'.award_id='.AWARD.'.id',
                    PARTNER=>PARTNER.'.id='.AWARD_PARTNER.'.partner_id'));
-       
-      
-       
+
+
+
        $data['best_of_best'] =$best_of_best;
-       
+
        $data['page_footer'] = $this->footer();
        $partials = array('content' => 'best_of_best','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
        $this->template->load('home_template', $partials,$data);
@@ -180,7 +181,7 @@ class Home extends MY_Controller {
        $partner_id = decode_url($partner_id);
        $wellness_type = decode_url($wellness_type);
        $language =1;
-       
+
        $programs = $this->Custom_model->fetch_data(WELLNESS,array('DISTINCT(program_id) as program_id'),array('partner_id'=>$partner_id),array());
        $sft_pro ="";
        if(!empty($programs)){
@@ -189,7 +190,7 @@ class Home extends MY_Controller {
            }
        }
        $sft_pro = substr($sft_pro, 0,-1);
-       
+
        $programs = $this->Custom_model->fetch_data(WELLNESS_PROGRAM,
                array(
                    WELLNESS_PROGRAM.'.*',
@@ -240,7 +241,7 @@ class Home extends MY_Controller {
        $partials = array('content' => 'wellness_programs_day','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
        $this->template->load('home_template', $partials,$data);
   }
-  
+
    function wellness_program_overview($wellness_id=NULL){
        $language_id =1;
        $wellness_id = decode_url($wellness_id);
@@ -248,11 +249,11 @@ class Home extends MY_Controller {
                array('*'),
                array(WELLNESS.'.id'=>$wellness_id),
                array(WELLNESS_LANG=>WELLNESS_LANG.'.welness_id='.WELLNESS.'.id AND '.WELLNESS_LANG.'.language_id='.$language_id));
-       
+
        $data['wellness_details'] = $wellness_details[0];
-       
-      
-       
+
+
+
        $itinerary = $this->Custom_model->fetch_data(ITINERARY,
                array('*'),
                array(
@@ -261,8 +262,8 @@ class Home extends MY_Controller {
                ),
                array());
        $data['itinerary'] = $itinerary;
-       
-       
+
+
        $programs = $this->Custom_model->fetch_data(WELLNESS,
                array('DISTINCT(program_id) as program_id'),
                array(
@@ -277,7 +278,7 @@ class Home extends MY_Controller {
            }
        }
        $sft_pro = substr($sft_pro, 0,-1);
-       
+
        $wellness_programs = $this->Custom_model->fetch_data(WELLNESS_PROGRAM,
                array(
                    WELLNESS_PROGRAM.'.*',
@@ -289,15 +290,15 @@ class Home extends MY_Controller {
                    WELLNESS_PROGRAM.'.id'=>$sft_pro,
                    ),
                array(WELLNESS_PROGRAM_LANG=>WELLNESS_PROGRAM_LANG.'.wellness_program_id='.WELLNESS_PROGRAM.'.id AND '.WELLNESS_PROGRAM_LANG.'.language_id='.$language_id));
-       
+
 
        $data['programs']=$wellness_programs;
        //$discover_program = $this->Custom_model->fetch_data();
-       
+
        $data['page_footer'] = $this->footer();
        $partials = array('content' => 'wellness_program_overview','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
        $this->template->load('home_template', $partials,$data);
-       
+
    }
 
 }

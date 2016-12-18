@@ -333,17 +333,6 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="Picture">Add Logo(s)
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <div class="pv" id="preview3">
-                                        <?php load_medias(isset($home_page_details->partner_media)?[ $home_page_details->partner_media ]:"[]", $input_media_id = '#input-media-partner'); ?>
-                                    </div>
-                                    <input id="input-media-partner" type="hidden" value="<?php echo isset($home_page_details->partner_media)?$home_page_details->partner_media:'' ?>" name="partner_media" />
-                                    <button type="button" class="btn btn-primary media-button" data-input-field="#input-media-partner" data-is-multi="true" data-preview="#preview3" >Media</button>
-                                    </div>
-                                </div>
                             </div> <!--end of portfolio div-->
                             <div id="ajmj_club_details" class="my_div tab-pane" style="display: none;">
                                 <div class="form-group">
@@ -472,10 +461,6 @@
                 return false;
             }else if ($('#partner_title').val() == "") {
                 $("#partner_title").parent().append("<div class='validation'>Please enter partner title. </div>");
-                tab_sel('our_partners');
-                return false;
-            }else if ($('#partner_media').val() == "") {
-                $("#partner_media").parent().append("<div class='validation'>Partner logo(s) can not be empty. </div>");
                 tab_sel('our_partners');
                 return false;
             }else if ($('#ajmj_title').val() == "") {

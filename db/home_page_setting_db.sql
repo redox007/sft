@@ -126,3 +126,5 @@ ALTER TABLE `sft_home_page_settings` CHANGE `toor_media` `toor_media` TEXT CHARA
 ALTER TABLE `sft_home_page_settings` ADD `library_videos` TEXT NULL DEFAULT NULL AFTER `toor_media`;
 
 ALTER TABLE `sft_home_page_settings_lang` DROP `footer_desc`;
+
+ALTER TABLE `sft_home_page_settings` DROP `partner_media`;

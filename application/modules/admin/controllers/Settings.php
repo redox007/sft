@@ -73,10 +73,6 @@ class Settings extends MY_Controller {
                 $this->session->set_userdata('tab_data', 'our_partners');
                 $this->session->set_flashdata('error_message', 'Please enter partner title.');
                 redirect(base_url() . 'admin/settings/home_page_settings');
-            } elseif ($this->input->post('partner_media') == "") {
-                $this->session->set_userdata('tab_data', 'our_partners');
-                $this->session->set_flashdata('error_message', 'Partner logo(s) can not be empty.');
-                redirect(base_url() . 'admin/settings/home_page_settings');
             }elseif ($this->input->post('ajmj_title') == "") {
                 $this->session->set_userdata('tab_data', 'ajmj_club');
                 $this->session->set_flashdata('error_message', 'Please enter AJMJ title.');
@@ -92,13 +88,12 @@ class Settings extends MY_Controller {
                 $master_data['toor_media'] = $this->input->post('toor_media');
                 $master_data['library_videos'] = $library_videos;
                 $master_data['library_media'] = $this->input->post('library_media');
-                $master_data['partner_media'] = $this->input->post('partner_media');
                 $master_data['ajmj_media'] = $this->input->post('ajmj_media');
                 $master_data['modified_on'] = date('Y-m-d H:i:s');
                 $master_data['created_by'] = $this->session->userdata['user_data']->id;//print_r($master_data);die;
 
                 $details_data = $this->input->post();
-                unset($details_data['toor_media']);unset($details_data['library_videos']);unset($details_data['library_media']);unset($details_data['partner_media']);
+                unset($details_data['toor_media']);unset($details_data['library_videos']);unset($details_data['library_media']);
                 unset($details_data['ajmj_media']);unset($details_data['submit']);
 
                 // save modified data to table
