@@ -2,12 +2,12 @@
 $list_item = get_best_of_best();
 ?>
 <!-- mobile menu start -->
-<div class="hidden-lg mobile-menu clearfix"> <span class="mobile-header-icon mobile"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <i class="fa fa-search" aria-hidden="true"></i></span>
+<div class="visible-xs visible-sm mobile-menu clearfix" data-spy="affix" data-offset-top="50" role="navigation"> 
     <button type="button" class="hamburger is-closed" data-toggle="offcanvas"> <span class="hamb-top"></span> <span class="hamb-middle"></span> <span class="hamb-bottom"></span> </button>
     <a class="navbar-brand" href="http://www.patamanager.org/Members/8333" target="_blank"><img src="<?php echo base_url(); ?>front/images/sft_wellness_logo.png" alt=""></a> </div>
 <!-- mobile menu end -->
 
-<nav class="navbar hidden-lg" id="sidebar-wrapper" role="navigation">
+<nav class="navbar visible-xs visible-sm" id="sidebar-wrapper" role="navigation">
     <div class="container">
         <ul class="nav navbar-nav navbar-right">
             <li><a href="Javascript:void(0);" data-toggle="modal" data-target="#loginModal">Login</a></li>
@@ -86,14 +86,14 @@ $list_item = get_best_of_best();
             <li class="select-language">
                 <form>
                     <div class="form-group">
-                        <div id="advanced"
+                        <div id="Language-dropdown-mobile"
                              data-input-name="country3"
                              data-selected-country="US"
                              data-button-size=""
                              data-button-type="btn-language"
                              data-scrollable="true"
                              data-scrollable-height="250px"
-                             data-countries='{"vn": "Vietnamese (Vietnam)", "US": "English (USA) "}'> </div>
+                             data-countries='{"vn": "VI", "US": "EN"}'> </div>
                     </div>
                 </form>
             </li>
@@ -102,7 +102,7 @@ $list_item = get_best_of_best();
 </nav>
 
 <!-- Sidebar -->
-<nav class="navbar visible-lg" data-spy="affix" data-offset-top="50" id="" role="navigation">
+<nav class="navbar hidden-xs hidden-sm" data-spy="affix" data-offset-top="50" id="" role="navigation">
     <div class="container">
         <ul class="nav navbar-nav navbar-right">
             <li><a href="Javascript:void(0);" data-toggle="modal" data-target="#loginModal">Login</a></li>
@@ -181,7 +181,7 @@ $list_item = get_best_of_best();
             <li class="select-language">
                 <form>
                     <div class="form-group">
-                        <div id="advanced"
+                        <div id="Language-dropdown-desktop"
                              data-input-name="country3"
                              data-selected-country="US"
                              data-button-size=""

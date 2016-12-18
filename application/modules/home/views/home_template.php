@@ -89,7 +89,7 @@
               <input type="submit" class="btn btn-blue newsletter" value="Newsletter Signup">
             </form>
           </div>
-          <div class="col-xs-6 col-md-2 clearfix">
+          <div class="col-xs-6 col-md-6 col-lg-2 clearfix">
             <h4>Explore More</h4>
             <ul>
               <li><a href="javascript:void(0)">Core Values</a></li>
@@ -100,12 +100,12 @@
               <li><a href="javascript:void(0)">Privecy Policy</a></li>
             </ul>
           </div>
-          <div class="col-xs-6 col-md-3 clearfix">
+          <div class="col-xs-6 col-md-6 col-lg-3 clearfix">
             <h4>Travel Agents</h4>
             <p class="agent">As an agent of change, you have the power to change the world.<br>
               <a href="javascript:void(0)" class="btn btn-blue agent">agent login</a></p>
             <a href="" class="new-agency">New Agency? <span>Register here.</span></a> </div>
-          <div class="col-xs-6 col-md-3 clearfix">
+          <div class="col-xs-6 col-md-6 col-lg-3 clearfix">
             <h4>Contact Us</h4>
             <address>
             <?php echo $page_footer->site_address;?>
@@ -117,7 +117,7 @@
               <label>Contact no:</label>
               <a href="tel:<?php echo trim($page_footer->site_contact_no, ' ');?>" class="contact"><?php echo $page_footer->site_contact_no;?></a></p>
           </div>
-          <div class="col-xs-6 col-md-4 clearfix">
+          <div class="col-xs-6 col-md-6 col-lg-4 clearfix">
             <h4>Our Other Links</h4>
             <ul>
               <li><a href="http://www.sftadventures.com.vn/" target="_blank">http://www.sftadventures.com.vn/</a></li>
@@ -150,7 +150,7 @@
             <li><a href="javascript:void(0)" target="_blank"><i class="fa fa-vimeo" aria-hidden="true"></i></a></li>
             <li><a href="javascript:void(0)" target="_blank"><i class="fa fa-flickr" aria-hidden="true"></i></a></li>
           </ul>
-          <p class="col-xs-12 col-sm-6 copyright">&copy Copyright SFT Corporation 2017</p>
+          <p class="col-xs-12 col-sm-6 copyright">&copy; Copyright SFT Corporation 2017</p>
         </div>
       </div>
     </div>
@@ -261,7 +261,28 @@ $(document).ready(function () {
             $(this).parent().siblings().removeClass('open');
             $(this).parent().toggleClass('open');
         });
-
+	
+	//flagStrap
+	$('#Language-dropdown-desktop').flagStrap({
+	    buttonSize: "btn-lg",
+	    buttonType: "btn-primary",
+	    labelMargin: "5px",
+	    scrollable: false,
+	    scrollableHeight: "350px"
+	});
+	$('#Language-dropdown-mobile').flagStrap({
+		buttonSize: "btn-lg",
+		buttonType: "btn-primary",
+		labelMargin: "5px",
+		scrollable: false,
+		scrollableHeight: "350px"
+	});
+	$('ul.dropdown-menu [data-toggle=dropdown]').on('click', function (event) {
+	    event.preventDefault();
+	    event.stopPropagation();
+	    $(this).parent().siblings().removeClass('open');
+	    $(this).parent().toggleClass('open');
+	});
 
 });
 </script>
