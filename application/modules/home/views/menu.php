@@ -35,7 +35,7 @@ $list_wellness_type = get_wellness_type();
                                             <?php }} ?>                                         
                                         </ul>
                                     </li>
-                                    <li class="dropdown dropdown-submenu"><a href="<?php echo base_url('home/best_of_best/'.  encode_url(1).'/'.encode_url(2)); ?>" class="dropdown-toggle" data-toggle="dropdown">Best in Region</a>
+                                    <li class="dropdown dropdown-submenu"><a href="<?php echo base_url('home/best_in_region/'.  encode_url(1).'/'.encode_url(2)); ?>" class="dropdown-toggle" data-toggle="dropdown">Best in Region</a>
                                         <ul class="dropdown-menu">
                                             <?php 
                                             if(!empty($list_item[1])){ foreach($list_item[2] as $best_of_region){?>
@@ -131,7 +131,7 @@ $list_wellness_type = get_wellness_type();
                                             <?php }} ?>  
                                         </ul>
                                     </li>
-                                    <li class="dropdown"><a href="<?php echo base_url('home/best_of_best/'.  encode_url(1).'/'.encode_url(2)); ?>">Best in Region</a>
+                                    <li class="dropdown"><a href="<?php echo base_url('home/best_in_region/'.  encode_url(1).'/'.encode_url(2)); ?>">Best in Region</a>
                                         <ul class="dropdown-menu dropdownhover-left">
                                              <?php 
                                             if(!empty($list_item[1])){ foreach($list_item[2] as $best_of_region){?>
