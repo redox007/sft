@@ -106,3 +106,25 @@ function get_admin_username($id)
         }
         return $final_arr;
     }
+
+	function get_wellness_type(){
+        $CI = get_instance();
+        $wellness_types = $CI->Custom_model->fetch_data(WELLNESS_TYPE,
+            array(WELLNESS_TYPE.'.id', WELLNESS_TYPE_LANG.'.type_name'),
+            array(),
+            array(WELLNESS_TYPE_LANG => WELLNESS_TYPE_LANG.'.wellness_type_id='.WELLNESS_TYPE.'.id'),
+            array(), WELLNESS_TYPE.'.id', 'ASC'
+        );
+        return $wellness_types;
+    }
+
+	function get_continents(){
+        $CI = get_instance();
+        $continents = $CI->Custom_model->fetch_data(CONTINENT,
+            array(CONTINENT.'.id', CONTINENT_LANG.'.continent'),
+            array(),
+            array(CONTINENT_LANG => CONTINENT_LANG.'.continent_id='.CONTINENT.'.id'),
+            array(), CONTINENT_LANG.'.continent', 'ASC'
+        );
+        return $continents;
+    }

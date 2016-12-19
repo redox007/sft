@@ -68,7 +68,7 @@
                     <!-- footer content -->
                     <footer>
                         <div class="pull-right">
-                            SFT wellness - admin panel
+                            SFT wellness - Admin Panel
                         </div>
                         <div class="clearfix"></div>
                     </footer>

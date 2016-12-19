@@ -29,7 +29,7 @@
                 <!-- Nav tabs -->
                 <ul id="tabs" class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#overview" role="tab" data-toggle="tab">Overview</a></li>
-                    <li role="presentation"><a href="#online" role="tab" data-toggle="tab">Full Itinery</a></li>
+                    <li role="presentation"><a href="#online" role="tab" data-toggle="tab">Full Itinerary</a></li>
                 </ul>
                 <div class="tab-content clearfix"> 
                     <!--overview start-->
@@ -37,12 +37,13 @@
 
                         <!--quick-package-view start-->
                         <section class="quick-package-view">
-                            <div class="right-part">
-                                <p class="code">Trip code: <span><?php echo $wellness_details->code; ?></span></p>
-                                <a class="btn btn-enquiry"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> Make An Enquiry</a> <a class="btn btn-widhlist"><i class="fa fa-heart" aria-hidden="true"></i> Save to Wishlist</a> <a class="btn btn-pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download <strong>PDF</strong></a></div>
-                            <h4><?php echo $wellness_details->no_of_day; ?> <strong>Days</strong> <span>Nairobi to Nairobi</span></h4>
-                            <p class="price"><span>From</span><span><sup>$</sup><?php echo $wellness_details->price; ?><em>USD</em></span></p>
-                            <p class="share"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></p>
+							<div class="right-part">
+								<a class="btn btn-enquiry"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> Make An Enquiry</a> <a class="btn btn-widhlist"><i class="fa fa-heart" aria-hidden="true"></i> Save to Wishlist</a> <a class="btn btn-pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download <strong>PDF</strong></a>
+							</div>
+							  <p class="code">Trip code: <span><?php echo $wellness_details->code; ?></span></p>
+							  <h4><?php echo $wellness_details->no_of_day; ?> <strong>Days</strong> <!--<span>Nairobi to Nairobi</span>--></h4>
+							  <p class="price"><!--<span>From</span>--><span><sup>$</sup><?php echo $wellness_details->price; ?><em>USD</em></span></p>
+							  <p class="share"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></p>                   
                         </section>
                         <!--quick-package-view end-->
 
@@ -56,8 +57,8 @@
 
                         <section class="itinery-information clearfix">
                             <div class="col-xs-12 col-sm-6">
-                                <p class="trip-update">Last Update: Sept 8, 2016<span>DTKO</span></p>
-                                <p class="trip-departure-time">Valid for all trips departing <strong>January 1st, 2015 Onwards</strong></p>
+                                <p class="trip-update">&nbsp;</p>
+                                <p class="trip-departure-time">&nbsp;</p>
                             </div>
                             <div class="col-xs-12 col-sm-6">
                                 <div class="pull-right clearfix"><a class="btn btn-enquiry"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> Make An Enquiry</a> <a class="btn btn-widhlist"><i class="fa fa-heart" aria-hidden="true"></i> Save to Wishlist</a> <a class="btn btn-pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download <strong>PDF</strong></a></div>

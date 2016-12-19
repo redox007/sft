@@ -83,7 +83,12 @@
                         <li><a href="<?php echo base_url(); ?>admin/settings/home_page_settings">HomePage Settings<span class="fa "></span></a></li>
                     </ul>
                 </li>
-                
+                <li>
+                    <a><i class="fa fa-envelope"></i>Email Template <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="<?php echo base_url(); ?>admin/etemp">List Template<span class="fa "></span></a></li>
+                    </ul>
+                </li>
                 <li><a><i class="fa fa-video-camera"></i> Media <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li class="sub_menu"><a href="<?php echo base_url(); ?>media">Add Media</a></li>                        

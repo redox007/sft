@@ -154,6 +154,30 @@ class Home extends MY_Controller {
        $partials = array('content' => 'best_of_best','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
        $this->template->load('home_template', $partials,$data);
   }
+
+  function best_in_region($wellnes_type=NULL,$best=NULL){
+       $wellnes_type = decode_url($wellnes_type);
+       $best = decode_url($best);
+       $data['wellnes_type']=$wellnes_type;
+       $best_in_region = $this->Custom_model->fetch_data(AWARD,
+               array(
+                   AWARD.'.*',
+                   PARTNER.'.id as partner_id',
+                   PARTNER.'.partner_name'
+                   ),
+               array('type'=>$best),
+               array(
+                   AWARD_PARTNER=>AWARD_PARTNER.'.award_id='.AWARD.'.id',
+                   PARTNER=>PARTNER.'.id='.AWARD_PARTNER.'.partner_id'));
+
+        $data['best_in_region'] =$best_in_region;
+	//echo '<pre>'; print_r($data);
+
+       $data['page_footer'] = $this->footer();
+       $partials = array('content' => 'best_in_region','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
+       $this->template->load('home_template', $partials,$data);
+  }
+
   function wellness_destinations(){
        $continents =$this->Custom_model->fetch_data(CONTINENT,array('*'),array(),array());
        $data['continents'] = $continents;
@@ -161,6 +185,7 @@ class Home extends MY_Controller {
        $partials = array('content' => 'wellness_destinations','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
        $this->template->load('home_template', $partials,$data);
   }
+
   function wellness_programs($wellness_type=NULL,$partner_id=NULL){
        $partner_id = decode_url($partner_id);
        $wellness_type = decode_url($wellness_type);
@@ -284,5 +309,26 @@ class Home extends MY_Controller {
        $this->template->load('home_template', $partials,$data);
 
    }
+
+   function wellness_partners($continent=NULL){
+       $continent = decode_url($continent);
+       //$data['continent'] = $continent;
+       $partners = $this->Custom_model->fetch_data(PARTNER,
+               array(
+                   PARTNER.'.id',
+                   PARTNER.'.partner_name',
+				   PARTNER.'.wellness_type_id'
+                   ),
+               array('continent_id'=>$continent),
+               array()
+		);
+
+        $data['partners'] = $partners;
+	   //echo '<pre>'; print_r($data); exit;
+
+       $data['page_footer'] = $this->footer();
+       $partials = array('content' => 'wellness_partners','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
+       $this->template->load('home_template', $partials,$data);
+  }
 
 }
