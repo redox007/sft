@@ -59,5 +59,5 @@
     </div>
 
 </div>
-<?php print_r(get_email_template('registration')); ?>
+<?php //print_r(get_email_template('registration')); ?>
 
