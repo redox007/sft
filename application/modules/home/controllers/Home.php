@@ -36,49 +36,26 @@ class Home extends MY_Controller {
         $home_page_id = $selected_lang = ($this->session->userdata('language'))?$this->session->userdata('language'):1;
         $data['selected_lang'] = $selected_lang;
 
-        // get home page settings from the admin.
-        $home_details = $this->Custom_model->fetch_data(HOME_PAGE_SETTINGS,
-            array('*' , HOME_PAGE_SETTINGS_LANG.'.*'),
-            array(),
-            array(HOME_PAGE_SETTINGS_LANG => HOME_PAGE_SETTINGS_LANG.'.home_page_id='.HOME_PAGE_SETTINGS.'.id  AND '.HOME_PAGE_SETTINGS.'.id =1 AND '. HOME_PAGE_SETTINGS_LANG.'.language_id='.$selected_lang . '|left')
-        );
+        $page_data = $this->Custom_model->get_landing_page($selected_lang);
+        $data['home_page_data'] = $page_data[0][0];
+        $data['welness_details'] = $page_data[1];
+        $data['partner_medias'] = $page_data[2];//echo '<pre>';print_r($data);die;
 
-        $data['home_page_data'] = $home_details[0];//echo '<pre>';print_r($data['home_page_details']);die;
-
-        //get wellness type info.
-        $data['welness_details'] = $this->Custom_model->fetch_data(WELLNESS_TYPE,
-            array(WELLNESS_TYPE.'.id', WELLNESS_TYPE_LANG.'.type_name', TBL_MEDIA.'.id as media_id', TBL_MEDIA.'.media_name', TBL_MEDIA.'.extension', TBL_MEDIA.'.raw_name', TBL_MEDIA.'.url' ),
-            array(),
-            array(WELLNESS_TYPE_LANG => WELLNESS_TYPE_LANG.'.wellness_type_id='.WELLNESS_TYPE.'.id  AND '. WELLNESS_TYPE_LANG.'.language_id='.$selected_lang . '|left',
-                  TBL_MEDIA => TBL_MEDIA.'.id='.WELLNESS_TYPE.'.wellness_image'),
-            array(), WELLNESS_TYPE.'.id', 'ASC'
-        );
-
-        // get partner logos.
-        $data['partner_medias'] = $this->Custom_model->fetch_data(PARTNER,
-            array(PARTNER.'.partner_name', PARTNER.'.partner_logo', TBL_MEDIA.'.id as media_id', TBL_MEDIA.'.media_name', TBL_MEDIA.'.extension', TBL_MEDIA.'.raw_name', TBL_MEDIA.'.url'),
-            array(PARTNER.'.status' => "1"),
-            array(TBL_MEDIA => TBL_MEDIA.'.id='.PARTNER.'.partner_logo')
-        );
-
-        /* find librarby and ajmj media and create media link for home page. */
+        /* find library and ajmj media and create media link for home page. */
         $this->load->helper('media_helper');
         $medias = $data['home_page_data']->library_media.','.$data['home_page_data']->ajmj_media ;
         $homepage_medias = $this->Custom_model->fetch_data(TBL_MEDIA, array(TBL_MEDIA.'.id', TBL_MEDIA.'.media_name', TBL_MEDIA.'.extension', TBL_MEDIA.'.raw_name', TBL_MEDIA.'.url'),array(TBL_MEDIA.'.id'=>$medias));
 
         $data['ajmj_medias'] = array();
         if($data['home_page_data']->ajmj_media != ''){
-            $ajmj_medias = explode(',', $data['home_page_data']->ajmj_media);
-            foreach($ajmj_medias as $media){
-                foreach($homepage_medias as $amedia){
-                    if($amedia->id == $media){
-                        $media1['url'] = $amedia->url;$media1['media_name'] = $amedia->media_name;
-                        $media1['raw_name'] = $amedia->raw_name;$media1['extension'] = $amedia->extension;
-                        $data['ajmj_medias'] = generate_image_media_url($media1, 'ajmj');
-                    }
+            foreach($homepage_medias as $amedia){
+                if($amedia->id == $data['home_page_data']->ajmj_media){
+                    $media1['url'] = $amedia->url;$media1['media_name'] = $amedia->media_name;
+                    $media1['raw_name'] = $amedia->raw_name;$media1['extension'] = $amedia->extension;
+                    $data['ajmj_medias'] = generate_image_media_url($media1, 'ajmj');
                 }
             }
-        }
+        }//echo '<pre>';print_r($data['ajmj_medias']);die;
 
         $data['library_medias'] = array();
         if($data['home_page_data']->library_media != '' || $data['home_page_data']->library_videos != ''){

@@ -21,7 +21,7 @@
             $media['extension'] = $wellness_type->extension;?>
             <div class="col-xs-12 col-sm-4"> <a href="<?php echo base_url('home/wellness_plus/'.  encode_url($wellness_type->id)); ?>">
               <h2> <?php echo $type_name[0];?><span><?php echo $type_name[1];?></span> </h2>
-              <img src="<?php echo generate_image_media_url($media, 'wellness_type'); ?>"/></a>
+              <img src="<?php echo generate_image_media_url($media, 'type'); ?>"/></a>
             </div><?php
           }
         }?>
@@ -181,7 +181,7 @@
   <?php echo $home_page_data->library_desc;?>
   <div id="library-carousel" class="owl-carousel">
      <?php
-      if(!empty($library_medias)){ //print_r($library_medias);die;
+      if(!empty($library_medias)){
         foreach($library_medias as $lmedia){?>
           <div class="item"><?php $str = $lmedia;
           if(strstr($str, 'medias') == true){?>
@@ -209,7 +209,7 @@
           $media['raw_name'] = $logo->raw_name;
           $media['extension'] = $logo->extension;?>
           <div class="item">
-            <img class="owl-lazy" data-src="<?php echo generate_image_media_url($media, 'small'); ?>" alt="<?php echo $logo->partner_name; ?>">
+            <img class="owl-lazy" data-src="<?php echo generate_image_media_url($media, 'small1'); ?>" alt="<?php echo $logo->partner_name; ?>">
           </div><?php
         }
       }?>

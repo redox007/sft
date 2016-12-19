@@ -191,7 +191,7 @@ class Custom_model extends CI_Model {
             return false;
         }
     }
-    
+
     function generateRandomString($length = 10) {
         $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         //$characters = '0123456789';
@@ -201,14 +201,19 @@ class Custom_model extends CI_Model {
         }
         return $randomString;
     }
-    
-    
-     
+
+
+
     function get_wellness_concept_data() {
         $query = $this->get_multiple_result("call get_wellness_concept_data()");
         return $query;
     }
-    
+
+    function get_landing_page($lang_id=1) {
+        $query = $this->get_multiple_result("call get_home_page_data(".$lang_id.")");
+        return $query;
+    }
+
     function get_multiple_result($query) {
         $k = 0;
         $arr_results_sets = array();
@@ -234,8 +239,8 @@ class Custom_model extends CI_Model {
 
         return $arr_results_sets;
     }
-    
-    
+
+
 }
 
 ?>
