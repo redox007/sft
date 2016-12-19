@@ -1,5 +1,6 @@
 <?php 
-$list_item = get_best_of_best();
+$list_item = get_best_of_best(); 
+$list_wellness_type = get_wellness_type(); 
 ?>
 <!-- mobile menu start -->
 <div class="visible-xs visible-sm mobile-menu clearfix" data-spy="affix" data-offset-top="50" role="navigation"> 
@@ -22,7 +23,9 @@ $list_item = get_best_of_best();
                     <li class="dummy-list">&nbsp;</li>
                     <li class="dropdown dropdown-submenu"><a href="<?php echo base_url('home/wellness_concepts'); ?>" class="dropdown-toggle" data-toggle="dropdown">Wellness Concepts</a>
                         <ul class="dropdown-menu">
-                            <li class="dropdown dropdown-submenu"><a href="<?php echo base_url('home/wellness_plus/'.  encode_url(1)); ?>" class="dropdown-toggle" data-toggle="dropdown">Wellness Plus</a>
+						<?php 
+                          if(!empty($list_wellness_type)){ foreach($list_wellness_type as $wellness_type){ $link = ($wellness_type->id == 1 ? 'wellness_plus' : ($wellness_type->id == 2 ? 'medi_plus' : 'beauty_plus')); ?>
+                            <li class="dropdown dropdown-submenu"><a href="<?php echo base_url('home/'.$link.'/'.  encode_url($wellness_type->id)); ?>" class="dropdown-toggle" data-toggle="dropdown"><?php echo $wellness_type->type_name; ?></a>
                                 <ul class="dropdown-menu">
                                     <li class="dropdown dropdown-submenu"><a href="<?php echo base_url('home/best_of_best/'.  encode_url(1).'/'.encode_url(1)); ?>" class="dropdown-toggle" data-toggle="dropdown">Best of Bests</a>
                                         <ul class="dropdown-menu">
@@ -50,8 +53,7 @@ $list_item = get_best_of_best();
                                     </li>
                                 </ul>
                             </li>
-                            <li><a href="<?php echo base_url('home/wellness_plus/'.  encode_url(2)); ?>"> Medi Plus</a></li>
-                            <li><a href="<?php echo base_url('home/wellness_plus/'.  encode_url(3)); ?>"> Beauty Plus</a></li>
+							<?php }} ?>
                         </ul>
                     </li>
                     <li class="dropdown dropdown-submenu"><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Travel Destinations</a>
@@ -117,7 +119,9 @@ $list_item = get_best_of_best();
                     <li class="dummy-list">&nbsp;</li>
                     <li class="dropdown"><a href="<?php echo base_url('home/wellness_concepts'); ?>">Wellness Concepts</a>
                         <ul class="dropdown-menu dropdownhover-left">
-                            <li class="dropdown"><a href="<?php echo base_url('home/wellness_plus/'.  encode_url(1)); ?>">Wellness Plus</a>
+						<?php 
+                          if(!empty($list_wellness_type)){ foreach($list_wellness_type as $wellness_type){ $link = ($wellness_type->id == 1 ? 'wellness_plus' : ($wellness_type->id == 2 ? 'medi_plus' : 'beauty_plus')); ?>
+                            <li class="dropdown"><a href="<?php echo base_url('home/'.$link.'/'.  encode_url($wellness_type->id)); ?>"><?php echo $wellness_type->type_name; ?></a>
                                 <ul class="dropdown-menu dropdownhover-left">
                                     <li class="dropdown"><a href="<?php echo base_url('home/best_of_best/'.  encode_url(1).'/'.encode_url(1)); ?>">Best of Bests</a>
                                         <ul class="dropdown-menu dropdownhover-left">
@@ -145,8 +149,7 @@ $list_item = get_best_of_best();
                                     </li>
                                 </ul>
                             </li>
-                            <li><a href="<?php echo base_url('home/wellness_plus/'.  encode_url(2)); ?>"> Medi Plus</a></li>
-                            <li><a href="<?php echo base_url('home/wellness_plus/'.  encode_url(3)); ?>"> Beauty Plus</a></li>
+							<?php }} ?>
                         </ul>
                     </li>
                     <li class="dropdown"><a href="javascript:void(0)">Travel Destinations</a>
