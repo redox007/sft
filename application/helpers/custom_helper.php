@@ -117,3 +117,14 @@ function get_admin_username($id)
         );
         return $wellness_types;
     }
+
+	function get_continents(){
+        $CI = get_instance();
+        $continents = $CI->Custom_model->fetch_data(CONTINENT,
+            array(CONTINENT.'.id', CONTINENT_LANG.'.continent'),
+            array(),
+            array(CONTINENT_LANG => CONTINENT_LANG.'.continent_id='.CONTINENT.'.id'),
+            array(), CONTINENT_LANG.'.continent', 'ASC'
+        );
+        return $continents;
+    }

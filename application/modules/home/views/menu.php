@@ -1,6 +1,7 @@
 <?php 
 $list_item = get_best_of_best(); 
-$list_wellness_type = get_wellness_type(); 
+$list_wellness_type = get_wellness_type();
+$list_continents = get_continents();
 ?>
 <!-- mobile menu start -->
 <div class="visible-xs visible-sm mobile-menu clearfix" data-spy="affix" data-offset-top="50" role="navigation"> 
@@ -58,12 +59,10 @@ $list_wellness_type = get_wellness_type();
                     </li>
                     <li class="dropdown dropdown-submenu"><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Travel Destinations</a>
                         <ul class="dropdown-menu">
-                            <li><a href="javascript:void(0)">Africa</a></li>
-                            <li><a href="javascript:void(0)">Asia</a></li>
-                            <li><a href="javascript:void(0)">Australia, New Zealand &amp; Oceania</a></li>
-                            <li><a href="javascript:void(0)">Europe</a></li>
-                            <li><a href="javascript:void(0)">North America</a></li>
-                            <li><a href="javascript:void(0)">South &amp; Central America</a></li>
+                            <?php 
+                              if(!empty($list_continents)){ foreach($list_continents as $continents){?>
+                            <li><a href="<?php echo base_url('home/wellness_partners/'.encode_url($continents->id)); ?>"><?php echo $continents->continent;?></a></li>
+						    <?php }} ?>
                         </ul>
                     </li>
                     <li><a href="javascript:void(0)">Travel Deals</a></li>
@@ -152,14 +151,12 @@ $list_wellness_type = get_wellness_type();
 							<?php }} ?>
                         </ul>
                     </li>
-                    <li class="dropdown"><a href="javascript:void(0)">Travel Destinations</a>
+                    <li class="dropdown"><a href="<?php echo base_url('home/wellness_destinations');?>">Travel Destinations</a>
                         <ul class="dropdown-menu dropdownhover-left">
-                            <li><a href="javascript:void(0)">Africa</a></li>
-                            <li><a href="javascript:void(0)">Asia</a></li>
-                            <li><a href="javascript:void(0)">Australia, New Zealand &amp; Oceania</a></li>
-                            <li><a href="javascript:void(0)">Europe</a></li>
-                            <li><a href="javascript:void(0)">North America</a></li>
-                            <li><a href="javascript:void(0)">South &amp; Central America</a></li>
+						<?php 
+                          if(!empty($list_continents)){ foreach($list_continents as $continents){?>
+                            <li><a href="<?php echo base_url('home/wellness_partners/'.encode_url($continents->id)); ?>"><?php echo $continents->continent;?></a></li>
+						<?php }} ?>
                         </ul>
                     </li>
                     <li><a href="javascript:void(0)">Travel Deals</a></li>

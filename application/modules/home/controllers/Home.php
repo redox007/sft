@@ -333,4 +333,25 @@ class Home extends MY_Controller {
 
    }
 
+   function wellness_partners($continent=NULL){
+       $continent = decode_url($continent);
+       //$data['continent'] = $continent;
+       $partners = $this->Custom_model->fetch_data(PARTNER,
+               array(
+                   PARTNER.'.id',
+                   PARTNER.'.partner_name',
+				   PARTNER.'.wellness_type_id'
+                   ),
+               array('continent_id'=>$continent),
+               array()
+		);
+
+        $data['partners'] = $partners;
+	   //echo '<pre>'; print_r($data); exit;
+
+       $data['page_footer'] = $this->footer();
+       $partials = array('content' => 'wellness_partners','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
+       $this->template->load('home_template', $partials,$data);
+  }
+
 }
