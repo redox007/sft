@@ -51,7 +51,28 @@
                                 <input type="text" id="continent" name="continent"  class="form-control col-md-7 col-xs-12" value="<?php echo isset($continent_details->continent)?$continent_details->continent:""; ?>">
                             </div>
                         </div>
-
+                        
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Short Description 
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <textarea id="description" name="description"  class="form-control col-md-7 col-xs-12"><?php echo isset($continent_details->short_description)?$continent_details->short_description:""; ?></textarea>                                
+                            </div>
+                        </div>
+                       
+                        
+                         <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Continent Image 
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="pv" id="preview">
+                                <?php load_medias(isset($continent_details->media_id)?$continent_details->media_id:"", $input_media_id = '#input-media', true); ?>
+                            </div>
+                                <input id="input-media" type="hidden" value="<?php echo isset($continent_details->media_id)?$continent_details->media_id:""; ?>" name="media_ids" class="form-control" />
+                            <!-- Large modal -->
+                            <button type="button" class="btn btn-primary media-button" data-input-field="#input-media"  data-preview="#preview" >Media</button>
+                            </div>
+                        </div> 
                        
                         <div class="ln_solid"></div>
                         <div class="form-group">

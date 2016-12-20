@@ -596,7 +596,8 @@ class Master extends MY_Controller {
                 if ($res != FALSE) {
                     $ins_inner['wellness_program_id'] = $res;
                     $ins_inner['program_name'] = $this->input->post('program_name');
-                    //$ins_inner['short_description'] = $this->input->post('short_description');
+                    $ins_inner['short_description'] = $this->input->post('description');
+                    $ins_inner['media_id'] = $this->input->post('media_ids');
                     $ins_inner['language_id'] = $selected_lang;
                     $inner = $this->Custom_model->insert_data($ins_inner, WELLNESS_PROGRAM_LANG);
                     if ($inner != FALSE) {
@@ -632,6 +633,8 @@ class Master extends MY_Controller {
             WELLNESS_PROGRAM . '.*',
             WELLNESS_PROGRAM_LANG . '.wellness_program_id',
             WELLNESS_PROGRAM_LANG . '.program_name',
+            WELLNESS_PROGRAM_LANG . '.short_description',
+            WELLNESS_PROGRAM_LANG . '.media_id',
             WELLNESS_PROGRAM_LANG . '.language_id',
             WELLNESS_TYPE . '.wellness_type'
                 ), array(WELLNESS_PROGRAM . '.id' => $program_id),
@@ -661,12 +664,16 @@ class Master extends MY_Controller {
                 if ($chk_row == FALSE) {
                     $ins_inner['wellness_program_id'] = $program_id;
                     $ins_inner['program_name'] = $this->input->post('program_name');
+                    $ins_inner['short_description'] = $this->input->post('description');
+                    $ins_inner['media_id'] = $this->input->post('media_ids');
                     $ins_inner['language_id'] = $selected_lang;
                     $inner = $this->Custom_model->insert_data($ins_inner, WELLNESS_PROGRAM_LANG);
                     $this->session->set_flashdata('success_message', 'Wellness program updated successfully.');
                     redirect(base_url() . 'admin/master/list_wellness_program');
                 } else {
                     $ins_data['program_name'] = $this->input->post('program_name');
+                    $ins_data['short_description'] = $this->input->post('description');
+                    $ins_data['media_id'] = $this->input->post('media_ids');
 
                     $res = $this->Custom_model->edit_data($ins_data, array('wellness_program_id' => $program_id, 'language_id' => $selected_lang), WELLNESS_PROGRAM_LANG);
                     $this->session->set_flashdata('success_message', 'Wellness program updated successfully.');
@@ -1078,6 +1085,8 @@ class Master extends MY_Controller {
                     $ins_inner['continent_id'] = $res;
                     $ins_inner['language_id'] = $selected_lang;                    
                     $ins_inner['continent'] = $this->input->post('continent');
+                    $ins_inner['short_description'] = $this->input->post('description');
+                    $ins_inner['media_id'] = $this->input->post('media_ids');
 
                     $inner = $this->Custom_model->insert_data($ins_inner, CONTINENT_LANG);
                     if ($inner != FALSE) {
@@ -1111,7 +1120,9 @@ class Master extends MY_Controller {
         $continent_details = $this->Custom_model->fetch_data(CONTINENT, array(
             CONTINENT . '.*',
             CONTINENT_LANG . '.language_id',
-            CONTINENT_LANG . '.continent'
+            CONTINENT_LANG . '.continent',
+            CONTINENT_LANG . '.short_description',
+            CONTINENT_LANG . '.media_id'
                 ), array(CONTINENT . '.id' => $continent_id), array(CONTINENT_LANG => CONTINENT . '.id=' . CONTINENT_LANG . '.continent_id AND ' . CONTINENT_LANG . '.language_id=' . $selected_lang . '|left')
         );
 
@@ -1135,12 +1146,16 @@ class Master extends MY_Controller {
                     $ins_inner['language_id'] = $selected_lang;
                     $ins_inner['continent_id'] = $continent_id;
                     $ins_inner['continent'] = $this->input->post('continent');
+                    $ins_inner['short_description'] = $this->input->post('description');
+                    $ins_inner['media_id'] = $this->input->post('media_ids');
                     $inner = $this->Custom_model->insert_data($ins_inner, CONTINENT_LANG);
                     $this->session->set_flashdata('success_message', 'Continent updated successfully.');
                     redirect(base_url() . 'admin/master/list_continents');
                 } else {
                     $ins_data['continent'] = $this->input->post('continent');
-                    //$ins_data['short_description'] = $this->input->post('short_description');
+                    $ins_data['short_description'] = $this->input->post('description');
+                    $ins_data['media_id'] = $this->input->post('media_ids');
+                    
                     $res = $this->Custom_model->edit_data($ins_data, array('continent_id' => $continent_id, 'language_id' => $selected_lang), CONTINENT_LANG);
 
                     $this->session->set_flashdata('success_message', 'Continent updated successfully.');
