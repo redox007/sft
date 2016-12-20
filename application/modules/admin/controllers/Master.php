@@ -1206,7 +1206,73 @@ class Master extends MY_Controller {
         $this->template->load('template', $partials, $data);
     }
     
+     function best_of_program(){        
+        $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
+        if($selected_lang==1){
+            $fields=array(
+                AWARD.'.id',
+                AWARD.'.name_in_english as award',                
+                '(SELECT COUNT(*) FROM '.AWARD_PARTNER.' WHERE '.AWARD_PARTNER.'.award_id='.AWARD.'.id) as total_partner'
+                );
+        }else{
+            $fields=array(
+                AWARD.'.id',
+                AWARD.'.name_in_vietnamese as award',                
+                '(SELECT COUNT(*) FROM '.AWARD_PARTNER.' WHERE '.AWARD_PARTNER.'.award_id='.AWARD.'.id) as total_partner'
+                );
+        }
+        
+        $data['awards']= $this->Custom_model->fetch_data(AWARD,
+                $fields,
+                array('type'=>3),
+                array());   
+        
+        
+        $data['all_partner'] = $this->Custom_model->fetch_data(PARTNER,array('*'),array(),array());
+                
+        
+        $partials = array('content' => 'best_of_program', 'left_menu' => 'left_menu', 'header' => 'header');
+        $this->template->load('template', $partials, $data);
+    }
     
+    function edit_best_of_program($id=NULL){
+        
+        $award_id= decode_url($id);
+          $chk_award = $this->Custom_model->row_present_check(AWARD, array('id'=>$award_id));
+        if($chk_award==FALSE){
+            redirect(base_url() . 'admin/master/best_of_program');
+        }
+         $data['partners'] =  $this->Custom_model->fetch_data(PARTNER,
+                array(PARTNER.'.*'),
+                array(),
+                array(                    
+                    ));
+         
+         $awards = $this->Custom_model->fetch_data(AWARD_PARTNER,array('*'),array('award_id'=>$award_id),array());
+         $final_arr=array();
+         if(!empty($awards)){
+             foreach($awards as $key=>$ar){
+                 $final_arr[$key] = $ar->partner_id;
+             }
+         }
+         $data['selected_arr'] = $final_arr;
+         if($this->input->post('submit')){
+             $this->Custom_model->delete_row(AWARD_PARTNER, array('award_id'=>$award_id));
+             $partner = $this->input->post('partner');
+             if(!empty($partner)){                 
+                for($i=0;$i<count($partner);$i++){
+                    $ins_data['award_id'] = $award_id;
+                    $ins_data['partner_id'] = $partner[$i];
+                    $this->Custom_model->insert_data($ins_data, AWARD_PARTNER);
+                }
+             }
+              $this->session->set_flashdata('success_message', 'Partner added successfully.');
+                    redirect(base_url() . 'admin/master/best_of_program');
+         }
+         
+        $partials = array('content' => 'edit_best_of_program', 'left_menu' => 'left_menu', 'header' => 'header');
+        $this->template->load('template', $partials, $data);
+    }
     function edit_best_of_best($id=NULL){
         $award_id= decode_url($id);
         $chk_award = $this->Custom_model->row_present_check(AWARD, array('id'=>$award_id));
