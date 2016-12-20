@@ -107,7 +107,8 @@ class Home extends MY_Controller {
     }
 
   function wellness_concepts(){
-       $page_data = $this->Custom_model->get_wellness_concept_data();
+       $language_id = 1;
+       $page_data = $this->Custom_model->get_wellness_concept_data($language_id);       
        $data['page_data'] = $page_data;
        $data['page_footer'] = $this->footer();
 
@@ -133,6 +134,7 @@ class Home extends MY_Controller {
   }
 
   function best_of_best($wellnes_type=NULL,$best=NULL){
+       $language_id =1;
        $wellnes_type = decode_url($wellnes_type);
        $best = decode_url($best);
        $data['wellnes_type']=$wellnes_type;
@@ -140,12 +142,21 @@ class Home extends MY_Controller {
                array(
                    AWARD.'.*',
                    PARTNER.'.id as partner_id',
-                   PARTNER.'.partner_name'
+                   PARTNER.'.partner_name',
+                   PARTNER.'.short_description',
+                   MEDIA.'.url',
+                   MEDIA.'.media_name',
+                   MEDIA.'.extension',
+                   MEDIA.'.raw_name',
+                   COUNTRY_LANG.'.country_name'
                    ),
-               array('type'=>$best),
+               array(AWARD.'.type'=>$best),
                array(
                    AWARD_PARTNER=>AWARD_PARTNER.'.award_id='.AWARD.'.id',
-                   PARTNER=>PARTNER.'.id='.AWARD_PARTNER.'.partner_id'));
+                   PARTNER=>PARTNER.'.id='.AWARD_PARTNER.'.partner_id',
+                   COUNTRY=>COUNTRY.'.id='.PARTNER.'.country_id',
+                   COUNTRY_LANG=>COUNTRY_LANG.'.country_id='.COUNTRY.'.id AND '.COUNTRY_LANG.'.language_id='.$language_id,
+                   MEDIA=>MEDIA.'.id='.PARTNER.'.media_id'));
 
         $data['best_of_best'] =$best_of_best;
 	//echo '<pre>'; print_r($data);
@@ -203,14 +214,20 @@ class Home extends MY_Controller {
        $programs = $this->Custom_model->fetch_data(WELLNESS_PROGRAM,
                array(
                    WELLNESS_PROGRAM.'.*',
-                   WELLNESS_PROGRAM_LANG.'.program_name',
+                   WELLNESS_PROGRAM_LANG.'.program_name',                   
+                   MEDIA.'.url',
+                   MEDIA.'.media_name',
+                   MEDIA.'.extension',
+                   MEDIA.'.raw_name',
                    WELLNESS_PROGRAM_LANG.'.short_description'
                    ),
                array(
                    WELLNESS_PROGRAM.'.wellness_type_id'=>$wellness_type,
                    WELLNESS_PROGRAM.'.id'=>$sft_pro,
                    ),
-               array(WELLNESS_PROGRAM_LANG=>WELLNESS_PROGRAM_LANG.'.wellness_program_id='.WELLNESS_PROGRAM.'.id AND '.WELLNESS_PROGRAM_LANG.'.language_id='.$language));
+               array(
+                   WELLNESS_PROGRAM_LANG=>WELLNESS_PROGRAM_LANG.'.wellness_program_id='.WELLNESS_PROGRAM.'.id AND '.WELLNESS_PROGRAM_LANG.'.language_id='.$language,
+                   MEDIA=>MEDIA.'.id='.WELLNESS_PROGRAM_LANG.'.media_id'));
 
 
        $data['programs']=$programs;
@@ -292,13 +309,20 @@ class Home extends MY_Controller {
                array(
                    WELLNESS_PROGRAM.'.*',
                    WELLNESS_PROGRAM_LANG.'.program_name',
-                   WELLNESS_PROGRAM_LANG.'.short_description'
+                   WELLNESS_PROGRAM_LANG.'.short_description',
+                   MEDIA.'.url',
+                   MEDIA.'.media_name',
+                   MEDIA.'.extension',
+                   MEDIA.'.raw_name'
                    ),
                array(
                    WELLNESS_PROGRAM.'.wellness_type_id'=>$wellness_details[0]->type,
                    WELLNESS_PROGRAM.'.id'=>$sft_pro,
                    ),
-               array(WELLNESS_PROGRAM_LANG=>WELLNESS_PROGRAM_LANG.'.wellness_program_id='.WELLNESS_PROGRAM.'.id AND '.WELLNESS_PROGRAM_LANG.'.language_id='.$language_id));
+               array(
+                   WELLNESS_PROGRAM_LANG=>WELLNESS_PROGRAM_LANG.'.wellness_program_id='.WELLNESS_PROGRAM.'.id AND '.WELLNESS_PROGRAM_LANG.'.language_id='.$language_id,                   
+                   MEDIA=>MEDIA.'.id='.WELLNESS_PROGRAM_LANG.'.media_id'
+               ));
 
 
        $data['programs']=$wellness_programs;

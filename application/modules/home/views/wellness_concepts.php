@@ -52,11 +52,17 @@
       <div id="travel-destination-carousel" class="travel-destination-arts owl-carousel">
           
           <?php if(isset($page_data[1])){ 
-              foreach($page_data[1] as $travel){ ?>
+              foreach($page_data[1] as $travel){ 
+                   $media1['url'] = $travel->url;
+                $media1['media_name'] = $travel->media_name;
+                $media1['raw_name'] = $travel->raw_name;
+                $media1['extension'] = $travel->extension;
+                  
+                  ?>
         <div class="item">
-          <figure> <a href="javascript:void(0)"><img src="<?php echo base_url(); ?>front/images/wellness-concepts/travel-dest1.jpg" /></a> </figure>
+          <figure> <a href="javascript:void(0)"><img src="<?php echo generate_image_media_url($media1, 'square'); ?>" /></a> </figure>
           <h4><?php echo $travel->continent_name ?></h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sem risus, eleifend sed pharetra id, maximus malesuada dui.</p>
+          <p><?php echo $travel->short_description ?></p>
           <a href="javascript:void(0)" class="btn btn-blue learn-more-btn">Learn More</a> </div>
           <?php }} ?>
        

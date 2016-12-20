@@ -204,8 +204,8 @@ class Custom_model extends CI_Model {
 
 
 
-    function get_wellness_concept_data() {
-        $query = $this->get_multiple_result("call get_wellness_concept_data()");
+    function get_wellness_concept_data($language_id) {
+        $query = $this->get_multiple_result("call get_wellness_concept_data(".$language_id.")");
         return $query;
     }
 

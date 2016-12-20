@@ -121,9 +121,15 @@
     <div class="container">
         <div class="row">
             <div id="travel-destination-carousel" class="travel-destination-arts owl-carousel">
-                <?php if(!empty($programs)){ foreach($programs as $pro){ ?>
+                <?php 
+                if(!empty($programs)){ foreach($programs as $pro){
+                    $media['url'] = $pro->url;
+                    $media['media_name'] = $pro->media_name;
+                    $media['raw_name'] = $pro->raw_name;
+                    $media['extension'] = $pro->extension;
+                    ?>
                 <div class="item">
-                    <figure> <a href="javascript:void(0)"><img src="<?php echo base_url(); ?>front/images/wellness-concepts/travel-dest1.jpg" /></a> </figure>
+                    <figure> <a href="javascript:void(0)"><img src="<?php echo generate_image_media_url($media, 'square'); ?>" /></a> </figure>
                     <h4><?php echo $pro->program_name; ?></h4>
                     <p><?php echo $pro->short_description; ?></p>
                     <a href="javascript:void(0)" class="btn btn-blue learn-more-btn">Learn More</a> </div>

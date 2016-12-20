@@ -1,4 +1,3 @@
-
 <!-- breadcrumb start -->
 <div class="container">
   <div class="row">
@@ -37,10 +36,14 @@
             <?php 
             if(isset($programs)){ 
                 foreach($programs as $program){
+                    $media['url'] = $program->url;
+                    $media['media_name'] = $program->media_name;
+                    $media['raw_name'] = $program->raw_name;
+                    $media['extension'] = $program->extension;
                 ?>
           <li class="col-xs-6 col-md-4">
             <div class="destination-point">
-              <figure> <img src="<?php echo base_url(); ?>front/images/wellness-concepts/discover-program-1.jpg" /> </figure>
+              <figure> <img src="<?php echo generate_image_media_url($media, 'square'); ?>" /> </figure>
               <h4><?php echo $program->program_name; ?></h4>
               <p><?php echo (strlen($program->short_description)>130)?substr($program->short_description,0,130)."....":$program->short_description; ?></p>
               <a href="<?php echo base_url('home/wellness_programs_day/'.encode_url($program->id)); ?>" class="btn btn-blue learn-more-btn">Learn More</a></div>

@@ -156,6 +156,15 @@
                             <button type="button" class="btn btn-primary media-button" data-input-field="#input-media1"  data-preview="#preview1" >Media</button>
                             </div>
                         </div> 
+                             
+                                 <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Short Description 
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <textarea id="short_description" name="short_description"  class="form-control col-md-7 col-xs-12"><?php echo $partner_details->short_description; ?></textarea>                                
+                            </div>
+                        </div>
+                                
                                 
                                 <div class="ln_solid"></div>
 
