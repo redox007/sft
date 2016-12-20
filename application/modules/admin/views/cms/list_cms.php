@@ -60,9 +60,8 @@
                                             <td><?php echo isset($cms->title) ? $cms->title : ""; ?></td>
                                             <td><?php echo isset($user_name) ?  $user_name : ""; ?></td>
                                             <td>
-                                                <a href="<?php echo base_url('admin/cms/edit_cms') . '/' . encode_url($cms->id); ?>" >
-                                                    <i class="fa fa-edit"></i>
-
+                                                <a href="<?php echo base_url('admin/cms/edit_cms') . '/' . encode_url($cms->id); ?>" class="btn btn-info btn-xs">
+                                                    <i class="fa fa-pencil"></i> Edit
                                                 </a>
                                             </td>
                                         </tr>

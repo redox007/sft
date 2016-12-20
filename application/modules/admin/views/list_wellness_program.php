@@ -44,9 +44,8 @@
                                             <td><?php echo isset($type->program_name) ? $type->program_name : ""; ?></td>   
                                             <td><?php echo isset($type->wellness_type) ? $type->wellness_type : ""; ?></td>   
                                             <td>
-                                                <a href="<?php echo base_url('admin/master/edit_wellness_program') . '/' . encode_url($type->id); ?>" >
-                                                    <i class="fa fa-edit"></i>
-
+                                                <a href="<?php echo base_url('admin/master/edit_wellness_program') . '/' . encode_url($type->id); ?>" class="btn btn-info btn-xs">
+                                                    <i class="fa fa-pencil"></i> Edit
                                                 </a>
                                             </td>
                                         </tr>

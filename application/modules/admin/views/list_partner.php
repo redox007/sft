@@ -47,13 +47,11 @@
                                             <td><?php echo isset($partner->wellness_type) ? $partner->wellness_type : ""; ?></td>                                                   
                                             <td><?php echo isset($partner->code) ? $partner->code : ""; ?></td>                                                   
                                             <td>
-                                                <a href="<?php echo base_url('admin/master/edit_partner') . '/' . encode_url($partner->id); ?>" >
-                                                    <i class="fa fa-edit"></i>
-
-                                                </a>|
-                                                <a href="<?php echo base_url('admin/master/view_partner') . '/' . encode_url($partner->id); ?>" >
-                                                    <i class="fa fa-eye"></i>
-
+                                                <a href="<?php echo base_url('admin/master/edit_partner') . '/' . encode_url($partner->id); ?>" class="btn btn-info btn-xs">
+                                                    <i class="fa fa-pencil"></i> Edit
+                                                </a>
+                                                <a href="<?php echo base_url('admin/master/view_partner') . '/' . encode_url($partner->id); ?>" class="btn btn-primary btn-xs">
+                                                    <i class="fa fa-folder"></i> View
                                                 </a>
                                             </td>
                                         </tr>

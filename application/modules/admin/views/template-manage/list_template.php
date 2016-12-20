@@ -39,8 +39,8 @@
                                             <td><?php echo ($key + 1) . '.' ?></td>
                                             <td><?php echo isset($type->name) ? $type->name : ""; ?></td>   
                                             <td>
-                                                <a href="<?php echo base_url('admin/etemp/template/' . encode_url($type->id)); ?>" >
-                                                    <i class="fa fa-edit"></i>
+                                                <a href="<?php echo base_url('admin/etemp/template/' . encode_url($type->id)); ?>" class="btn btn-info btn-xs">
+                                                    <i class="fa fa-pencil"></i> Edit
                                                 </a>
                                             </td>
                                         </tr>

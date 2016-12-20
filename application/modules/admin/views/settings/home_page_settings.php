@@ -1,68 +1,4 @@
-
 <script type="text/javascript" src="<?php echo base_url();?>assets/ckeditor/ckeditor.js"></script>
-<style type="text/css">
-.nav-tabs {
-    margin: 0;
-    font-size: 0;
-    border-bottom-color: #EEE;
-}
-
-.nav-tabs li {
-    display: inline-block;
-    float: none;
-}
-
-.nav-tabs li:last-child a {
-    margin-right: 0;
-}
-
-.nav-tabs li a {
-    border-radius: 5px 5px 0 0;
-    font-size: 14px;
-    margin-right: 1px;
-}
-
-.nav-tabs li a, .nav-tabs li a:hover {
-    background: #F4F4F4;
-    border-bottom: none;
-    border-left: 1px solid #EEE;
-    border-right: 1px solid #EEE;
-    border-top: 3px solid #EEE;
-    color: #CCC;
-    font-weight:bold;
-}
-
-.nav-tabs li a:hover {
-    border-bottom-color: transparent;
-    border-top: 3px solid #CCC;
-    box-shadow: none;
-}
-
-.nav-tabs li a:active, .nav-tabs li a:focus {
-    border-bottom: 0;
-}
-
-.nav-tabs li.active a,
-.nav-tabs li.active a:hover,
-.nav-tabs li.active a:focus {
-    background: #FFF;
-    border-left-color: #EEE;
-    border-right-color: #EEE;
-    border-top: 3px solid #CCC;
-    color: #73879C;
-    font-weight:bold;
-}
-
-.tab-content {
-    border-radius: 0 0 4px 4px;
-    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.04);
-    background-color: #FFF;
-    border: 1px solid #EEE;
-    border-top: 0;
-    padding: 15px;
-}
-.tab-pane{ margin: 20px 0;}
-</style>
 <div class="">
     <div class="page-title">
         <div class="title_left">
@@ -100,7 +36,7 @@
                     <br />
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="" method="post">
                         <div id="tabs">
-                            <ul class="nav nav-tabs">
+                            <ul class="nav nav-tabs bar_tabs">
                                 <li id="welcome_text" class="active"><a href="javascript:void(0);" onclick="tab_sel('welcome_text');">Welcome Text</a></li>
                                 <li id="offers"><a href="javascript:void(0);" onclick="tab_sel('offers');">Best Offers</a></li>
                                 <li id="new_tours"><a href="javascript:void(0);" onclick="tab_sel('new_tours');">Hot Destination</a></li>

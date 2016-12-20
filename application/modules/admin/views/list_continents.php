@@ -42,9 +42,8 @@
                                             <td><?php echo isset($con->continent_name) ? $con->continent_name : ""; ?></td>   
                                             <td><?php echo isset($con->continent) ? $con->continent : ""; ?></td>   
                                             <td>
-                                                <a href="<?php echo base_url('admin/master/edit_continents') . '/' . encode_url($con->id); ?>" >
-                                                    <i class="fa fa-edit"></i>
-
+                                                <a href="<?php echo base_url('admin/master/edit_continents') . '/' . encode_url($con->id); ?>" class="btn btn-info btn-xs">
+                                                    <i class="fa fa-pencil"></i> Edit
                                                 </a>
                                             </td>
                                         </tr>

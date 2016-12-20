@@ -36,7 +36,7 @@
 
                     <br />
 
-                    <ul class="nav nav-tabs">
+                    <ul class="nav nav-tabs bar_tabs">
                         <li class="active"><a data-toggle="tab" href="#General">General</a></li>
                         <li><a data-toggle="tab" href="#Add_award">Award</a></li>
                         <li><a data-toggle="tab" href="#room">Room</a></li>
