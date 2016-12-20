@@ -40,11 +40,10 @@
                                         <tr>
                                             <td><?php echo ($key + 1) . '.' ?></td>
                                             <td><?php echo isset($con->enquery_date) ? $con->enquery_date : ""; ?></td>   
-                                            <td><?php echo $con->start_name." ".$con->first_name." ".$con->last_name; ?></td>   
+                                            <td><a href="<?php echo base_url('admin/master/view_enquiry') . '/' . encode_url($con->id); ?>"><?php echo $con->start_name." ".$con->first_name." ".$con->last_name; ?></a></td>   
                                             <td>
-                                                <a href="<?php echo base_url('admin/master/view_enquiry') . '/' . encode_url($con->id); ?>" >
-                                                    <i class="fa fa-edit"></i>
-
+                                                <a href="<?php echo base_url('admin/master/view_enquiry') . '/' . encode_url($con->id); ?>" class="btn btn-primary btn-xs">
+                                                    <i class="fa fa-folder"></i> View
                                                 </a>
                                             </td>
                                         </tr>

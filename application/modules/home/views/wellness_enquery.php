@@ -107,7 +107,7 @@
           </div>
           <div class="form-group">
             <label for="nAdult">Number of Childrens</label>
-            <input type="text" class="form-control" id="nchild" name="nchild" placeholder="Number of Childrens" required>
+            <input type="number" class="form-control" id="nchild" name="nchild" placeholder="Number of Childrens" required>
           </div>
           <div class="form-group">
             <label>Additional Comments &amp; Requests</label>
