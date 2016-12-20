@@ -34,6 +34,8 @@
 <!-- Devloper Specific css -->
 <link rel="stylesheet" href="<?php echo base_url(); ?>front/css/devlop-specific-css.css" type="text/css">
 
+<link rel="stylesheet" href="<?php echo base_url(); ?>front/css/datepicker.css" type="text/css">
+
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
@@ -244,6 +246,8 @@
 <script src="<?php echo base_url(); ?>front/js/wellness-owl-slider.js"></script> 
 <!-- itinerary scroll --> 
 <script src="<?php echo base_url(); ?>front/js/itinerary.js"></script> 
+<script src="<?php echo base_url(); ?>front/js/bootstrap-datepicker.js"></script> 
+
 <script>
 $(document).ready(function () {
 	//flagStrap
@@ -284,7 +288,36 @@ $(document).ready(function () {
 	    $(this).parent().toggleClass('open');
 	});
 
+
+
 });
+
+
+var nowTemp = new Date();
+	var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+	 
+	var checkin = $('#adate').datepicker({
+            format: 'yyyy-mm-dd',
+		onRender: function(date) {
+			return date.valueOf() < now.valueOf() ? 'disabled' : '';
+		}
+	}).on('changeDate', function(ev) {
+		if (ev.date.valueOf() > checkout.date.valueOf()) {
+			var newDate = new Date(ev.date)
+			newDate.setDate(newDate.getDate() + 1);
+			checkout.setValue(newDate);
+		}
+		checkin.hide();
+		$('#dpd2')[0].focus();
+	}).data('datepicker');
+	var checkout = $('#ddate').datepicker({
+             format: 'yyyy-mm-dd',
+		onRender: function(date) {
+			return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
+		}
+	}).on('changeDate', function(ev) {
+		checkout.hide();
+	}).data('datepicker');
 </script>
 </body>
 </html>

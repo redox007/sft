@@ -128,6 +128,9 @@ defined('ROOM_IMAGE') ? null : define('ROOM_IMAGE', 'sft_room_image');
 
 
 defined('ENQUERY') ? null : define('ENQUERY', 'sft_enquery');
+defined('MEDIA') ? null : define('MEDIA', 'sft_media');
+
+
 
 defined('UPLOAD_PATH') ? null : define('UPLOAD_PATH', 'uploads/');
 
