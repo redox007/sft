@@ -2045,7 +2045,7 @@ footer {
       color: #ffffff; }
       .overview-details .tab-pane .btn.btn-enquiry {
         background: #008bd1;
-        margin: 0px; }
+        margin-top: 0px; }
       .overview-details .tab-pane .btn.btn-widhlist {
         background: #c92e57; }
       .overview-details .tab-pane .btn.btn-pdf {
@@ -2193,6 +2193,9 @@ footer {
         .overview-details .online .day-description .content h3:after {
           width: 100%; }
 
+.form-group {
+  position: relative; }
+
 .wellness-enquery {
   text-align: left; }
   .wellness-enquery label {
@@ -2246,6 +2249,14 @@ footer {
     font-size: 17px;
     font-weight: 700;
     color: #000000; }
+    .wellness-enquery .input-group-addon.for-calender {
+      position: absolute;
+      z-index: 1;
+      bottom: 10px;
+      right: 0px;
+      border: none;
+      width: 17px;
+      padding: 0; }
   .wellness-enquery .f-field select {
     width: 10%;
     float: left;
