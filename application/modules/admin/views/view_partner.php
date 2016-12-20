@@ -186,9 +186,8 @@
                                                         <td><?php echo isset($item->room_type) ? $item->room_type : ""; ?></td>   
                                                         <td><?php echo isset($item->room_name) ? $item->room_name : ""; ?></td>   
                                                         <td>
-                                                            <a href="<?php echo base_url('admin/master/edit_room') . '/' .encode_url($partner_id).'/'. encode_url($item->id); ?>" >
-                                                                <i class="fa fa-edit"></i>
-
+                                                            <a href="<?php echo base_url('admin/master/edit_room') . '/' .encode_url($partner_id).'/'. encode_url($item->id); ?>" class="btn btn-info btn-xs">
+                                                                <i class="fa fa-pencil"></i> Edit
                                                             </a>
                                                         </td>
                                                     </tr>
@@ -226,9 +225,8 @@
                                             <td><?php echo isset($type->partner_name) ? $type->partner_name : ""; ?></td>   
                                             <td><?php echo isset($type->price) ? $type->price : ""; ?></td>   
                                             <td>
-                                                <a href="<?php echo base_url('admin/master/edit_wellness_plus') . '/' .encode_url($partner_id).'/'.encode_url($type->id); ?>" >
-                                                    <i class="fa fa-edit"></i>
-
+                                                <a href="<?php echo base_url('admin/master/edit_wellness_plus') . '/' .encode_url($partner_id).'/'.encode_url($type->id); ?>" class="btn btn-info btn-xs">
+                                                    <i class="fa fa-pencil"></i> Edit
                                                 </a>
                                             </td>
                                         </tr>
