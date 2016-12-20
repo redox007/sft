@@ -425,5 +425,20 @@ class Home extends MY_Controller {
        $partials = array('content' => 'wellness_enquery','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
        $this->template->load('home_template', $partials,$data);
    }
-
+  function ajax_get_image(){
+        $room = $this->input->post('room');
+       $images = $this->Custom_model->fetch_data(ROOM_IMAGE,
+               array(
+                   ROOM_IMAGE.'.*',
+                   MEDIA.'.url',
+                   MEDIA.'.media_name',
+                   MEDIA.'.extension',
+                   MEDIA.'.raw_name'
+                   ),
+               array('room_id'=>$room),
+               array(MEDIA=>MEDIA.'.id='.ROOM_IMAGE.'.media_id'));
+       $data['images'] = $images;
+      echo  $this->load->view('ajax_get_image',$data,TRUE);
+       
+   }
 }

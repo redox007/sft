@@ -288,7 +288,18 @@ $(document).ready(function () {
 	    $(this).parent().toggleClass('open');
 	});
 
-
+  $('#type_of_room').change(function(){
+        var room = $(this).val();
+        $.ajax({
+            url:"<?php echo base_url(); ?>home/ajax_get_image",
+            type: 'POST',
+            data: {room:room},
+            success: function (data, textStatus, jqXHR) {
+                
+               $('.room-type').html(data);         
+            }
+        });
+    });
 
 });
 

@@ -32,7 +32,7 @@
             ?>  
           <div class="col-xs-12 col-sm-4"> <a href="<?php echo base_url('home/wellness_plus/'.  encode_url($concept->id)); ?>">
           <h2> <?php echo $concept->wellness_type; ?> </h2>
-          <img src="<?php echo generate_image_media_url($media, 'type'); ?>" /></a> 
+          <img src="<?php echo generate_image_media_url($media, 'small'); ?>" /></a> 
         </div>
         <?php }} ?>
         

@@ -117,13 +117,7 @@
         </div>
         <div class="clearfix"></div>
         <ul class="room-type clearfix">
-          	<li class="col-xs-12 col-md-4"><img src="<?php echo base_url(); ?>front/images/wellness-concepts/room-type/01.jpg" alt=""></li>
-            <li class="col-xs-12 col-md-4"><img src="<?php echo base_url(); ?>front/images/wellness-concepts/room-type/02.jpg" alt=""></li>
-            <li class="col-xs-12 col-md-4"><img src="<?php echo base_url(); ?>front/images/wellness-concepts/room-type/03.jpg" alt=""></li>
-            <li class="col-xs-12 col-md-4"><img src="<?php echo base_url(); ?>front/images/wellness-concepts/room-type/04.jpg" alt=""></li>
-            <li class="col-xs-12 col-md-4"><img src="<?php echo base_url(); ?>front/images/wellness-concepts/room-type/05.jpg" alt=""></li>
-            <li class="col-xs-12 col-md-4"><img src="<?php echo base_url(); ?>front/images/wellness-concepts/room-type/06.jpg" alt=""></li>
-          </ul>
+          	  </ul>
         <div class="clearfix"></div>
         <div class="form-group text-center enquery-submit-area">
           <p>If you would like some help in choosing a Wellness Program, one of our consultants would be happy to advise you. You can contact them via SKYPE, live chat, email or telephone.</p>
