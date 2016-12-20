@@ -122,12 +122,41 @@
                                         <div class="pv" id="preview">
                                             <?php load_medias(isset($partner_details->partner_logo) ? $partner_details->partner_logo : "", $input_media_id = '#input-media', true); ?>
                                         </div>
-                                        <input id="input-media" type="hidden" value="1" name="media_ids" />
+                                        <input id="input-media" type="hidden" value="<?php echo $partner_details->partner_logo; ?>" name="media_ids" />
                                         <!-- Large modal -->
                                         <button type="button" class="btn btn-primary media-button" data-input-field="#input-media"  data-preview="#preview" >Media</button>
                                     </div>
                                 </div>   
-
+                                
+                                
+                                <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Banner Image
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="pv" id="preview2">
+                                <?php load_medias([$partner_details->banner], $input_media_id = '#input-media2', true); ?>
+                            </div>
+                                <input id="input-media2" type="hidden" value="<?php echo $partner_details->banner; ?>" name="banner" />
+                            <!-- Large modal -->
+                            <button type="button" class="btn btn-primary media-button" data-input-field="#input-media2" data-is-multi="true"  data-preview="#preview2" >Media</button>
+                            </div>
+                        </div>     
+    
+    
+    
+                         <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Media
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="pv" id="preview1">
+                                <?php load_medias($partner_details->media_id, $input_media_id = '#input-media1', true); ?>
+                            </div>
+                                <input id="input-media1" type="hidden" value="<?php echo $partner_details->media_id; ?>" name="media" />
+                            <!-- Large modal -->
+                            <button type="button" class="btn btn-primary media-button" data-input-field="#input-media1"  data-preview="#preview1" >Media</button>
+                            </div>
+                        </div> 
+                                
                                 <div class="ln_solid"></div>
 
                                 <div class="form-group">

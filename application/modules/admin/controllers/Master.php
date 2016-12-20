@@ -383,7 +383,9 @@ class Master extends MY_Controller {
                 $ins_data['partner_name'] = $this->input->post('partner_name');
                 $ins_data['wellness_type_id'] = $this->input->post('wellness_type_id');
                 $ins_data['country_id'] = $this->input->post('country_id');
-                $ins_data['continent_id'] = $this->input->post('continent_id');                
+                $ins_data['continent_id'] = $this->input->post('continent_id'); 
+                $ins_data['banner'] = $this->input->post('banner'); 
+                $ins_data['media_id'] = $this->input->post('media'); 
                 $ins_data['status'] = 1;
                 $res = $this->Custom_model->insert_data($ins_data, PARTNER);
                 if ($res != false) {
@@ -512,6 +514,8 @@ class Master extends MY_Controller {
                 $ins_data['wellness_type_id'] = $this->input->post('wellness_type_id');
                 $ins_data['country_id'] = $this->input->post('country_id');
                 $ins_data['continent_id'] = $this->input->post('continent_id');
+                $ins_data['banner'] = $this->input->post('banner'); 
+                $ins_data['media_id'] = $this->input->post('media'); 
                 $ins_data['status'] = 1;
                 $res = $this->Custom_model->edit_data($ins_data, array('id' => $partner_id), PARTNER);
 
