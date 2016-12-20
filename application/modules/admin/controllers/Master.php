@@ -1448,6 +1448,77 @@ class Master extends MY_Controller {
 
     //**************** end room **************//
     
+     //********* enquery ***********//
     
+
+    function list_enquery() {
+        $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
+        $data['selected_lang'] = $selected_lang;
+        /* Pagination Code Start */
+        $this->load->library('pagination');
+        $config['base_url'] = base_url() . 'admin/master/list_enquery/';
+        /* Row Count Code */
+        $config['total_rows'] = $this->Custom_model->row_count(ENQUERY, array(), array());
+
+        $config['use_page_numbers'] = TRUE;
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '<li>';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '<li>';
+        $config['per_page'] = 20;
+        $config['prev_link'] = '&lt;';
+        $config['prev_tag_open'] = '<li>';
+        $config['prev_tag_close'] = '</li>';
+        $config['next_link'] = '&gt;';
+        $config['next_tag_open'] = '<li>';
+        $config['next_tag_close'] = '</li>';
+        $config['cur_tag_open'] = '<li class="disabled"><a href="javascript:void(0)">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+        //print_r($config);die;
+        $this->pagination->initialize($config);
+        $data['page_link'] = $this->pagination->create_links();
+        $page_number = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
+        $page_number = ($page_number != 0) ? $page_number - 1 : $page_number;
+        /* Pagination Code End */
+
+
+        $data['enquiries'] = $this->Custom_model->fetch_data(ENQUERY, array(
+            ENQUERY . '.*'           
+                ), array(), array(), $search = '', $order = ENQUERY . '.id', $by = 'desc', $page_number, $config['per_page'], $group_by = '', $having = '', $start = $page_number, $end = ''
+        );
+
+
+
+        $partials = array('content' => 'list_enquery', 'left_menu' => 'left_menu', 'header' => 'header');
+        $this->template->load('template', $partials, $data);
+    }
+    
+    function view_enquiry($id){
+        $id = decode_url($id);
+        $chk_enq = $this->Custom_model->row_present_check(ENQUERY, array('id'=>$id));
+        if($chk_enq==FALSE){
+            redirect(base_url() . 'admin/master/list_enquery');
+        }
+        $this->Custom_model->edit_data(array('is_read'=>1), array('id'=>$id), ENQUERY);
+        
+        $enquiry_data = $this->Custom_model->fetch_data(ENQUERY,
+                array(
+                    ENQUERY.'.*',
+                    WELLNESS_TYPE.'.wellness_type as wellness',
+                    ROOM.'.room_type as type'
+                    ),
+                array(ENQUERY.'.id'=>$id),
+                array(
+                    WELLNESS_TYPE=>WELLNESS_TYPE.'.id='.ENQUERY.'.wellness_type',
+                    ROOM=>ROOM.'.id='.ENQUERY.'.type_of_room'));
+        $data['enquiry_data'] =$enquiry_data[0];
+        
+        $partials = array('content' => 'view_enquiry', 'left_menu' => 'left_menu', 'header' => 'header');
+        $this->template->load('template', $partials, $data);
+    }
+  
+    //********* end enquery ***********//
     
 }

@@ -330,5 +330,100 @@ class Home extends MY_Controller {
        $partials = array('content' => 'wellness_partners','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
        $this->template->load('home_template', $partials,$data);
   }
+  
+  
+  function wellness_enquery(){
+      $this->load->library('recaptcha');
+       $data['page_footer'] = $this->footer();
+       
+       $room_type = $this->Custom_model->fetch_data(ROOM,array('*'),array(),array());
+       $data['room_type'] = $room_type;
+       
+       if($this->input->post('insert_enquery')){
+           $this->recaptcha->recaptcha_check_answer();
+          $start_name =  $this->input->post('start_name');
+          $fname =  $this->input->post('fname');
+          $lname =  $this->input->post('lname');
+          $pnumber =  $this->input->post('pnumber');
+          $countryname =  $this->input->post('countryname');
+          $email =  $this->input->post('email');
+          $adate =  $this->input->post('adate');
+          $ddate =  $this->input->post('ddate');
+          $nAdult =  $this->input->post('nAdult');
+          $nchild =  $this->input->post('nchild');          
+          $wellness_type =  $this->input->post('wellness_type');
+          $nroom =  $this->input->post('nroom');
+          $type_of_room =  $this->input->post('type_of_room');
+          $comment =  $this->input->post('comment');
+          
+          if($fname==""){
+              $this->session->set_flashdata('error_message', 'Please enter First name');
+              redirect(base_url() . 'home/wellness_enquery');
+          }else if($lname ==""){
+              $this->session->set_flashdata('error_message', 'Please enter Last name');
+              redirect(base_url() . 'home/wellness_enquery');
+          }else if($pnumber ==""){
+              $this->session->set_flashdata('error_message', 'Please enter Phone Number');
+              redirect(base_url() . 'home/wellness_enquery');
+          }else if($countryname ==""){
+              $this->session->set_flashdata('error_message', 'Please enter Country name');
+              redirect(base_url() . 'home/wellness_enquery');
+          }else if($adate ==""){
+              $this->session->set_flashdata('error_message', 'Please select Arrival Date');
+              redirect(base_url() . 'home/wellness_enquery');
+          }else if($ddate ==""){
+              $this->session->set_flashdata('error_message', 'Please select Departure Date');
+              redirect(base_url() . 'home/wellness_enquery');
+          }else if($nAdult ==""){
+              $this->session->set_flashdata('error_message', 'Please enter number of adult');
+              redirect(base_url() . 'home/wellness_enquery');
+          }else if($nchild ==""){
+              $this->session->set_flashdata('error_message', 'Please enter number of Children');
+              redirect(base_url() . 'home/wellness_enquery');
+          }else if($wellness_type ==""){
+              $this->session->set_flashdata('error_message', 'Please select wellness type');
+              redirect(base_url() . 'home/wellness_enquery');
+          }else if($nroom ==""){
+              $this->session->set_flashdata('error_message', 'Please enter number of room');
+              redirect(base_url() . 'home/wellness_enquery');
+          }else if($type_of_room ==""){
+              $this->session->set_flashdata('error_message', 'Please select type of room');
+              redirect(base_url() . 'home/wellness_enquery');
+          }else if(!$this->recaptcha->getIsValid()){
+              $this->session->set_flashdata('error_message', 'incorrect captcha');
+              redirect(base_url() . 'home/wellness_enquery');
+          }else{
+              $ins_data['start_name']=$start_name;
+              $ins_data['first_name']=$fname;
+              $ins_data['last_name']=$lname;
+              $ins_data['phone_number']=$pnumber;
+              $ins_data['country']=$countryname;
+              $ins_data['email']=$email;
+              $ins_data['arrival_date']=$adate;
+              $ins_data['departure_date']=$ddate;
+              $ins_data['no_of_adult']=$nAdult;
+              $ins_data['number_of_child']=$nchild;
+              $ins_data['wellness_type']=$wellness_type;
+              $ins_data['no_of_room']=$nroom;
+              $ins_data['type_of_room']=$type_of_room;
+              $ins_data['comment']=$comment;
+              $ins_data['enquery_date']=  date('Y-m-d');
+              
+              
+              $res= $this->Custom_model->insert_data($ins_data, ENQUERY);
+              if($res!=FALSE){
+                  $this->session->set_flashdata('success_message', 'Your enquery has been sent to admin.');
+                  redirect(base_url() . 'home/wellness_enquery');
+              }else{
+                  $this->session->set_flashdata('error_message', 'Please try again');
+                  redirect(base_url() . 'home/wellness_enquery');
+              }
+          }
+          
+       }
+        $data['recaptcha_html'] = $this->recaptcha->recaptcha_get_html();
+       $partials = array('content' => 'wellness_enquery','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
+       $this->template->load('home_template', $partials,$data);
+   }
 
 }
