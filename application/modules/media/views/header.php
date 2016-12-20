@@ -12,10 +12,9 @@
             <div class="nav toggle">
                 <a id="menu_toggle"><i class="fa fa-bars"></i></a>
             </div>
-
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <select id="lang">
+			<ul class="nav navbar-nav" style="margin-top:11px">
+				<li>
+                    <select id="lang" class="form-control">
                         <?php
                         if (!empty($languages)) {
                             foreach ($languages as $lang) {
@@ -25,6 +24,8 @@
                         } ?>
                     </select>
                 </li>
+			</ul>
+            <ul class="nav navbar-nav navbar-right">
                 <li class="">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                         <img src="<?php echo base_url(); ?>front/images/vivian.jpg" alt="Admin" />Vivian Nguyen

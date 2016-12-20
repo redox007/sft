@@ -61,9 +61,9 @@
                         <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/best_of_region">List Best in Region</a></li>                        
                     </ul>
                 </li>  
-                <li><a><i class="fa fa-globe"></i> Best in Program <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-thumbs-up"></i> Best of Programs <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/best_of_program">List Best in Program</a></li>                        
+                        <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/best_of_program">List Best of Programs</a></li>                        
                     </ul>
                 </li>  
                 <li><a><i class="fa fa-comments"></i>Make an Enquiry <span class="fa fa-chevron-down"></span></a>
