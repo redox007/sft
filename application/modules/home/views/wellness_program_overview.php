@@ -38,7 +38,7 @@
                         <!--quick-package-view start-->
                         <section class="quick-package-view">
 							<div class="right-part">
-								<a class="btn btn-enquiry"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> Make An Enquiry</a> <a class="btn btn-widhlist"><i class="fa fa-heart" aria-hidden="true"></i> Save to Wishlist</a> <a class="btn btn-pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download <strong>PDF</strong></a>
+								<a href="<?php echo base_url('home/wellness_enquery/'.encode_url($wellness_details->partner_id)); ?>" class="btn btn-enquiry"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> Make An Enquiry</a> <a class="btn btn-widhlist"><i class="fa fa-heart" aria-hidden="true"></i> Save to Wishlist</a> <a href="<?php echo base_url('home/download_file/'.$wellness_details->pdf); ?>" class="btn btn-pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download <strong>PDF</strong></a>
 							</div>
 							  <p class="code">Trip code: <span><?php echo $wellness_details->code; ?></span></p>
 							  <h4><?php echo $wellness_details->no_of_day; ?> <strong>Days</strong> <!--<span>Nairobi to Nairobi</span>--></h4>

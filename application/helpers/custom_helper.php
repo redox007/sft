@@ -128,3 +128,14 @@ function get_admin_username($id)
         );
         return $continents;
     }
+
+	function get_countries(){
+        $CI = get_instance();
+        $countries = $CI->Custom_model->fetch_data(COUNTRIES,
+            array('*'),
+            array(),
+            array(),
+            array(), COUNTRIES.'.nicename', 'ASC'
+        );
+        return $countries;
+    }

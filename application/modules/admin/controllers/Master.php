@@ -742,7 +742,7 @@ class Master extends MY_Controller {
                     $file_info = pathinfo($img_url);
                     $filename = $file_info['filename'] . "_" . time() . "." . $file_info['extension'];
                     $ext = $file_info['extension'];
-                    $uploads_dir = $_SERVER['DOCUMENT_ROOT'] .'/uploads/pdf/'.$filename;
+                    $uploads_dir = 'uploads/pdf/'.$filename;
                     if (move_uploaded_file($_FILES["pdf"]["tmp_name"], $uploads_dir)) {
                          $ins_data['pdf'] = $filename;
                     } 
@@ -865,7 +865,7 @@ class Master extends MY_Controller {
         $data['partner_id']=$partner_id;
         $id= decode_url($wellness_id);
         
-        $data['rooms'] = $this->Custom_model->fetch_data(ROOM, array('id', 'room_type'), array('partner_id'=>decode_url($partner_id)), array());
+        $data['rooms'] = $this->Custom_model->fetch_data(ROOM, array('id', 'room_type'), array('partner_id'=>$partner_id), array());
         
         $chk_welless = $this->Custom_model->row_present_check(WELLNESS, array('id'=>$id));
         if($chk_welless==FALSE){
@@ -919,7 +919,7 @@ class Master extends MY_Controller {
             }else if ($this->input->post('price') == "") {
                 $this->session->set_flashdata('error_message', 'Please enter price');
                 redirect(base_url() . 'admin/master/add_wellnes_plus');
-            }else {
+            }else { 
                 $ins_data['wellness_name'] = $this->input->post('wellness_name');
                 $ins_data['type'] = $this->input->post('type');
                 $ins_data['partner_id'] = $this->input->post('partner_id');
@@ -935,7 +935,7 @@ class Master extends MY_Controller {
                     $file_info = pathinfo($img_url);
                     $filename = $file_info['filename'] . "_" . time() . "." . $file_info['extension'];
                     $ext = $file_info['extension'];
-                    $uploads_dir = $_SERVER['DOCUMENT_ROOT'] .'/uploads/pdf/'.$filename;
+                    $uploads_dir = 'uploads/pdf/'.$filename;
                     if (move_uploaded_file($_FILES["pdf"]["tmp_name"], $uploads_dir)) {
                         
                          //if pdf exit remove from folder//

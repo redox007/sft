@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>SFT Admin | Dashboard </title>
+        <title><?php echo SITE_TITLE;?> Admin | Dashboard </title>
 
 		<link rel="shortcut icon" href="<?php echo base_url(); ?>front/images/sft_wellness_fav_icon.png">
 
@@ -33,7 +33,7 @@
                 <div class="col-md-3 left_col">
                     <div class="left_col scroll-view">
                         <div class="navbar nav_title" style="border: 0;">
-                            <a href="<?php echo base_url(); ?>admin" class="site_title"><img src="<?php echo base_url(); ?>front/images/sft_wellness_logo.png" height="40" alt="SFTWellness" />&nbsp;&nbsp;<span>Admin Panel </span></a>
+                            <a href="<?php echo base_url(); ?>admin" class="site_title"><img src="<?php echo base_url(); ?>front/images/sft_wellness_logo.png" height="40" alt="<?php echo SITE_TITLE;?>" />&nbsp;&nbsp;<span>Admin Panel </span></a>
                         </div>
 
                         <div class="clearfix"></div>
@@ -69,7 +69,7 @@
                     <!-- footer content -->
                     <footer>
                         <div class="pull-right">
-                            SFT wellness - Admin Panel 
+                            <?php echo SITE_TITLE;?> - Admin Panel 
                         </div>
                         <div class="clearfix"></div>
                     </footer>

@@ -28,7 +28,7 @@
                     <li><a data-toggle="tab" href="#media">Media</a></li>
 
                 </ul>
-                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="" method="post">
+                <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="" method="post" enctype="multipart/form-data">
                     <div class="tab-content">
                         <div id="add_wellness" class="tab-pane fade in active">
 

@@ -65,9 +65,12 @@
            <div class="form-group">
             <label>Wellness Type</label>
             <select class="form-control" id="wellness_type" name="wellness_type">
-                <option value="1">Wellness Plus</option>
-                <option value="2">Medi Plus</option>
-                <option value="3">Beauty Plus</option>
+			<?php 
+			  //print_r($list_wellness_type); die;
+              if(!empty($list_wellness_type)){ foreach($list_wellness_type as $wellness_type){
+			 ?>
+                <option value="<?php echo $wellness_type->id;?>"><?php echo $wellness_type->type_name;?></option>
+			<?php } } ?>
             </select>
           </div>
           <div class="form-group">
@@ -96,7 +99,15 @@
           </div>
           <div class="form-group">
             <label for="countryname">Country</label>
-            <input type="text" class="form-control" id="countryname" name="countryname" placeholder="Country">
+			<select class="form-control" id="countryname" name="countryname">
+              <option value="">Country</option>
+			  <?php 
+			    //print_r($list_countries); die;
+                if(!empty($list_countries)){ foreach($list_countries as $countries){
+			   ?>
+				<option value="<?php echo $countries->nicename;?>"><?php echo $countries->nicename;?></option>
+			  <?php } } ?>
+			</select>
           </div>
           <div class="form-group">
             <label for="re-email">Re-Type Email Address</label>

@@ -87,6 +87,8 @@ defined('EXIT__AUTO_MAX') OR define('EXIT__AUTO_MAX', 125); // highest automatic
 
 define('UPLOAD_PATH', 'uploads');
 
+define('SITE_TITLE', 'SFT - Wellness');
+
 //******** database table *********//
 defined('ADMIN') ? null : define('ADMIN', 'admin');
 defined('PARTNER') ? null : define('PARTNER', 'sft_partner');
@@ -139,3 +141,6 @@ defined('HOME_PAGE_SETTINGS_LANG') ? null : define('HOME_PAGE_SETTINGS_LANG', 's
 
 defined('BASIC_SETTINGS') ? null : define('BASIC_SETTINGS', 'sft_basic_settings');
 defined('BASIC_SETTINGS_LANG') ? null : define('BASIC_SETTINGS_LANG', 'sft_basic_settings_lang');
+
+defined('COUNTRIES') ? null : define('COUNTRIES', 'countries');
+

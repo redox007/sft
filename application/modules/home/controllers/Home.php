@@ -270,7 +270,7 @@ class Home extends MY_Controller {
 
    function wellness_program_overview($wellness_id=NULL){
        $language_id =1;
-       $wellness_id = decode_url($wellness_id);
+       //$wellness_id = decode_url($wellness_id);
        $wellness_details = $this->Custom_model->fetch_data(WELLNESS,
                array('*'),
                array(WELLNESS.'.id'=>$wellness_id),
@@ -356,11 +356,19 @@ class Home extends MY_Controller {
   }
   
   
-  function wellness_enquery(){
-      $this->load->library('recaptcha');
+  function wellness_enquery($partner_id=null){
+	   $partner_id = decode_url($partner_id);
+       $this->load->library('recaptcha');
+	   $this->load->helper('custom_helper');
+	   $data['list_wellness_type'] = get_wellness_type();
+	   $data['list_countries'] = get_countries();
        $data['page_footer'] = $this->footer();
        
-       $room_type = $this->Custom_model->fetch_data(ROOM,array('*'),array(),array());
+       if(!empty($partner_id))
+			$room_type = $this->Custom_model->fetch_data(ROOM,array('*'),array('partner_id'=>$partner_id),array());
+	   else
+		   $room_type = array();
+
        $data['room_type'] = $room_type;
        
        if($this->input->post('insert_enquery')){
@@ -436,7 +444,7 @@ class Home extends MY_Controller {
               
               $res= $this->Custom_model->insert_data($ins_data, ENQUERY);
               if($res!=FALSE){
-                  $this->session->set_flashdata('success_message', 'Your enquery has been sent to admin.');
+                  $this->session->set_flashdata('success_message', 'Your enquiry has been sent.');
                   redirect(base_url() . 'home/wellness_enquery');
               }else{
                   $this->session->set_flashdata('error_message', 'Please try again');
@@ -449,6 +457,7 @@ class Home extends MY_Controller {
        $partials = array('content' => 'wellness_enquery','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
        $this->template->load('home_template', $partials,$data);
    }
+
   function ajax_get_image(){
         $room = $this->input->post('room');
        $images = $this->Custom_model->fetch_data(ROOM_IMAGE,
@@ -464,5 +473,23 @@ class Home extends MY_Controller {
        $data['images'] = $images;
       echo  $this->load->view('ajax_get_image',$data,TRUE);
        
+   }
+
+   function download_file($file) {
+	    header("Content-Type: application/octet-stream");
+		//$file = $file .".pdf";
+		header("Content-Disposition: attachment; filename=" . urlencode($file));   
+		header("Content-Type: application/octet-stream");
+		header("Content-Type: application/download");
+		header("Content-Description: File Transfer");            
+		header("Content-Length: " . filesize('uploads/pdf/'.$file));
+		flush(); // this doesn't really matter.
+		$fp = fopen('uploads/pdf/'.$file, "r");
+		while (!feof($fp))
+		{
+			echo fread($fp, 65536);
+			flush(); // this is essential for large downloads
+		} 
+		fclose($fp);  
    }
 }
