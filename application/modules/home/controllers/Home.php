@@ -270,7 +270,7 @@ class Home extends MY_Controller {
 
    function wellness_program_overview($wellness_id=NULL){
        $language_id =1;
-       //$wellness_id = decode_url($wellness_id);
+       $wellness_id = decode_url($wellness_id);
        $wellness_details = $this->Custom_model->fetch_data(WELLNESS,
                array('*'),
                array(WELLNESS.'.id'=>$wellness_id),
