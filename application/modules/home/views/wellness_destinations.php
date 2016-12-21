@@ -24,13 +24,18 @@
       <div class="travel-destination-arts clearfix">
         <ul>
             <?php if(isset($continents)){ 
-              foreach($continents as $continent){ ?>
+              foreach($continents as $continent){
+				  $media1['url'] = $continent->url;
+				  $media1['media_name'] = $continent->media_name;
+                  $media1['raw_name'] = $continent->raw_name;
+                  $media1['extension'] = $continent->extension;
+			 ?>
           <li class="col-xs-6 col-md-4">
             <div class="destination-point">
-              <figure> <img src="<?php echo base_url(); ?>front/images/wellness-concepts/travel-destination-01.jpg" /> </figure>
-              <h4><?php echo $continent->continent_name ?></h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sem risus, eleifend sed pharetra id, maximus malesuada dui.</p>
-              <a href="<?php echo base_url('home/wellness_partners/'.encode_url($continent->id)); ?>" class="btn btn-blue learn-more-btn">Learn More</a></div>
+              <figure> <img src="<?php echo generate_image_media_url($media1, 'square'); ?>" /> </figure>
+              <h4><?php echo $continent->continent ?></h4>
+              <p><?php echo (strlen($continent->short_description)>130) ? substr($continent->short_description,0,130)."&hellip;" : $continent->short_description; ?></p>
+              <a href="<?php echo base_url('home/wellness_partners/'.encode_url($continent->continent_id)); ?>" class="btn btn-blue learn-more-btn">Learn More</a></div>
           </li>
         <?php }} ?>
           

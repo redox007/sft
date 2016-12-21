@@ -54,15 +54,14 @@
           <?php if(isset($page_data[1])){ 
               foreach($page_data[1] as $travel){ 
                    $media1['url'] = $travel->url;
-                $media1['media_name'] = $travel->media_name;
-                $media1['raw_name'] = $travel->raw_name;
-                $media1['extension'] = $travel->extension;
-                  
-                  ?>
+                   $media1['media_name'] = $travel->media_name;
+                   $media1['raw_name'] = $travel->raw_name;
+                   $media1['extension'] = $travel->extension;                  
+           ?>
         <div class="item">
           <figure> <a href="javascript:void(0)"><img src="<?php echo generate_image_media_url($media1, 'square'); ?>" /></a> </figure>
           <h4><?php echo $travel->continent_name ?></h4>
-          <p><?php echo $travel->short_description ?></p>
+          <p><?php echo (strlen($travel->short_description)>130) ? substr($travel->short_description,0,130)."&hellip;" : $travel->short_description; ?></p>
           <a href="javascript:void(0)" class="btn btn-blue learn-more-btn">Learn More</a> </div>
           <?php }} ?>
        

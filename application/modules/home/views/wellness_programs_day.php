@@ -47,7 +47,7 @@
             <div class="destination-point">
               <figure> <img src="<?php echo generate_image_media_url($media, 'square'); ?>" /> </figure>
               <h4 class=""><?php echo $program->wellness_name_lang; ?> <span><?php echo $program->no_of_day; ?> days</span></h4>
-              <p><?php echo (strlen($program->short_description)>130)?substr($program->short_description,0,130)."....":$program->short_description; ?></p>
+              <p><?php echo (strlen($program->short_description)>130) ? substr($program->short_description,0,130)."&hellip;" : $program->short_description; ?></p>
               <a href="<?php echo base_url('home/wellness_program_overview/'.  encode_url($program->id)); ?>" class="btn btn-blue learn-more-btn">Learn More</a></div>
           </li>
             <?php }}  ?>

@@ -42,9 +42,8 @@
                                             <td><?php echo isset($item->award) ? $item->award : ""; ?></td>   
                                             <td><?php echo isset($item->total_partner) ? $item->total_partner : ""; ?></td>   
                                             <td>
-                                                <a href="<?php echo base_url('admin/master/edit_best_of_program') . '/' . encode_url($item->id); ?>" >
-                                                    <i class="fa fa-edit"></i>
-
+                                                <a href="<?php echo base_url('admin/master/edit_best_of_program') . '/' . encode_url($item->id); ?>" class="btn btn-info btn-xs">
+                                                    <i class="fa fa-pencil"></i> Edit
                                                 </a>
                                             </td>
                                         </tr>

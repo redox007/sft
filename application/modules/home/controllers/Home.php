@@ -114,7 +114,7 @@ class Home extends MY_Controller {
 
        $partials = array(
            'content' => 'wellness_concepts',
-           'banner'=>'home_banner',
+           'banner'=>'wellness_banner',
            'why_travel_with_us'=>'why_travel_with_us',
            'menu'=>'menu');
 
@@ -129,7 +129,7 @@ class Home extends MY_Controller {
            redirect('home/wellness_concepts');
        }
        $data['page_footer'] = $this->footer();
-       $partials = array('content' => 'wellness_plus','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
+       $partials = array('content' => 'wellness_plus','banner'=>'wellness_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
        $this->template->load('home_template', $partials,$data);
   }
 
@@ -162,11 +162,12 @@ class Home extends MY_Controller {
 	//echo '<pre>'; print_r($data);
 
        $data['page_footer'] = $this->footer();
-       $partials = array('content' => 'best_of_best','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
+       $partials = array('content' => 'best_of_best','banner'=>'wellness_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
        $this->template->load('home_template', $partials,$data);
   }
 
   function best_in_region($wellnes_type=NULL,$best=NULL){
+	   $language_id =1;
        $wellnes_type = decode_url($wellnes_type);
        $best = decode_url($best);
        $data['wellnes_type']=$wellnes_type;
@@ -174,26 +175,46 @@ class Home extends MY_Controller {
                array(
                    AWARD.'.*',
                    PARTNER.'.id as partner_id',
-                   PARTNER.'.partner_name'
+                   PARTNER.'.partner_name',
+                   PARTNER.'.short_description',
+                   MEDIA.'.url',
+                   MEDIA.'.media_name',
+                   MEDIA.'.extension',
+                   MEDIA.'.raw_name',
+                   COUNTRY_LANG.'.country_name'
                    ),
-               array('type'=>$best),
+               array(AWARD.'.type'=>$best),
                array(
                    AWARD_PARTNER=>AWARD_PARTNER.'.award_id='.AWARD.'.id',
-                   PARTNER=>PARTNER.'.id='.AWARD_PARTNER.'.partner_id'));
+                   PARTNER=>PARTNER.'.id='.AWARD_PARTNER.'.partner_id',
+				   COUNTRY=>COUNTRY.'.id='.PARTNER.'.country_id',
+                   COUNTRY_LANG=>COUNTRY_LANG.'.country_id='.COUNTRY.'.id AND '.COUNTRY_LANG.'.language_id='.$language_id,
+                   MEDIA=>MEDIA.'.id='.PARTNER.'.media_id'));
 
         $data['best_in_region'] =$best_in_region;
 	//echo '<pre>'; print_r($data);
 
        $data['page_footer'] = $this->footer();
-       $partials = array('content' => 'best_in_region','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
+       $partials = array('content' => 'best_in_region','banner'=>'wellness_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
        $this->template->load('home_template', $partials,$data);
   }
 
   function wellness_destinations(){
-       $continents =$this->Custom_model->fetch_data(CONTINENT,array('*'),array(),array());
+       $continents =$this->Custom_model->fetch_data(CONTINENT_LANG,
+		   array(
+					CONTINENT_LANG.'.continent_id',
+					CONTINENT_LANG.'.continent',
+					CONTINENT_LANG.'.short_description',
+					MEDIA.'.url',
+                    MEDIA.'.media_name',
+                    MEDIA.'.extension',
+                    MEDIA.'.raw_name'),
+		   array(),
+		   array(MEDIA=>MEDIA.'.id='.CONTINENT_LANG.'.media_id')
+	   );
        $data['continents'] = $continents;
        $data['page_footer'] = $this->footer();
-       $partials = array('content' => 'wellness_destinations','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
+       $partials = array('content' => 'wellness_destinations','banner'=>'wellness_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
        $this->template->load('home_template', $partials,$data);
   }
 
@@ -232,7 +253,7 @@ class Home extends MY_Controller {
 
        $data['programs']=$programs;
        $data['page_footer'] = $this->footer();
-       $partials = array('content' => 'wellness_programs','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
+       $partials = array('content' => 'wellness_programs','banner'=>'partner_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
        $this->template->load('home_template', $partials,$data);
   }
    function wellness_programs_day($program_id=NULL){
@@ -264,7 +285,7 @@ class Home extends MY_Controller {
                ));
        $data['program_day']=$program_day;
        $data['page_footer'] = $this->footer();
-       $partials = array('content' => 'wellness_programs_day','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
+       $partials = array('content' => 'wellness_programs_day','banner'=>'partner_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
        $this->template->load('home_template', $partials,$data);
   }
 
@@ -329,29 +350,38 @@ class Home extends MY_Controller {
        //$discover_program = $this->Custom_model->fetch_data();
 
        $data['page_footer'] = $this->footer();
-       $partials = array('content' => 'wellness_program_overview','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
+       $partials = array('content' => 'wellness_program_overview','banner'=>'partner_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
        $this->template->load('home_template', $partials,$data);
 
    }
 
    function wellness_partners($continent=NULL){
+	   $language_id =1;
        $continent = decode_url($continent);
        //$data['continent'] = $continent;
        $partners = $this->Custom_model->fetch_data(PARTNER,
                array(
                    PARTNER.'.id',
                    PARTNER.'.partner_name',
-				   PARTNER.'.wellness_type_id'
+				   PARTNER.'.short_description',
+				   PARTNER.'.wellness_type_id',
+				   COUNTRY_LANG.'.country_name',
+				   MEDIA.'.url',
+                   MEDIA.'.media_name',
+                   MEDIA.'.extension',
+                   MEDIA.'.raw_name'
                    ),
                array('continent_id'=>$continent),
-               array()
+               array(COUNTRY=>COUNTRY.'.id='.PARTNER.'.country_id',
+                   COUNTRY_LANG=>COUNTRY_LANG.'.country_id='.COUNTRY.'.id AND '.COUNTRY_LANG.'.language_id='.$language_id,
+				   MEDIA=>MEDIA.'.id='.PARTNER.'.media_id')
 		);
 
         $data['partners'] = $partners;
 	   //echo '<pre>'; print_r($data); exit;
 
        $data['page_footer'] = $this->footer();
-       $partials = array('content' => 'wellness_partners','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
+       $partials = array('content' => 'wellness_partners','banner'=>'wellness_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
        $this->template->load('home_template', $partials,$data);
   }
   
@@ -454,7 +484,7 @@ class Home extends MY_Controller {
           
        }
         $data['recaptcha_html'] = $this->recaptcha->recaptcha_get_html();
-       $partials = array('content' => 'wellness_enquery','banner'=>'home_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
+       $partials = array('content' => 'wellness_enquery','banner'=>'common_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
        $this->template->load('home_template', $partials,$data);
    }
 
