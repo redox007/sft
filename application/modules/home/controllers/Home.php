@@ -109,7 +109,7 @@ class Home extends MY_Controller {
 
   function wellness_concepts(){
        $language_id = 1;
-       $page_data = $this->Custom_model->get_wellness_concept_data($language_id);       
+       $page_data = $this->Custom_model->get_wellness_concept_data($language_id);        
        $data['page_data'] = $page_data;
        $data['page_footer'] = $this->footer();
 
@@ -168,6 +168,39 @@ class Home extends MY_Controller {
   }
 
   function best_in_region($wellnes_type=NULL,$best=NULL){
+	   $language_id =1;
+       $wellnes_type = decode_url($wellnes_type);
+       $best = decode_url($best);
+       $data['wellnes_type']=$wellnes_type;
+       $best_in_region = $this->Custom_model->fetch_data(AWARD,
+               array(
+                   AWARD.'.*',
+                   PARTNER.'.id as partner_id',
+                   PARTNER.'.partner_name',
+                   PARTNER.'.short_description',
+                   MEDIA.'.url',
+                   MEDIA.'.media_name',
+                   MEDIA.'.extension',
+                   MEDIA.'.raw_name',
+                   COUNTRY_LANG.'.country_name'
+                   ),
+               array(AWARD.'.type'=>$best),
+               array(
+                   AWARD_PARTNER=>AWARD_PARTNER.'.award_id='.AWARD.'.id',
+                   PARTNER=>PARTNER.'.id='.AWARD_PARTNER.'.partner_id',
+				   COUNTRY=>COUNTRY.'.id='.PARTNER.'.country_id',
+                   COUNTRY_LANG=>COUNTRY_LANG.'.country_id='.COUNTRY.'.id AND '.COUNTRY_LANG.'.language_id='.$language_id,
+                   MEDIA=>MEDIA.'.id='.PARTNER.'.media_id'));
+
+        $data['best_in_region'] =$best_in_region;
+	//echo '<pre>'; print_r($data);
+
+       $data['page_footer'] = $this->footer();
+       $partials = array('content' => 'best_in_region','banner'=>'wellness_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
+       $this->template->load('home_template', $partials,$data);
+  }
+
+  function best_of_programs($wellnes_type=NULL,$best=NULL){
 	   $language_id =1;
        $wellnes_type = decode_url($wellnes_type);
        $best = decode_url($best);

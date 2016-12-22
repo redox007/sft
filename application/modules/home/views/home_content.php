@@ -193,7 +193,6 @@
           </div><?php
         }
       }?>
-    </div>
   </div>
 </div>
 <!-- Partners Section -->
