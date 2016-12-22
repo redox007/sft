@@ -13,7 +13,7 @@ class Home extends MY_Controller {
     */
     function footer()
     {
-        $selected_lang = ($this->session->userdata('language'))?$this->session->userdata('language'):2;
+        $selected_lang = ($this->session->userdata('language'))?$this->session->userdata('language'):1;
 
         // get home page footer address from the admin.
         $footer_details = $this->Custom_model->fetch_data(BASIC_SETTINGS,
@@ -84,6 +84,7 @@ class Home extends MY_Controller {
         }//echo '<pre>';print_r($data['library_medias']);die;
 
         $data['page_footer'] = $this->footer();
+		//echo '<pre>';print_r($data['page_footer']);die;
 
         $partials = array('content' => 'home_content','banner'=>'home_banner','menu'=>'menu');
         $this->template->load('home_template', $partials, $data);

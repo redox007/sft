@@ -6,7 +6,7 @@ $list_continents = get_continents();
 <!-- mobile menu start -->
 <div class="visible-xs visible-sm mobile-menu clearfix" data-spy="affix" data-offset-top="50" role="navigation"> 
     <button type="button" class="hamburger is-closed" data-toggle="offcanvas"> <span class="hamb-top"></span> <span class="hamb-middle"></span> <span class="hamb-bottom"></span> </button>
-    <a class="navbar-brand" href="<?php echo base_url(); ?>" target="_blank"><img src="<?php echo base_url(); ?>front/images/sft_wellness_logo.png" alt=""></a> </div>
+    <a class="navbar-brand" href="<?php echo base_url(); ?>"><img src="<?php echo base_url(); ?>front/images/sft_wellness_logo.png" alt=""></a> </div>
 <!-- mobile menu end -->
 
 <nav class="navbar visible-xs visible-sm" id="sidebar-wrapper" role="navigation">
@@ -16,7 +16,7 @@ $list_continents = get_continents();
             <li  class="no-space">&sdot;</li>
             <li><a href="Javascript:void(0);" data-toggle="modal" data-target="#signUpModal">Register</a></li>
         </ul>
-        <a class="navbar-brand visible-lg" href="<?php echo base_url(); ?>" target="_blank"><img src="<?php echo base_url(); ?>front/images/sft_wellness_logo.png" alt=""></a>
+        <a class="navbar-brand visible-lg" href="<?php echo base_url(); ?>"><img src="<?php echo base_url(); ?>front/images/sft_wellness_logo.png" alt=""></a>
         <ul class="nav sidebar-nav navbar-nav">
             <li> <a href="<?php echo base_url(); ?>">Home</a> </li>
             <li class="dropdown"> <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Wellness </a>
@@ -110,7 +110,7 @@ $list_continents = get_continents();
             <li  class="no-space">&sdot;</li>
             <li><a href="Javascript:void(0);" data-toggle="modal" data-target="#signUpModal">Register</a></li>
         </ul>
-        <a class="navbar-brand hidden-xs" href="<?php echo base_url(); ?>" target="_blank"><img src="<?php echo base_url(); ?>front/images/sft_wellness_logo.png" alt=""></a>
+        <a class="navbar-brand hidden-xs" href="<?php echo base_url(); ?>"><img src="<?php echo base_url(); ?>front/images/sft_wellness_logo.png" alt=""></a>
         <ul class="nav sidebar-nav navbar-nav" data-hover="dropdown" data-animations="fadeInLeft fadeInRight fadeInRight fadeInRight">
             <li> <a href="<?php echo base_url(); ?>">Home</a> </li>
             <li class="dropdown"> <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Wellness </a>
