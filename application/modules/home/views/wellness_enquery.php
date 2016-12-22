@@ -77,6 +77,9 @@
             <label for="nroom">Number of Rooms</label>
             <input type="number" class="form-control" id="nroom" name="nroom" placeholder="Number of Rooms" required>
           </div>
+		  <?php
+		    if(!empty($partner_id)) {
+		   ?>
           <div class="form-group">
             <label for="nAdult">Type of Rooms</label>
             <select class="form-control" id="type_of_room" name="type_of_room">
@@ -86,11 +89,10 @@
                 <option  value="<?php echo $room->id; ?>"><?php echo $room->room_type; ?></option>   
                 <?php     }
                 }
-                ?>
-              
+                ?>              
             </select>
-          </div>
-         
+        </div>
+        <?php } ?>
         </div>
         <div class="col-xs-12 col-sm-6">
           <div class="form-group">

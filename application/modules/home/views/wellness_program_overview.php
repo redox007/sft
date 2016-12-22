@@ -61,7 +61,7 @@
                                 <p class="trip-departure-time">&nbsp;</p>
                             </div>
                             <div class="col-xs-12 col-sm-6">
-                                <div class="pull-right clearfix"><a class="btn btn-enquiry"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> Make An Enquiry</a> <a class="btn btn-widhlist"><i class="fa fa-heart" aria-hidden="true"></i> Save to Wishlist</a> <a class="btn btn-pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download <strong>PDF</strong></a></div>
+                                <div class="pull-right clearfix"><a href="<?php echo base_url('home/wellness_enquery/'.encode_url($wellness_details->partner_id)); ?>" class="btn btn-enquiry"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> Make An Enquiry</a> <a class="btn btn-widhlist"><i class="fa fa-heart" aria-hidden="true"></i> Save to Wishlist</a> <a href="<?php echo base_url('home/download_file/'.$wellness_details->pdf); ?>" class="btn btn-pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download <strong>PDF</strong></a></div>
                             </div>
                         </section>
                         <!--itinery-information end-->

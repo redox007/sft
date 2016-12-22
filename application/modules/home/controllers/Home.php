@@ -390,6 +390,7 @@ class Home extends MY_Controller {
 	   $partner_id = decode_url($partner_id);
        $this->load->library('recaptcha');
 	   $this->load->helper('custom_helper');
+	   $data['partner_id'] = $partner_id;
 	   $data['list_wellness_type'] = get_wellness_type();
 	   $data['list_countries'] = get_countries();
        $data['page_footer'] = $this->footer();
@@ -402,7 +403,7 @@ class Home extends MY_Controller {
        $data['room_type'] = $room_type;
        
        if($this->input->post('insert_enquery')){
-           $this->recaptcha->recaptcha_check_answer();
+          $this->recaptcha->recaptcha_check_answer();
           $start_name =  $this->input->post('start_name');
           $fname =  $this->input->post('fname');
           $lname =  $this->input->post('lname');
@@ -448,10 +449,12 @@ class Home extends MY_Controller {
           }else if($nroom ==""){
               $this->session->set_flashdata('error_message', 'Please enter number of room');
               redirect(base_url() . 'home/wellness_enquery');
-          }else if($type_of_room ==""){
+          }
+		  /*else if($type_of_room ==""){
               $this->session->set_flashdata('error_message', 'Please select type of room');
               redirect(base_url() . 'home/wellness_enquery');
-          }else if(!$this->recaptcha->getIsValid()){
+          }*/
+		  else if(!$this->recaptcha->getIsValid()){
               $this->session->set_flashdata('error_message', 'incorrect captcha');
               redirect(base_url() . 'home/wellness_enquery');
           }else{

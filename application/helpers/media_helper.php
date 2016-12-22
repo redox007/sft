@@ -12,7 +12,7 @@ function load_media_script() {
     <!--The Modal-->
     <?php
     $CI = &get_instance();
-    $CI->load->module("Media");
+    $CI->load->module("media");
     $CI->media->media_modal();
 //    echo Modules::run('media/media_modal');
     ?>

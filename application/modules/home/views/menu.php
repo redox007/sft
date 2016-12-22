@@ -77,7 +77,7 @@ $list_continents = get_continents();
             </li>
             <li> <a href="javascript:void(0)">W.O.W </a> </li>
             <li> <a href="javascript:void(0)">ajmj club </a> </li>
-            <li> <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Make an Enquiry</a> </li>
+            <li> <a href="<?php echo base_url('home/wellness_enquery'); ?>">Make an Enquiry</a> </li>
             <li class="dropdown call-now"> <a href="tel:<?php echo trim($page_footer->site_contact_no, ' '); ?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-skype" aria-hidden="true"></i> <?php echo $page_footer->site_contact_no; ?></a>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="javascript:void(0)"><i class="fa fa-comments-o" aria-hidden="true"></i> Live Chat</a></li>
@@ -171,7 +171,7 @@ $list_continents = get_continents();
             </li>
             <li> <a href="javascript:void(0)">W.O.W </a> </li>
             <li> <a href="javascript:void(0)">ajmj club </a> </li>
-            <li> <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Make an Enquiry</a> </li>
+            <li> <a href="<?php echo base_url('home/wellness_enquery'); ?>">Make an Enquiry</a> </li>
             <li class="dropdown call-now"> <a href="tel:<?php echo trim($page_footer->site_contact_no, ' '); ?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-skype" aria-hidden="true"></i> <?php echo $page_footer->site_contact_no; ?></a>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="javascript:void(0)"><i class="fa fa-comments-o" aria-hidden="true"></i> Live Chat</a></li>
