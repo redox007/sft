@@ -243,10 +243,10 @@
 <!-- Home Owl Slider  -->
 <script src="<?php echo base_url(); ?>front/js/home-owl-slider.js"></script>
 
-<script src="<?php echo base_url(); ?>front/js/wellness-owl-slider.js"></script> 
-<!-- itinerary scroll --> 
-<script src="<?php echo base_url(); ?>front/js/itinerary.js"></script> 
-<script src="<?php echo base_url(); ?>front/js/bootstrap-datepicker.js"></script> 
+<script src="<?php echo base_url(); ?>front/js/wellness-owl-slider.js"></script>
+<!-- itinerary scroll -->
+<script src="<?php echo base_url(); ?>front/js/itinerary.js"></script>
+<script src="<?php echo base_url(); ?>front/js/bootstrap-datepicker.js"></script>
 
 <script>
 $(document).ready(function () {
@@ -265,7 +265,7 @@ $(document).ready(function () {
             $(this).parent().siblings().removeClass('open');
             $(this).parent().toggleClass('open');
         });
-	
+
 	//flagStrap
 	$('#Language-dropdown-desktop').flagStrap({
 	    buttonSize: "btn-lg",
@@ -295,18 +295,30 @@ $(document).ready(function () {
             type: 'POST',
             data: {room:room},
             success: function (data, textStatus, jqXHR) {
-                
-               $('.room-type').html(data);         
+
+               $('.room-type').html(data);
             }
         });
     });
+      <?php // code for request a call page.?>
+      $('#country').change(function(){
+          var country = $(this).val();
+          $.ajax({
+            url:"<?php echo base_url(); ?>Home/ajax_get_country_code",
+            type: 'POST',
+            data: {cid:country},
+            success: function (data, textStatus, jqXHR) {
+              $('#country_code').val(data);
+            }
+          });
+        });
 
 });
 
 
 var nowTemp = new Date();
 	var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
-	 
+
 	var checkin = $('#adate').datepicker({
             format: 'yyyy-mm-dd',
 		onRender: function(date) {
@@ -328,6 +340,17 @@ var nowTemp = new Date();
 		}
 	}).on('changeDate', function(ev) {
 		checkout.hide();
+	}).data('datepicker');
+
+        <?php // code for request a call page.?>
+        var call_date = $('#preffered_call_date').datepicker({
+            format: 'dd-mm-yyyy',
+		onRender: function(date) {
+			return date.valueOf() < now.valueOf() ? 'disabled' : '';
+		}
+	}).on('changeDate', function(ev) {
+		call_date.hide();
+		$('#preffered_call_time').focus();
 	}).data('datepicker');
 </script>
 </body>

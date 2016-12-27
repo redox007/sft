@@ -103,7 +103,7 @@ $autoload['helper'] = array('url', 'file','url_encryption_helper','custom_helper
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = array();
+$autoload['config'] = array('media');
 
 /*
 | -------------------------------------------------------------------

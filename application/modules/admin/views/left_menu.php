@@ -31,7 +31,7 @@
                                 <li><a href="<?php echo base_url(); ?>admin/master/add_countries">Add Country</a>
                                 </li>
                             </ul>
-                        </li>     
+                        </li>
                         <li><a>Programs<span class="fa fa-chevron-down"></span></a>
                             <ul class="nav child_menu">
                                 <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/list_wellness_program">List Programs</a>
@@ -47,28 +47,29 @@
                                 <li><a href="<?php echo base_url(); ?>admin/master/add_partner">Add Partner</a>
                                 </li>
                             </ul>
-                        </li>                 
+                        </li>
                     </ul>
                 </li>
 
                 <li><a><i class="fa fa-trophy"></i> Best of Best <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/best_of_best">List Best of Best</a></li>                        
+                        <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/best_of_best">List Best of Best</a></li>
                     </ul>
                 </li>
                 <li><a><i class="fa fa-globe"></i> Best in Region <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/best_of_region">List Best in Region</a></li>                        
+                        <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/best_of_region">List Best in Region</a></li>
                     </ul>
-                </li>  
+                </li>
                 <li><a><i class="fa fa-thumbs-up"></i> Best of Programs <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/best_of_program">List Best of Programs</a></li>                        
+                        <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/best_of_program">List Best of Programs</a></li>
                     </ul>
-                </li>  
+                </li>
                 <li><a><i class="fa fa-comments"></i>Make an Enquiry <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/list_enquery">List Enquiries</a></li>                        
+                        <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/list_enquery">List Enquiries</a></li>
+                        <li class="sub_menu"><a href="<?php echo base_url(); ?>admin/master/list_request_a_call_back_enquiry">List Request a Call Back</a></li>
                     </ul>
                 </li>
 				<li><a><i class="fa fa-clone"></i> CMS Management <span class="fa fa-chevron-down"></span></a>
@@ -91,7 +92,7 @@
                         <li><a href="<?php echo base_url(); ?>admin/settings/general_settings">General Settings<span class="fa "></span></a></li>
                         <li><a href="<?php echo base_url(); ?>admin/settings/home_page_settings">HomePage Settings<span class="fa "></span></a></li>
                     </ul>
-                </li>                
+                </li>
 				<li>
                     <a><i class="fa fa-envelope"></i>Email Template <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -100,7 +101,7 @@
                 </li>
                 <li><a><i class="fa fa-video-camera"></i> Media <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li class="sub_menu"><a href="<?php echo base_url(); ?>media">Add Media</a></li>                        
+                        <li class="sub_menu"><a href="<?php echo base_url(); ?>media">Add Media</a></li>
                     </ul>
                 </li>
             </ul>

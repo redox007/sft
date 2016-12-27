@@ -143,4 +143,4 @@ defined('BASIC_SETTINGS') ? null : define('BASIC_SETTINGS', 'sft_basic_settings'
 defined('BASIC_SETTINGS_LANG') ? null : define('BASIC_SETTINGS_LANG', 'sft_basic_settings_lang');
 
 defined('COUNTRIES') ? null : define('COUNTRIES', 'countries');
-
+defined('REQUEST_FOR_CALL') ? null : define('REQUEST_FOR_CALL', 'sft_request_for_call');

@@ -1,10 +1,10 @@
-<?php 
-$list_item = get_best_of_best(); 
+<?php
+$list_item = get_best_of_best();
 $list_wellness_type = get_wellness_type();
 $list_continents = get_continents();
 ?>
 <!-- mobile menu start -->
-<div class="visible-xs visible-sm mobile-menu clearfix" data-spy="affix" data-offset-top="50" role="navigation"> 
+<div class="visible-xs visible-sm mobile-menu clearfix" data-spy="affix" data-offset-top="50" role="navigation">
     <button type="button" class="hamburger is-closed" data-toggle="offcanvas"> <span class="hamb-top"></span> <span class="hamb-middle"></span> <span class="hamb-bottom"></span> </button>
     <a class="navbar-brand" href="<?php echo base_url(); ?>"><img src="<?php echo base_url(); ?>front/images/sft_wellness_logo.png" alt=""></a> </div>
 <!-- mobile menu end -->
@@ -24,32 +24,32 @@ $list_continents = get_continents();
                     <li class="dummy-list">&nbsp;</li>
                     <li class="dropdown dropdown-submenu"><a href="<?php echo base_url('home/wellness_concepts'); ?>" class="dropdown-toggle" data-toggle="dropdown">Wellness Concepts</a>
                         <ul class="dropdown-menu">
-						<?php 
+						<?php
                           if(!empty($list_wellness_type)){ foreach($list_wellness_type as $wellness_type){ $link = ($wellness_type->id == 1 ? 'wellness_plus' : ($wellness_type->id == 2 ? 'medi_plus' : 'beauty_plus')); ?>
                             <li class="dropdown dropdown-submenu"><a href="<?php echo base_url('home/'.$link.'/'.  encode_url($wellness_type->id)); ?>" class="dropdown-toggle" data-toggle="dropdown"><?php echo $wellness_type->type_name; ?></a>
                                 <ul class="dropdown-menu">
                                     <li class="dropdown dropdown-submenu"><a href="<?php echo base_url('home/best_of_best/'.  encode_url(1).'/'.encode_url(1)); ?>" class="dropdown-toggle" data-toggle="dropdown">Best of Bests</a>
                                         <ul class="dropdown-menu">
-                                            <?php 
+                                            <?php
                                             if(!empty($list_item[1])){ foreach($list_item[1] as $best_of_best){?>
                                             <li><a href="<?php echo base_url('home/wellness_programs/'.  encode_url(1).'/'.encode_url($best_of_best->partner_id)); ?>"><?php echo "Best in ".$best_of_best->name_in_english; ?></a></li>
-                                            <?php }} ?>                                         
+                                            <?php }} ?>
                                         </ul>
                                     </li>
                                     <li class="dropdown dropdown-submenu"><a href="<?php echo base_url('home/best_in_region/'.  encode_url(1).'/'.encode_url(2)); ?>" class="dropdown-toggle" data-toggle="dropdown">Best in Region</a>
                                         <ul class="dropdown-menu">
-                                            <?php 
+                                            <?php
                                             if(!empty($list_item[1])){ foreach($list_item[2] as $best_of_region){?>
                                             <li><a href="<?php echo base_url('home/wellness_programs/'.  encode_url(2).'/'.encode_url($best_of_region->partner_id)); ?>"><?php echo "Best in ".$best_of_region->name_in_english; ?></a></li>
-                                            <?php }} ?>                                             
+                                            <?php }} ?>
                                         </ul>
                                     </li>
                                     <li class="dropdown dropdown-submenu"><a href="<?php echo base_url('home/best_of_best/'.  encode_url(1).'/'.encode_url(3)); ?>" class="dropdown-toggle" data-toggle="dropdown">Best of Programs</a>
                                         <ul class="dropdown-menu">
-                                            <?php 
+                                            <?php
                                             if(!empty($list_item[1])){ foreach($list_item[3] as $best_of_program){?>
                                             <li><a href="<?php echo base_url('home/wellness_programs/'.  encode_url(3).'/'.encode_url($best_of_program->partner_id)); ?>"><?php echo "Best in ".$best_of_program->name_in_english; ?></a></li>
-                                            <?php }} ?>                                            
+                                            <?php }} ?>
                                         </ul>
                                     </li>
                                 </ul>
@@ -59,7 +59,7 @@ $list_continents = get_continents();
                     </li>
                     <li class="dropdown dropdown-submenu"><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">Travel Destinations</a>
                         <ul class="dropdown-menu">
-                            <?php 
+                            <?php
                               if(!empty($list_continents)){ foreach($list_continents as $continents){?>
                             <li><a href="<?php echo base_url('home/wellness_partners/'.encode_url($continents->id)); ?>"><?php echo $continents->continent;?></a></li>
 						    <?php }} ?>
@@ -81,7 +81,7 @@ $list_continents = get_continents();
             <li class="dropdown call-now"> <a href="tel:<?php echo trim($page_footer->site_contact_no, ' '); ?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-skype" aria-hidden="true"></i> <?php echo $page_footer->site_contact_no; ?></a>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="javascript:void(0)"><i class="fa fa-comments-o" aria-hidden="true"></i> Live Chat</a></li>
-                    <li><a href="javascript:void(0)"><i class="fa fa-phone" aria-hidden="true"></i> Request a Callback</a></li>
+                    <li><a href="<?php echo base_url().'request_a_call_back';?>"><i class="fa fa-phone" aria-hidden="true"></i> Request a Callback</a></li>
                 </ul>
             </li>
             <li class="select-language">
@@ -118,32 +118,32 @@ $list_continents = get_continents();
                     <li class="dummy-list">&nbsp;</li>
                     <li class="dropdown"><a href="<?php echo base_url('home/wellness_concepts'); ?>">Wellness Concepts</a>
                         <ul class="dropdown-menu dropdownhover-left">
-						<?php 
+						<?php
                           if(!empty($list_wellness_type)){ foreach($list_wellness_type as $wellness_type){ $link = ($wellness_type->id == 1 ? 'wellness_plus' : ($wellness_type->id == 2 ? 'medi_plus' : 'beauty_plus')); ?>
                             <li class="dropdown"><a href="<?php echo base_url('home/'.$link.'/'.  encode_url($wellness_type->id)); ?>"><?php echo $wellness_type->type_name; ?></a>
                                 <ul class="dropdown-menu dropdownhover-left">
                                     <li class="dropdown"><a href="<?php echo base_url('home/best_of_best/'.  encode_url(1).'/'.encode_url(1)); ?>">Best of Bests</a>
                                         <ul class="dropdown-menu dropdownhover-left">
-                                            <?php 
+                                            <?php
                                             if(!empty($list_item[1])){ foreach($list_item[1] as $best_of_best){?>
                                             <li><a href="<?php echo base_url('home/wellness_programs/'.  encode_url(1).'/'.encode_url($best_of_best->partner_id)); ?>"><?php echo "Best in ".$best_of_best->name_in_english; ?></a></li>
-                                            <?php }} ?>  
+                                            <?php }} ?>
                                         </ul>
                                     </li>
                                     <li class="dropdown"><a href="<?php echo base_url('home/best_in_region/'.  encode_url(1).'/'.encode_url(2)); ?>">Best in Region</a>
                                         <ul class="dropdown-menu dropdownhover-left">
-                                             <?php 
+                                             <?php
                                             if(!empty($list_item[1])){ foreach($list_item[2] as $best_of_region){?>
                                             <li><a href="<?php echo base_url('home/wellness_programs/'.  encode_url(2).'/'.encode_url($best_of_region->partner_id)); ?>"><?php echo "Best in ".$best_of_region->name_in_english; ?></a></li>
-                                            <?php }} ?> 
+                                            <?php }} ?>
                                         </ul>
                                     </li>
                                     <li class="dropdown"><a href="<?php echo base_url('home/best_of_best/'.  encode_url(1).'/'.encode_url(3)); ?>">Best of Programs</a>
                                         <ul class="dropdown-menu dropdownhover-left">
-                                            <?php 
+                                            <?php
                                             if(!empty($list_item[1])){ foreach($list_item[3] as $best_of_program){?>
                                             <li><a href="<?php echo base_url('home/wellness_programs/'.  encode_url(3).'/'.encode_url($best_of_program->partner_id)); ?>"><?php echo "Best in ".$best_of_program->name_in_english; ?></a></li>
-                                            <?php }} ?> 
+                                            <?php }} ?>
                                         </ul>
                                     </li>
                                 </ul>
@@ -153,7 +153,7 @@ $list_continents = get_continents();
                     </li>
                     <li class="dropdown"><a href="<?php echo base_url('home/wellness_destinations');?>">Travel Destinations</a>
                         <ul class="dropdown-menu dropdownhover-left">
-						<?php 
+						<?php
                           if(!empty($list_continents)){ foreach($list_continents as $continents){?>
                             <li><a href="<?php echo base_url('home/wellness_partners/'.encode_url($continents->id)); ?>"><?php echo $continents->continent;?></a></li>
 						<?php }} ?>
@@ -175,7 +175,7 @@ $list_continents = get_continents();
             <li class="dropdown call-now"> <a href="tel:<?php echo trim($page_footer->site_contact_no, ' '); ?>" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-skype" aria-hidden="true"></i> <?php echo $page_footer->site_contact_no; ?></a>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="javascript:void(0)"><i class="fa fa-comments-o" aria-hidden="true"></i> Live Chat</a></li>
-                    <li><a href="javascript:void(0)"><i class="fa fa-phone" aria-hidden="true"></i> Request a Callback</a></li>
+                    <li><a href="<?php echo base_url().'home/request_a_call_back';?>"><i class="fa fa-phone" aria-hidden="true"></i> Request a Callback</a></li>
                 </ul>
             </li>
             <li class="select-language">

@@ -109,7 +109,7 @@ class Home extends MY_Controller {
 
   function wellness_concepts(){
        $language_id = 1;
-       $page_data = $this->Custom_model->get_wellness_concept_data($language_id);       
+       $page_data = $this->Custom_model->get_wellness_concept_data($language_id);
        $data['page_data'] = $page_data;
        $data['page_footer'] = $this->footer();
 
@@ -236,7 +236,7 @@ class Home extends MY_Controller {
        $programs = $this->Custom_model->fetch_data(WELLNESS_PROGRAM,
                array(
                    WELLNESS_PROGRAM.'.*',
-                   WELLNESS_PROGRAM_LANG.'.program_name',                   
+                   WELLNESS_PROGRAM_LANG.'.program_name',
                    MEDIA.'.url',
                    MEDIA.'.media_name',
                    MEDIA.'.extension',
@@ -342,7 +342,7 @@ class Home extends MY_Controller {
                    WELLNESS_PROGRAM.'.id'=>$sft_pro,
                    ),
                array(
-                   WELLNESS_PROGRAM_LANG=>WELLNESS_PROGRAM_LANG.'.wellness_program_id='.WELLNESS_PROGRAM.'.id AND '.WELLNESS_PROGRAM_LANG.'.language_id='.$language_id,                   
+                   WELLNESS_PROGRAM_LANG=>WELLNESS_PROGRAM_LANG.'.wellness_program_id='.WELLNESS_PROGRAM.'.id AND '.WELLNESS_PROGRAM_LANG.'.language_id='.$language_id,
                    MEDIA=>MEDIA.'.id='.WELLNESS_PROGRAM_LANG.'.media_id'
                ));
 
@@ -385,8 +385,8 @@ class Home extends MY_Controller {
        $partials = array('content' => 'wellness_partners','banner'=>'wellness_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
        $this->template->load('home_template', $partials,$data);
   }
-  
-  
+
+
   function wellness_enquery($partner_id=null){
 	   $partner_id = decode_url($partner_id);
        $this->load->library('recaptcha');
@@ -395,14 +395,14 @@ class Home extends MY_Controller {
 	   $data['list_wellness_type'] = get_wellness_type();
 	   $data['list_countries'] = get_countries();
        $data['page_footer'] = $this->footer();
-       
+
        if(!empty($partner_id))
 			$room_type = $this->Custom_model->fetch_data(ROOM,array('*'),array('partner_id'=>$partner_id),array());
 	   else
 		   $room_type = array();
 
        $data['room_type'] = $room_type;
-       
+
        if($this->input->post('insert_enquery')){
           $this->recaptcha->recaptcha_check_answer();
           $start_name =  $this->input->post('start_name');
@@ -414,12 +414,12 @@ class Home extends MY_Controller {
           $adate =  $this->input->post('adate');
           $ddate =  $this->input->post('ddate');
           $nAdult =  $this->input->post('nAdult');
-          $nchild =  $this->input->post('nchild');          
+          $nchild =  $this->input->post('nchild');
           $wellness_type =  $this->input->post('wellness_type');
           $nroom =  $this->input->post('nroom');
           $type_of_room =  $this->input->post('type_of_room');
           $comment =  $this->input->post('comment');
-          
+
           if($fname==""){
               $this->session->set_flashdata('error_message', 'Please enter First name');
               redirect(base_url() . 'home/wellness_enquery');
@@ -474,8 +474,8 @@ class Home extends MY_Controller {
               $ins_data['type_of_room']=$type_of_room;
               $ins_data['comment']=$comment;
               $ins_data['enquery_date']=  date('Y-m-d');
-              
-              
+
+
               $res= $this->Custom_model->insert_data($ins_data, ENQUERY);
               if($res!=FALSE){
                   $this->session->set_flashdata('success_message', 'Your enquiry has been sent.');
@@ -485,7 +485,7 @@ class Home extends MY_Controller {
                   redirect(base_url() . 'home/wellness_enquery');
               }
           }
-          
+
        }
         $data['recaptcha_html'] = $this->recaptcha->recaptcha_get_html();
        $partials = array('content' => 'wellness_enquery','banner'=>'common_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
@@ -506,16 +506,16 @@ class Home extends MY_Controller {
                array(MEDIA=>MEDIA.'.id='.ROOM_IMAGE.'.media_id'));
        $data['images'] = $images;
       echo  $this->load->view('ajax_get_image',$data,TRUE);
-       
+
    }
 
    function download_file($file) {
 	    header("Content-Type: application/octet-stream");
 		//$file = $file .".pdf";
-		header("Content-Disposition: attachment; filename=" . urlencode($file));   
+		header("Content-Disposition: attachment; filename=" . urlencode($file));
 		header("Content-Type: application/octet-stream");
 		header("Content-Type: application/download");
-		header("Content-Description: File Transfer");            
+		header("Content-Description: File Transfer");
 		header("Content-Length: " . filesize('uploads/pdf/'.$file));
 		flush(); // this doesn't really matter.
 		$fp = fopen('uploads/pdf/'.$file, "r");
@@ -523,7 +523,142 @@ class Home extends MY_Controller {
 		{
 			echo fread($fp, 65536);
 			flush(); // this is essential for large downloads
-		} 
-		fclose($fp);  
+		}
+		fclose($fp);
    }
+
+    /* function is used to create request for call back.
+     * @author : Poorvi Gandhi
+     * @since : 22-12-2016
+     */
+    function request_a_call_back()
+    {
+        $selected_lang = ($this->session->userdata('language'))?$this->session->userdata('language'):1;
+        $data['selected_lang'] = $selected_lang;
+
+        $this->load->library('recaptcha');
+        $this->load->helper('custom_helper');
+        $data['list_countries'] = get_countries();
+        $data['page_footer'] = $this->footer();
+
+        if($this->input->post()){
+            $this->recaptcha->recaptcha_check_answer();
+            $form_data = $this->input->post(); //echo '<pre>';print_r($this->input->post());die;
+
+            if($form_data['name']==""){
+                $this->session->set_flashdata('error_message', 'Please enter name');
+                redirect(base_url() . 'home/request_a_call_back');
+            }else if($form_data['country'] ==""){
+                $this->session->set_flashdata('error_message', 'Please select country');
+                redirect(base_url() . 'home/request_a_call_back');
+            }else if($form_data['preffered_call_date'] ==""){
+                $this->session->set_flashdata('error_message', 'Please preffered date for call');
+                redirect(base_url() . 'home/request_a_call_back');
+            }else if($form_data['preffered_call_time'] ==""){
+                $this->session->set_flashdata('error_message', 'Please enter preffered time for call');
+                redirect(base_url() . 'home/request_a_call_back');
+            }else if($form_data['country_code'] ==""){
+                $this->session->set_flashdata('error_message', 'Please enter country code');
+                redirect(base_url() . 'home/request_a_call_back');
+            }else if($form_data['phone'] ==""){
+                $this->session->set_flashdata('error_message', 'Please enter phone');
+                redirect(base_url() . 'home/request_a_call_back');
+            }else if($form_data['email'] ==""){
+                $this->session->set_flashdata('error_message', 'Please enter email');
+                redirect(base_url() . 'home/request_a_call_back');
+            }else if($form_data['cemail'] ==""){
+                $this->session->set_flashdata('error_message', 'Please enter confirm email');
+                redirect(base_url() . 'home/request_a_call_back');
+            }else if($form_data['email'] != $form_data['cemail']){
+                $this->session->set_flashdata('error_message', 'email and confirm email should be an identical.');
+                redirect(base_url() . 'home/request_a_call_back');
+            }else if(!$this->recaptcha->getIsValid()){
+                $this->session->set_flashdata('error_message', 'incorrect captcha. Please enter captcha code again.');
+                redirect(base_url() . 'home/request_a_call_back');
+            }else{
+                $form_data['goal_for_visit'] = null;
+                if(!empty($form_data['goals'])){
+                    $form_data['goal_for_visit'] = implode(',', $form_data['goals']);
+                }
+                $preffered_call_date = $form_data['preffered_call_date'];
+                $date = DateTime::createFromFormat('d-m-Y', $form_data['preffered_call_date']);
+                $form_data['preffered_call_date'] = $date->format('Y-m-d');
+                $form_data['language_id'] = $selected_lang;
+
+                unset($form_data['cemail']);unset($form_data['goals']);
+                unset($form_data['recaptcha_challenge_field']); unset($form_data['recaptcha_response_field']);
+
+                $res= $this->Custom_model->insert_data($form_data, REQUEST_FOR_CALL);
+                if($res!=FALSE){
+                    //send email to admin.
+                    $message = '';
+                    $this->load->model('../../admin/models/template_model');
+                    $template = $this->template_model->get_tmplates(1);//echo '<pre>';print_r($template);die;
+
+                    //prepare mail subject part.
+                    $subject = str_replace('[first_name]', $form_data['name'], $template->subject);
+
+                    //prepare mail body part.
+                    $content = str_replace('[first_name]', $form_data['name'], $template->content);
+                    $content = str_replace('[email]', $form_data['email'], $content);
+
+                    $phone = $form_data['phone'];
+                    if($form_data['country_code'] != '')
+                        $phone = '('.$form_data['country_code'].') '.$phone;
+                    $content = str_replace('[phone]', $phone , $content);
+
+                    $message .= '<p>Preffered Call Date-Time : '.$preffered_call_date.' '.$form_data['preffered_call_time'].'</p>';
+                    $message .= '<p>Age : '.$form_data['age'].'</p>';
+                    if($form_data['sex'] != ''){
+                        if($form_data['sex'] == 'F') $sex = 'Female'; else if($form_data['sex'] == 'M') $sex = 'Male'; else $sex = 'Other';
+                        $message .= '<p>Sex : '.$sex.'</p>';
+                    }
+                    if($form_data['skype_id'] != '')
+                        $message .= '<p>Skype Id : '.$form_data['skype_id'].'</p>';
+                    //$message .= '<p>health_condition : '.$form_data['health_condition'].'</p>';
+                    //$message .= '<p>goal_for_visit : '.$form_data['goal_for_visit'].'</p>';
+
+                    $content = str_replace('<p>[message]</p>', '[message]', $content);
+                    $content = str_replace('[message]', $message, $content);
+
+                    $link = '<a href="'.base_url().'admin/etemp/template/'.encode_url('1').'" >Click Here</a> to find more details on your admin account.';
+                    $content = str_replace('[others]', $link, $content);
+
+                    $this->load->library('email');
+                    $this->email->from($form_data['email'], $form_data['name']);
+                    $this->email->to($template->mailto);
+                    $this->email->subject($subject);
+                    $this->email->message($content);
+                    $this->email->send();
+
+                    $this->session->set_flashdata('success_message', 'Your request has been sent.');
+                    redirect(base_url() . 'home/request_a_call_back');
+                }else{
+                    $this->session->set_flashdata('error_message', 'Please try again!');
+                    redirect(base_url() . 'home/request_a_call_back');
+                }
+            }
+        }
+        $data['recaptcha_html'] = $this->recaptcha->recaptcha_get_html();
+        $partials = array('content' => 'request_a_call_back','banner'=>'common_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
+        $this->template->load('home_template', $partials,$data);
+    }
+
+    /*
+     *Get country code for country id. [AJAX call]
+     *@sorce page : request_a_call_back.php
+     *@author : Poorvi Gandhi
+     *@since : 27-12-2016
+     */
+    function ajax_get_country_code()
+    {
+        $cid = $this->input->post('cid');
+        $pcode_info = $this->Custom_model->fetch_data(COUNTRIES, array(COUNTRIES.'.phonecode'), array('id'=>$cid));
+        if(!empty($pcode_info)){
+            echo $data['phonecode'] = $pcode_info[0]->phonecode;
+        }else{
+            echo 0;
+        }
+        die;
+    }
 }

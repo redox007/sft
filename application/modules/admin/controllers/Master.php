@@ -383,14 +383,14 @@ class Master extends MY_Controller {
                 $ins_data['partner_name'] = $this->input->post('partner_name');
                 $ins_data['wellness_type_id'] = $this->input->post('wellness_type_id');
                 $ins_data['country_id'] = $this->input->post('country_id');
-                $ins_data['continent_id'] = $this->input->post('continent_id'); 
-                $ins_data['banner'] = $this->input->post('banner'); 
-                $ins_data['media_id'] = $this->input->post('media'); 
-                $ins_data['short_description'] = $this->input->post('short_description'); 
+                $ins_data['continent_id'] = $this->input->post('continent_id');
+                $ins_data['banner'] = $this->input->post('banner');
+                $ins_data['media_id'] = $this->input->post('media');
+                $ins_data['short_description'] = $this->input->post('short_description');
                 $ins_data['status'] = 1;
                 $res = $this->Custom_model->insert_data($ins_data, PARTNER);
                 if ($res != false) {
-                    
+
                     $this->session->set_flashdata('success_message', 'Partner added successfully.');
                     redirect(base_url() . 'admin/master/list_partner');
                 } else {
@@ -403,7 +403,7 @@ class Master extends MY_Controller {
         $partials = array('content' => 'add_partner', 'left_menu' => 'left_menu', 'header' => 'header');
         $this->template->load('template', $partials, $data);
     }
-    
+
     function view_partner($id = NULL){
         $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
         $data['selected_lang']=$selected_lang;
@@ -416,7 +416,7 @@ class Master extends MY_Controller {
         if ($chk_partner == false) {
             redirect(base_url() . 'admin/master/list_partner');
         }
-        
+
         //list program //
         $get_type = $this->Custom_model->fetch_data(PARTNER,array('wellness_type_id'),array('id'=>$partner_id));
          $data['wellness_plus'] = $this->Custom_model->fetch_data(WELLNESS, array(
@@ -427,17 +427,17 @@ class Master extends MY_Controller {
                 array(
             PARTNER => PARTNER . '.id=' . WELLNESS . '.partner_id'),
                 $search = '', $order = WELLNESS . '.id', $by = 'desc');
-        //end list program // 
-        
-        
-      //fetch room list // 
-        
+        //end list program //
+
+
+      //fetch room list //
+
        $rooms =  $this->Custom_model->fetch_data(ROOM,
                 array(ROOM.'.*',ROOM_LANG.'.room_name',ROOM_LANG.'.language_id'),
                 array(ROOM.'.partner_id'=>$partner_id),
                 array(ROOM_LANG=>ROOM_LANG.'.room_id='.ROOM.'.id AND '.ROOM_LANG.'.language_id='.$selected_lang)
                 );
-        
+
         $data['rooms']= $rooms;
          if ($this->input->post('submit')) {
             if ($this->input->post('partner_name') == "") {
@@ -456,11 +456,11 @@ class Master extends MY_Controller {
                 redirect(base_url() . 'admin/master/list_partner');
             }
         }
-        
-        
+
+
         $partner_data = $this->Custom_model->fetch_data(PARTNER_AWARD,array('*'),array('language_id'=>$selected_lang,'partner_id'=>$partner_id));
-        
-        
+
+
         $data['partner_data'] = $partner_data;
         if ($this->input->post('submit_award')) {
             if ($this->input->post('award') == "") {
@@ -470,10 +470,10 @@ class Master extends MY_Controller {
                     if(!empty($partner_data)){
                         $this->Custom_model->delete_row(PARTNER_AWARD, array('language_id'=>$selected_lang,'partner_id'=>$partner_id));
                     }
-                    $awards = $this->input->post('award');  
+                    $awards = $this->input->post('award');
                     if(!empty($awards)){
                         foreach($awards as $item){
-                            $award_ins['language_id'] = $selected_lang;                
+                            $award_ins['language_id'] = $selected_lang;
                             $award_ins['partner_id'] = $partner_id;
                             $award_ins['award'] = $item;
                             $this->Custom_model->insert_data($award_ins, PARTNER_AWARD);
@@ -484,14 +484,14 @@ class Master extends MY_Controller {
                 redirect(base_url() . 'admin/master/view_partner');
             }
         }
-        
-        
+
+
         $partner_details = $this->Custom_model->fetch_data(PARTNER, array('*'), array('id' => $partner_id));
         $data['partner_details'] = $partner_details[0];
         $partials = array('content' => 'view_partner', 'left_menu' => 'left_menu', 'header' => 'header');
         $this->template->load('template', $partials, $data);
     }
-    
+
     function edit_partner($id = NULL) {
         $data['wellness_type'] = $this->Custom_model->fetch_data(WELLNESS_TYPE, array('id', 'wellness_type'), array(), array());
         $data['country'] = $this->Custom_model->fetch_data(COUNTRY, array('id', 'code'), array(), array());
@@ -515,9 +515,9 @@ class Master extends MY_Controller {
                 $ins_data['wellness_type_id'] = $this->input->post('wellness_type_id');
                 $ins_data['country_id'] = $this->input->post('country_id');
                 $ins_data['continent_id'] = $this->input->post('continent_id');
-                $ins_data['banner'] = $this->input->post('banner'); 
-                $ins_data['media_id'] = $this->input->post('media'); 
-                $ins_data['short_description'] = $this->input->post('short_description'); 
+                $ins_data['banner'] = $this->input->post('banner');
+                $ins_data['media_id'] = $this->input->post('media');
+                $ins_data['short_description'] = $this->input->post('short_description');
                 $ins_data['status'] = 1;
                 $res = $this->Custom_model->edit_data($ins_data, array('id' => $partner_id), PARTNER);
 
@@ -699,19 +699,19 @@ class Master extends MY_Controller {
         $data['partner'] = $this->Custom_model->fetch_data(PARTNER, array('id', 'partner_name'), array(), array());
         $data['countries'] = $this->Custom_model->fetch_data(COUNTRY, array('id', 'code'), array(), array());
         $data['programs'] = $this->Custom_model->fetch_data(WELLNESS_PROGRAM, array('id', 'program'), array(), array());
-        
-        
+
+
         $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
         $data['selected_lang'] = $selected_lang;
-        
+
         $data['partner_id']=  decode_url($partner_id);
-        
+
         $data['rooms'] = $this->Custom_model->fetch_data(ROOM, array('id', 'room_type'), array('partner_id'=>decode_url($partner_id)), array());
-        
+
          $this->load_editor();//load ckeditor.
-         
+
         if ($this->input->post('submit')) {
-           
+
             if ($this->input->post('wellness_name') == "") {
                 $this->session->set_flashdata('error_message', 'Please enter wellness name');
                 redirect(base_url() . 'admin/master/add_wellnes_plus');
@@ -732,11 +732,11 @@ class Master extends MY_Controller {
                 $ins_data['type'] = $this->input->post('type');
                 $ins_data['partner_id'] = $this->input->post('partner_id');
                 $ins_data['program_id'] = $this->input->post('program_id');
-                $ins_data['room_id'] = $this->input->post('room_id');                
+                $ins_data['room_id'] = $this->input->post('room_id');
                 $ins_data['no_of_day'] = $this->input->post('no_of_day');
                 $ins_data['price'] = $this->input->post('price');
                 $ins_data['code'] = $this->Custom_model->generateRandomString(8);
-                
+
                 if (!empty($_FILES['pdf'])) {
                     $img_url = $_FILES['pdf']['name'];
                     $file_info = pathinfo($img_url);
@@ -745,16 +745,16 @@ class Master extends MY_Controller {
                     $uploads_dir = 'uploads/pdf/'.$filename;
                     if (move_uploaded_file($_FILES["pdf"]["tmp_name"], $uploads_dir)) {
                          $ins_data['pdf'] = $filename;
-                    } 
+                    }
                 }
-                                
+
                 $res = $this->Custom_model->insert_data($ins_data, WELLNESS);
                 if ($res != FALSE) {
                     //ad media //
-                    
+
                     if($this->input->post('media_ids')!=""){
                        $media_name =  explode(",", $this->input->post('media_ids'));
-                       
+
                        if(!empty($media_name)){
                            foreach($media_name as $media){
                                 $media_insert['wellness_id'] = $res;
@@ -763,10 +763,10 @@ class Master extends MY_Controller {
                            }
                        }
                     }
-                    
-                    
-                    
-                    
+
+
+
+
                     $ins_inner['welness_id'] = $res;
                     $ins_inner['wellness_name_lang'] = $this->input->post('wellness_name_lang');
                     $ins_inner['language_id'] = $selected_lang;
@@ -775,12 +775,12 @@ class Master extends MY_Controller {
                     $inner = $this->Custom_model->insert_data($ins_inner, WELLNESS_LANG);
                     if ($inner != FALSE) {
                         $Itinerary = $this->input->post('Itinerary');
-                        $Itinerary_title = $this->input->post('Itinerary_title');                                                
+                        $Itinerary_title = $this->input->post('Itinerary_title');
                         if(!empty($Itinerary)){
                             foreach ($Itinerary as $key=>$val){
                                 $ins_intinerary['day_number'] = $key+1;
                                 $ins_intinerary['language_id'] = $selected_lang;
-                                $ins_intinerary['welness_id'] = $res;                                
+                                $ins_intinerary['welness_id'] = $res;
                                 $ins_intinerary['wellness_title'] = isset($Itinerary_title[$key])?$Itinerary_title[$key]:"";
                                 $ins_intinerary['description'] = $val;
                                 $inner = $this->Custom_model->insert_data($ins_intinerary, ITINERARY);
@@ -852,7 +852,7 @@ class Master extends MY_Controller {
         $partials = array('content' => 'list_wellness_plus', 'left_menu' => 'left_menu', 'header' => 'header');
         $this->template->load('template', $partials, $data);
     }
-    
+
     function edit_wellness_plus($partner_id =NULL,$wellness_id=NULL){
 
         $data['wellness_type'] = $this->Custom_model->fetch_data(WELLNESS_TYPE, array('id', 'wellness_type'), array(), array());
@@ -864,9 +864,9 @@ class Master extends MY_Controller {
         $partner_id= decode_url($partner_id);
         $data['partner_id']=$partner_id;
         $id= decode_url($wellness_id);
-        
+
         $data['rooms'] = $this->Custom_model->fetch_data(ROOM, array('id', 'room_type'), array('partner_id'=>$partner_id), array());
-        
+
         $chk_welless = $this->Custom_model->row_present_check(WELLNESS, array('id'=>$id));
         if($chk_welless==FALSE){
             redirect(base_url() . 'admin/master/list_wellness_plus');
@@ -882,19 +882,19 @@ class Master extends MY_Controller {
                 array(WELLNESS.'.id'=>$id),
                 array(WELLNESS_LANG=>WELLNESS_LANG.'.welness_id='.WELLNESS.'.id AND '.WELLNESS_LANG.'.language_id='.$selected_lang));
         $data['wellness_details']=$wellness_details[0];
-        
-        
+
+
         $wellness_media = $this->Custom_model->fetch_data(WELLNESS_IMAGE,array('media_id'),array('wellness_id'=>$id));
         $media ="";
         if(!empty($wellness_media)){
             foreach($wellness_media  as $m){
                 $media .=$m->media_id.",";
             }
-            
+
             $media = substr($media,0,-1);
         }
         $data['media'] = $media;
-        
+
         $data['itinerary']=$this->Custom_model->fetch_data(ITINERARY,
                 array('*'),
                 array(
@@ -919,7 +919,7 @@ class Master extends MY_Controller {
             }else if ($this->input->post('price') == "") {
                 $this->session->set_flashdata('error_message', 'Please enter price');
                 redirect(base_url() . 'admin/master/add_wellnes_plus');
-            }else { 
+            }else {
                 $ins_data['wellness_name'] = $this->input->post('wellness_name');
                 $ins_data['type'] = $this->input->post('type');
                 $ins_data['partner_id'] = $this->input->post('partner_id');
@@ -928,36 +928,36 @@ class Master extends MY_Controller {
                 $ins_data['no_of_day'] = $this->input->post('no_of_day');
                 $ins_data['price'] = $this->input->post('price');
                 //$ins_data['code'] = $this->Custom_model->generateRandomString(8);
-                
-                if (!empty($_FILES['pdf'])) { 
-                   
+
+                if (!empty($_FILES['pdf'])) {
+
                     $img_url = $_FILES['pdf']['name'];
                     $file_info = pathinfo($img_url);
                     $filename = $file_info['filename'] . "_" . time() . "." . $file_info['extension'];
                     $ext = $file_info['extension'];
                     $uploads_dir = 'uploads/pdf/'.$filename;
                     if (move_uploaded_file($_FILES["pdf"]["tmp_name"], $uploads_dir)) {
-                        
+
                          //if pdf exit remove from folder//
                         if($wellness_details[0]->pdf!=""){
                             if (!file_exists('uploads/pdf/'.$wellness_details[0]->pdf)) {
-                                unlink('uploads/pdf/'.$wellness_details[0]->pdf);      
+                                unlink('uploads/pdf/'.$wellness_details[0]->pdf);
                             }
                         }
-                        
+
                          $ins_data['pdf'] = $filename;
-                    } 
+                    }
                 }
-                
+
                 $this->Custom_model->edit_data($ins_data, array('id'=>$id), WELLNESS);
 
-                    
-                
+
+
                 if($this->input->post('media_ids')!=""){
-                        
-                       $this->Custom_model->delete_row(WELLNESS_IMAGE, array('wellness_id'=>$id)); 
+
+                       $this->Custom_model->delete_row(WELLNESS_IMAGE, array('wellness_id'=>$id));
                        $media_name =  explode(",", $this->input->post('media_ids'));
-                       
+
                        if(!empty($media_name)){
                            foreach($media_name as $media){
                                 $media_insert['wellness_id'] = $id;
@@ -966,7 +966,7 @@ class Master extends MY_Controller {
                            }
                        }
                     }
-                    
+
 
                     $ins_inner['wellness_name_lang'] = $this->input->post('wellness_name_lang');
                     $ins_inner['short_description'] = $this->input->post('short_description');
@@ -976,11 +976,11 @@ class Master extends MY_Controller {
 
 
                         $Itinerary = $this->input->post('Itinerary');
-                        $Itinerary_title = $this->input->post('Itinerary_title');      
-                        
+                        $Itinerary_title = $this->input->post('Itinerary_title');
+
                         if(!empty($Itinerary)){
                             $this->Custom_model->delete_row(ITINERARY, array('welness_id' => $id,'language_id'=>$selected_lang));
-                            
+
                             foreach ($Itinerary as $key=>$val){
                                 $ins_intinerary['day_number'] = $key+1;
                                 $ins_intinerary['language_id'] = $selected_lang;
@@ -1001,9 +1001,9 @@ class Master extends MY_Controller {
         $partials = array('content' => 'edit_wellness_plus', 'left_menu' => 'left_menu', 'header' => 'header');
         $this->template->load('template', $partials, $data);
     }
-    
-    
-    
+
+
+
     function load_editor()
     {
         //code for ckeditor start
@@ -1019,8 +1019,8 @@ class Master extends MY_Controller {
         //code end ckeditor
     }
 
- 
-    
+
+
      //************ continent ****************//
 
 
@@ -1059,7 +1059,7 @@ class Master extends MY_Controller {
 
         $data['continents'] = $this->Custom_model->fetch_data(CONTINENT, array(
             CONTINENT . '.*',
-            CONTINENT_LANG . '.continent',            
+            CONTINENT_LANG . '.continent',
             CONTINENT_LANG . '.language_id'
                 ), array(), array(CONTINENT_LANG => CONTINENT_LANG . '.continent_id=' . CONTINENT . '.id AND ' . CONTINENT_LANG . '.language_id=' . $selected_lang), $search = '', $order = CONTINENT . '.id', $by = 'desc', $page_number, $config['per_page'], $group_by = '', $having = '', $start = $page_number, $end = ''
         );
@@ -1089,7 +1089,7 @@ class Master extends MY_Controller {
                 $res = $this->Custom_model->insert_data($ins_data, CONTINENT);
                 if ($res != FALSE) {
                     $ins_inner['continent_id'] = $res;
-                    $ins_inner['language_id'] = $selected_lang;                    
+                    $ins_inner['language_id'] = $selected_lang;
                     $ins_inner['continent'] = $this->input->post('continent');
                     $ins_inner['short_description'] = $this->input->post('description');
                     $ins_inner['media_id'] = $this->input->post('media_ids');
@@ -1161,7 +1161,7 @@ class Master extends MY_Controller {
                     $ins_data['continent'] = $this->input->post('continent');
                     $ins_data['short_description'] = $this->input->post('description');
                     $ins_data['media_id'] = $this->input->post('media_ids');
-                    
+
                     $res = $this->Custom_model->edit_data($ins_data, array('continent_id' => $continent_id, 'language_id' => $selected_lang), CONTINENT_LANG);
 
                     $this->session->set_flashdata('success_message', 'Continent updated successfully.');
@@ -1175,7 +1175,7 @@ class Master extends MY_Controller {
     }
 
     //*********** end continent ************//
-    function best_of_best(){        
+    function best_of_best(){
         $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
         if($selected_lang==1){
             $fields=array(
@@ -1192,53 +1192,53 @@ class Master extends MY_Controller {
                 AWARD_PARTNER.'.partner_id'
                 );
         }
-        
+
         $data['awards']= $this->Custom_model->fetch_data(AWARD,
                 $fields,
                 array('type'=>1),
                 array(
                     AWARD_PARTNER=>AWARD_PARTNER.'.award_id='.AWARD.'.id',
-                    PARTNER=>PARTNER.'.id='.AWARD_PARTNER.'.partner_id'));   
-        
-        
+                    PARTNER=>PARTNER.'.id='.AWARD_PARTNER.'.partner_id'));
+
+
         $data['all_partner'] = $this->Custom_model->fetch_data(PARTNER,array('*'),array(),array());
-                
-        
+
+
         $partials = array('content' => 'best_of_best', 'left_menu' => 'left_menu', 'header' => 'header');
         $this->template->load('template', $partials, $data);
     }
-    
-     function best_of_program(){        
+
+     function best_of_program(){
         $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
         if($selected_lang==1){
             $fields=array(
                 AWARD.'.id',
-                AWARD.'.name_in_english as award',                
+                AWARD.'.name_in_english as award',
                 '(SELECT COUNT(*) FROM '.AWARD_PARTNER.' WHERE '.AWARD_PARTNER.'.award_id='.AWARD.'.id) as total_partner'
                 );
         }else{
             $fields=array(
                 AWARD.'.id',
-                AWARD.'.name_in_vietnamese as award',                
+                AWARD.'.name_in_vietnamese as award',
                 '(SELECT COUNT(*) FROM '.AWARD_PARTNER.' WHERE '.AWARD_PARTNER.'.award_id='.AWARD.'.id) as total_partner'
                 );
         }
-        
+
         $data['awards']= $this->Custom_model->fetch_data(AWARD,
                 $fields,
                 array('type'=>3),
-                array());   
-        
-        
+                array());
+
+
         $data['all_partner'] = $this->Custom_model->fetch_data(PARTNER,array('*'),array(),array());
-                
-        
+
+
         $partials = array('content' => 'best_of_program', 'left_menu' => 'left_menu', 'header' => 'header');
         $this->template->load('template', $partials, $data);
     }
-    
+
     function edit_best_of_program($id=NULL){
-        
+
         $award_id= decode_url($id);
           $chk_award = $this->Custom_model->row_present_check(AWARD, array('id'=>$award_id));
         if($chk_award==FALSE){
@@ -1247,9 +1247,9 @@ class Master extends MY_Controller {
          $data['partners'] =  $this->Custom_model->fetch_data(PARTNER,
                 array(PARTNER.'.*'),
                 array(),
-                array(                    
+                array(
                     ));
-         
+
          $awards = $this->Custom_model->fetch_data(AWARD_PARTNER,array('*'),array('award_id'=>$award_id),array());
          $final_arr=array();
          if(!empty($awards)){
@@ -1261,7 +1261,7 @@ class Master extends MY_Controller {
          if($this->input->post('submit')){
              $this->Custom_model->delete_row(AWARD_PARTNER, array('award_id'=>$award_id));
              $partner = $this->input->post('partner');
-             if(!empty($partner)){                 
+             if(!empty($partner)){
                 for($i=0;$i<count($partner);$i++){
                     $ins_data['award_id'] = $award_id;
                     $ins_data['partner_id'] = $partner[$i];
@@ -1271,7 +1271,7 @@ class Master extends MY_Controller {
               $this->session->set_flashdata('success_message', 'Partner added successfully.');
                     redirect(base_url() . 'admin/master/best_of_program');
          }
-         
+
         $partials = array('content' => 'edit_best_of_program', 'left_menu' => 'left_menu', 'header' => 'header');
         $this->template->load('template', $partials, $data);
     }
@@ -1281,7 +1281,7 @@ class Master extends MY_Controller {
         if($chk_award==FALSE){
             redirect(base_url() . 'admin/master/best_of_best');
         }
-        
+
         $data['awards'] =  $this->Custom_model->fetch_data(PARTNER,
                 array(PARTNER.'.*',AWARD_PARTNER.'.partner_id'),
                 array(),
@@ -1308,7 +1308,7 @@ class Master extends MY_Controller {
         $this->template->load('template', $partials, $data);
     }
 
-     function best_of_region(){        
+     function best_of_region(){
         $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
         if($selected_lang==1){
             $fields=array(
@@ -1325,30 +1325,30 @@ class Master extends MY_Controller {
                 AWARD_PARTNER.'.partner_id'
                 );
         }
-        
+
         $data['awards']= $this->Custom_model->fetch_data(AWARD,
                 $fields,
                 array('type'=>2),
                 array(
                     AWARD_PARTNER=>AWARD_PARTNER.'.award_id='.AWARD.'.id',
-                    PARTNER=>PARTNER.'.id='.AWARD_PARTNER.'.partner_id'));   
-        
-        
+                    PARTNER=>PARTNER.'.id='.AWARD_PARTNER.'.partner_id'));
+
+
         $data['all_partner'] = $this->Custom_model->fetch_data(PARTNER,array('*'),array(),array());
-                
-        
+
+
         $partials = array('content' => 'best_of_region', 'left_menu' => 'left_menu', 'header' => 'header');
         $this->template->load('template', $partials, $data);
     }
-    
-    
+
+
     function edit_best_of_region($id=NULL){
         $award_id= decode_url($id);
         $chk_award = $this->Custom_model->row_present_check(AWARD, array('id'=>$award_id));
         if($chk_award==FALSE){
             redirect(base_url() . 'admin/master/best_of_region');
         }
-        
+
         $data['awards'] =  $this->Custom_model->fetch_data(PARTNER,
                 array(PARTNER.'.*',AWARD_PARTNER.'.partner_id'),
                 array(),
@@ -1375,14 +1375,14 @@ class Master extends MY_Controller {
         $this->template->load('template', $partials, $data);
     }
 
-    
-    
-    
-    
-    
+
+
+
+
+
      //**************** room **************//
 
-  
+
 
     function add_room($partner_id = NULL) {
         $partner_id = decode_url($partner_id);
@@ -1392,10 +1392,10 @@ class Master extends MY_Controller {
         }
         $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
         $data['selected_lang'] = $selected_lang;
-        
+
         if ($this->input->post('submit')) {
-                
-            
+
+
             if ($this->input->post('room_type') == "") {
                 $this->session->set_flashdata('error_message', 'Please enter room type');
                 redirect(base_url() . 'admin/master/add_room');
@@ -1403,13 +1403,13 @@ class Master extends MY_Controller {
                 $this->session->set_flashdata('error_message', 'Please enter room type');
                 redirect(base_url() . 'admin/master/add_room');
             } else {
-               
+
                 $ins_data['partner_id'] = $partner_id;
                 $ins_data['room_type'] = $this->input->post('room_type');
-                
+
                 $res = $this->Custom_model->insert_data($ins_data, ROOM);
                 if ($res != FALSE) {
-                    $ins_inner['room_id'] = $res;                    
+                    $ins_inner['room_id'] = $res;
                     $ins_inner['language_id'] = $selected_lang;
                     $ins_inner['room_name'] = $this->input->post('room_name');
                     $inner = $this->Custom_model->insert_data($ins_inner, ROOM_LANG);
@@ -1417,10 +1417,10 @@ class Master extends MY_Controller {
                         //add room media
                     if($this->input->post('media_ids')!=""){
                        $media_name =  explode(",", $this->input->post('media_ids'));
-                       
+
                        if(!empty($media_name)){
                            foreach($media_name as $media){
-                               
+
                                $chk_media = $this->Custom_model->row_present_check(ROOM_IMAGE, array('room_id'=>$res,'media_id'=>$media));
                                if($chk_media==FALSE){
                                 $media_insert['room_id'] = $res;
@@ -1430,11 +1430,11 @@ class Master extends MY_Controller {
                            }
                        }
                     }
-                    
-                        
+
+
                         $this->session->set_flashdata('success_message', 'Room added successfully.');
                         redirect(base_url() . 'admin/master/list_partner');
-                    } else {                       
+                    } else {
                         $this->session->set_flashdata('error_message', 'Please try again.');
                         redirect(base_url() . 'admin/master/add_room');
                     }
@@ -1458,7 +1458,7 @@ class Master extends MY_Controller {
         }
         $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
         $data['selected_lang'] = $selected_lang;
-        
+
         //********fetch room details ********//
         $room_details=$this->Custom_model->fetch_data(ROOM,
                 array(ROOM.'.*',ROOM_LANG.'.language_id',ROOM_LANG.'.room_name'),
@@ -1475,14 +1475,14 @@ class Master extends MY_Controller {
             foreach($room_images  as $m){
                 $media .=$m->media_id.",";
             }
-            
+
             $media = substr($media,0,-1);
         }
         $data['room_images'] = $media;
-        
-        
-        
-        if ($this->input->post('submit')) {                            
+
+
+
+        if ($this->input->post('submit')) {
             if ($this->input->post('room_type') == "") {
                 $this->session->set_flashdata('error_message', 'Please enter room type');
                 redirect(base_url() . 'admin/master/add_room');
@@ -1490,13 +1490,13 @@ class Master extends MY_Controller {
                 $this->session->set_flashdata('error_message', 'Please enter room type');
                 redirect(base_url() . 'admin/master/add_room');
             } else {
-               
-            
+
+
                 $ins_data['room_type'] = $this->input->post('room_type');
                 $this->Custom_model->edit_data($ins_data, array('id'=>$room_id), ROOM);
-                
+
                 $chk= $this->Custom_model->row_present_check(ROOM_LANG, array('room_id'=>$room_id,'language_id'=>$selected_lang));
-                 if( $chk==FALSE){                   
+                 if( $chk==FALSE){
                     $ins_inner['language_id'] = $selected_lang;
                     $ins_inner['room_name'] = $this->input->post('room_name');
                     $inner = $this->Custom_model->insert_data($ins_inner, ROOM_LANG);
@@ -1504,14 +1504,14 @@ class Master extends MY_Controller {
                       $ins_lang['room_name'] = $this->input->post('room_name');
                     $this->Custom_model->edit_data($ins_lang, array('room_id'=>$room_id,'language_id'=>$selected_lang), ROOM_LANG);
                  }
-                   
+
                         //add room media
                     if($this->input->post('media_ids')!=""){
                        $media_name =  explode(",", $this->input->post('media_ids'));
-                       
+
                        if(!empty($media_name)){
                            foreach($media_name as $media){
-                               
+
                                $chk_media = $this->Custom_model->row_present_check(ROOM_IMAGE, array('room_id'=>$res,'media_id'=>$media));
                                if($chk_media==FALSE){
                                 $media_insert['room_id'] = $room_id;
@@ -1521,11 +1521,11 @@ class Master extends MY_Controller {
                            }
                        }
                     }
-                    
-                        
+
+
                         $this->session->set_flashdata('success_message', 'Room added successfully.');
                         redirect(base_url() . 'admin/master/list_partner');
-               
+
             }
         }
 
@@ -1534,9 +1534,9 @@ class Master extends MY_Controller {
     }
 
     //**************** end room **************//
-    
+
      //********* enquery ***********//
-    
+
 
     function list_enquery() {
         $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
@@ -1572,7 +1572,7 @@ class Master extends MY_Controller {
 
 
         $data['enquiries'] = $this->Custom_model->fetch_data(ENQUERY, array(
-            ENQUERY . '.*'           
+            ENQUERY . '.*'
                 ), array(), array(), $search = '', $order = ENQUERY . '.id', $by = 'desc', $page_number, $config['per_page'], $group_by = '', $having = '', $start = $page_number, $end = ''
         );
 
@@ -1581,7 +1581,7 @@ class Master extends MY_Controller {
         $partials = array('content' => 'list_enquery', 'left_menu' => 'left_menu', 'header' => 'header');
         $this->template->load('template', $partials, $data);
     }
-    
+
     function view_enquiry($id){
         $id = decode_url($id);
         $chk_enq = $this->Custom_model->row_present_check(ENQUERY, array('id'=>$id));
@@ -1589,7 +1589,7 @@ class Master extends MY_Controller {
             redirect(base_url() . 'admin/master/list_enquery');
         }
         $this->Custom_model->edit_data(array('is_read'=>1), array('id'=>$id), ENQUERY);
-        
+
         $enquiry_data = $this->Custom_model->fetch_data(ENQUERY,
                 array(
                     ENQUERY.'.*',
@@ -1601,11 +1601,94 @@ class Master extends MY_Controller {
                     WELLNESS_TYPE=>WELLNESS_TYPE.'.id='.ENQUERY.'.wellness_type',
                     ROOM=>ROOM.'.id='.ENQUERY.'.type_of_room'));
         $data['enquiry_data'] =$enquiry_data[0];
-        
+
         $partials = array('content' => 'view_enquiry', 'left_menu' => 'left_menu', 'header' => 'header');
         $this->template->load('template', $partials, $data);
     }
-  
+
     //********* end enquery ***********//
-    
+
+
+    //********* Request a Call Back ***********//
+
+    /**
+     *This function is used to list request a call enquiries.
+     *@author : Poorvi Gandhi
+     *@since : 24-12-2016
+     */
+    function list_request_a_call_back_enquiry()
+    {
+        $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
+        $data['selected_lang'] = $selected_lang;
+
+        /* Pagination Code Start */
+        $this->load->library('pagination');
+        $config['base_url'] = base_url() . 'admin/master/list_request_a_call_back_enquiry/';
+        /* Row Count Code */
+        $config['total_rows'] = $this->Custom_model->row_count(REQUEST_FOR_CALL, array(), array());
+        $config['use_page_numbers'] = TRUE;
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '<li>';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '<li>';
+        $config['per_page'] = 20;
+        $config['prev_link'] = '&lt;';
+        $config['prev_tag_open'] = '<li>';
+        $config['prev_tag_close'] = '</li>';
+        $config['next_link'] = '&gt;';
+        $config['next_tag_open'] = '<li>';
+        $config['next_tag_close'] = '</li>';
+        $config['cur_tag_open'] = '<li class="disabled"><a href="javascript:void(0)">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+        //print_r($config);die;
+        $this->pagination->initialize($config);
+        $data['page_link'] = $this->pagination->create_links();
+        $page_number = $this->uri->segment(4) ? $this->uri->segment(4) : 0;
+        $page_number = ($page_number != 0) ? $page_number - 1 : $page_number;
+        /* Pagination Code End */
+
+
+        $data['request_for_call'] = $this->Custom_model->fetch_data(REQUEST_FOR_CALL, array(REQUEST_FOR_CALL . '.*'),
+                                                                    array(), array(), $search = array(REQUEST_FOR_CALL.'.language_id' => $selected_lang), $order = REQUEST_FOR_CALL . '.id',
+                                                                    $by = 'desc', $page_number, $config['per_page'], $group_by = '', $having = '', $start = $page_number, $end = ''
+        );
+
+         //print_r($data);die;
+
+        $partials = array('content' => 'list_request_a_call_back_enquiry', 'left_menu' => 'left_menu', 'header' => 'header');
+        $this->template->load('template', $partials, $data);
+    }
+
+    /**
+     *This function is used to view request form submitted for request a call enquiry.
+     *$id : req enquiru id.
+     *@author : Poorvi Gandhi
+     *@since : 24-12-2016
+     */
+    function view_request_call_back($id)
+    {
+        $selected_lang = ($this->session->userdata('language')) ? $this->session->userdata('language') : 1;
+        $data['selected_lang'] = $selected_lang;
+
+        $id = decode_url($id);
+        $chk_enq = $this->Custom_model->row_present_check(REQUEST_FOR_CALL, array('id'=>$id));
+        if($chk_enq==FALSE){
+            redirect(base_url() . 'admin/master/list_enquery');
+        }
+        $request_data = $this->Custom_model->fetch_data(REQUEST_FOR_CALL,
+                array(REQUEST_FOR_CALL.'.*', COUNTRIES.'.id as country_id', COUNTRIES.'.nicename'),
+                array(REQUEST_FOR_CALL.'.id'=>$id, REQUEST_FOR_CALL.'.language_id' => $selected_lang),
+                array(COUNTRIES=>COUNTRIES.'.id='.REQUEST_FOR_CALL.'.country'));
+        $data['request_for_call_data'] = array();
+        if(!empty($request_data))
+            $data['request_for_call_data'] = $request_data[0];//echo '<pre>';print_r($data);die;
+
+        $partials = array('content' => 'view_request_call_back', 'left_menu' => 'left_menu', 'header' => 'header');
+        $this->template->load('template', $partials, $data);
+    }
+
+    //********* end Request a Call Back ***********//
+
 }
