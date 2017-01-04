@@ -14,7 +14,6 @@
 <div class="blocks welcome-section inner learfix">
   <div class="container">
     <div class="row">
-
       <form action="" enctype="multipart/form-data" method="post" class="wellness-enquery" >
         <?php if ($this->session->flashdata('error_message')) { ?>
             <div class="alert alert-warning">
@@ -29,22 +28,22 @@
         <div class="col-xs-12 col-sm-6">
           <div class="form-group">
             <label for="name">Name <span>*</span></label>
-            <input type="text" class="form-control" name="name" id="name" placeholder="Name" tabindex=1 required >
+            <input type="text" class="form-control" name="name" id="name" placeholder="Name" tabindex=1  >
           </div>
           <div class="form-group">
             <label for="callTime">Date you would like to be called <span>*</span></label>
-            <input type="text" name="preffered_call_date" class="form-control" id="preffered_call_date" placeholder="Date you would like to be called" tabindex=3 required>
+            <input type="text" name="preffered_call_date" class="form-control" id="preffered_call_date" placeholder="Date you would like to be called" tabindex=3 >
           </div>
           <div class="form-group">
-            <label for="name">Country code</label>
+            <label for="name">Country code<span>*</span></label>
             <div class="input-group">
               <div class="input-group-addon">+</div>
-              <input type="text" class="form-control" id="country_code" name="country_code" placeholder="Country code" tabindex=5>
+              <input type="number" oninput="validity.valid||(value='');" class="form-control" id="country_code" name="country_code" placeholder="Country code" tabindex=5>
             </div>
           </div>
           <div class="form-group">
             <label for="email">Email address <span>*</span></label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Email address" tabindex=7 required>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Email address" tabindex=7 >
           </div>
 
           <div class="form-group">
@@ -102,15 +101,15 @@
           </div>
           <div class="form-group">
             <label for="tNumber">Telephone number <span>*</span></label>
-            <input type="tel" name="phone" class="form-control" id="phone" placeholder="Type your contact number" tabindex=6 required>
+            <input type="number" oninput="validity.valid||(value='');" min=0 name="phone" class="form-control no-spin-input" id="phone" placeholder="Type your contact number" tabindex=6 >
           </div>
           <div class="form-group">
             <label for="reTypeEmail">Re-type your email-adress <span>*</span></label>
-            <input type="email" name="cemail" class="form-control" id="cemail" placeholder="Email address" tabindex=8 required>
+            <input type="email" name="cemail" class="form-control" id="cemail" placeholder="Email address" tabindex=8 >
           </div>
           <div class="form-group">
             <label for="age">Age</label>
-            <input type="number" name="age" class="form-control" id="age" placeholder="Put Your Age" tabindex=10 required>
+            <input type="number" name="age" min="10" oninput="validity.valid||(value='');" class="form-control" id="age" placeholder="Put Your Age" tabindex=10 >
           </div>
           <div class="form-group">
             <label>What are your main goals whilst staying at Kamalaya?</label>

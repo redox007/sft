@@ -42,6 +42,16 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+<style>
+      /*remove up-down arrow from the number type textbox.*/
+      .no-spin-input {
+            -moz-appearance:textfield;
+      }
+      .no-spin-input input::-webkit-outer-spin-button,
+      .no-spin-input input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+      }
+</style>
 </head>
 
 <body>
@@ -247,6 +257,9 @@
 <!-- itinerary scroll -->
 <script src="<?php echo base_url(); ?>front/js/itinerary.js"></script>
 <script src="<?php echo base_url(); ?>front/js/bootstrap-datepicker.js"></script>
+<?php if($this->router->fetch_method() == 'request_a_call_back'){ ?>
+      <script src="<?php echo base_url(); ?>front/js/request_a_call_back.js"></script>
+<?php }?>
 
 <script>
 $(document).ready(function () {
@@ -300,19 +313,6 @@ $(document).ready(function () {
             }
         });
     });
-      <?php // code for request a call page.?>
-      $('#country').change(function(){
-          var country = $(this).val();
-          $.ajax({
-            url:"<?php echo base_url(); ?>Home/ajax_get_country_code",
-            type: 'POST',
-            data: {cid:country},
-            success: function (data, textStatus, jqXHR) {
-              $('#country_code').val(data);
-            }
-          });
-        });
-
 });
 
 
@@ -340,17 +340,6 @@ var nowTemp = new Date();
 		}
 	}).on('changeDate', function(ev) {
 		checkout.hide();
-	}).data('datepicker');
-
-        <?php // code for request a call page.?>
-        var call_date = $('#preffered_call_date').datepicker({
-            format: 'dd-mm-yyyy',
-		onRender: function(date) {
-			return date.valueOf() < now.valueOf() ? 'disabled' : '';
-		}
-	}).on('changeDate', function(ev) {
-		call_date.hide();
-		$('#preffered_call_time').focus();
 	}).data('datepicker');
 </script>
 </body>
