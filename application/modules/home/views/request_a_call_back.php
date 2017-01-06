@@ -40,6 +40,7 @@
               <div class="input-group-addon">+</div>
               <input type="number" oninput="validity.valid||(value='');" class="form-control" id="country_code" name="country_code" placeholder="Country code" tabindex=5>
             </div>
+            <div id="country_erdiv"></div>
           </div>
           <div class="form-group">
             <label for="email">Email address <span>*</span></label>
@@ -69,7 +70,8 @@
 
           <div class="form-group">
             <label for="fname">Country <span>*</span></label>
-            <select id="country" name="country" class="form-control" tabindex=2><?php
+            <select id="country" name="country" class="form-control" tabindex=2>
+             <option value="">Select Country</option><?php
                 if(!empty($list_countries)){
                     foreach($list_countries as $countries){?>
                         <option value="<?php echo $countries->id;?>"><?php echo $countries->nicename;?></option><?php
@@ -109,7 +111,7 @@
           </div>
           <div class="form-group">
             <label for="age">Age</label>
-            <input type="number" name="age" min="10" oninput="validity.valid||(value='');" class="form-control" id="age" placeholder="Put Your Age" tabindex=10 >
+            <input type="number" name="age" oninput="validity.valid||(value='');" min="0" max="100" class="form-control" id="age" placeholder="Put Your Age" tabindex=10 >
           </div>
           <div class="form-group">
             <label>What are your main goals whilst staying at Kamalaya?</label>

@@ -18,15 +18,6 @@ $(document).ready(function () {
         });
     });
 
-    $.ajax({
-        url: "Home/ajax_get_country_code",
-        type: 'POST',
-        data: {cid:1},
-        success: function (data, textStatus, jqXHR) {
-          $('#country_code').val(data);
-        }
-    });
-
     $('#phone').keydown(function (event) {
         if (this.value.length >= 10 ) {
             if (event.keyCode == 8)
@@ -65,7 +56,7 @@ $(document).ready(function () {
             form_submit = false;
         }
         if ($('#country_code').val() == "") {
-            $("#country_code").parent().append("<div class='validation'>Please enter country code </div>");
+            $("#country_erdiv").append("<div class='validation'>Please enter country code </div>");
             form_submit = false;
         }
 
