@@ -711,6 +711,7 @@ class Master extends MY_Controller {
          $this->load_editor();//load ckeditor.
 
         if ($this->input->post('submit')) {
+        
 
             if ($this->input->post('wellness_name') == "") {
                 $this->session->set_flashdata('error_message', 'Please enter wellness name');
@@ -776,10 +777,12 @@ class Master extends MY_Controller {
                     if ($inner != FALSE) {
                         $Itinerary = $this->input->post('Itinerary');
                         $Itinerary_title = $this->input->post('Itinerary_title');
+                        $Itinerary_media = $this->input->post('itinerary_media');
                         if(!empty($Itinerary)){
                             foreach ($Itinerary as $key=>$val){
                                 $ins_intinerary['day_number'] = $key+1;
                                 $ins_intinerary['language_id'] = $selected_lang;
+                                $ins_intinerary['media_id'] = isset($Itinerary_media[$key])?$Itinerary_media[$key]:"";                                
                                 $ins_intinerary['welness_id'] = $res;
                                 $ins_intinerary['wellness_title'] = isset($Itinerary_title[$key])?$Itinerary_title[$key]:"";
                                 $ins_intinerary['description'] = $val;
@@ -855,6 +858,9 @@ class Master extends MY_Controller {
 
     function edit_wellness_plus($partner_id =NULL,$wellness_id=NULL){
 
+        
+    
+        
         $data['wellness_type'] = $this->Custom_model->fetch_data(WELLNESS_TYPE, array('id', 'wellness_type'), array(), array());
         $data['partner'] = $this->Custom_model->fetch_data(PARTNER, array('id', 'partner_name'), array(), array());
         $data['countries'] = $this->Custom_model->fetch_data(COUNTRY, array('id', 'code'), array(), array());
@@ -901,9 +907,10 @@ class Master extends MY_Controller {
                     'welness_id'=>$id,
                     'language_id'=>$selected_lang
                     ));
+        
         $this->load_editor();//load ckeditor.
           if ($this->input->post('submit')) {
-
+             
             if ($this->input->post('wellness_name') == "") {
                 $this->session->set_flashdata('error_message', 'Please enter wellness name');
                 redirect(base_url() . 'admin/master/add_wellnes_plus');
@@ -977,13 +984,16 @@ class Master extends MY_Controller {
 
                         $Itinerary = $this->input->post('Itinerary');
                         $Itinerary_title = $this->input->post('Itinerary_title');
-
+                        $Itinerary_media = $this->input->post('itinerary_media');
+                       
+                                 
                         if(!empty($Itinerary)){
                             $this->Custom_model->delete_row(ITINERARY, array('welness_id' => $id,'language_id'=>$selected_lang));
 
                             foreach ($Itinerary as $key=>$val){
                                 $ins_intinerary['day_number'] = $key+1;
                                 $ins_intinerary['language_id'] = $selected_lang;
+                                $ins_intinerary['media_id'] = isset($Itinerary_media[$key])?$Itinerary_media[$key]:"";   
                                 $ins_intinerary['welness_id'] = $id;
                                 $ins_intinerary['wellness_title'] = isset($Itinerary_title[$key])?$Itinerary_title[$key]:"";
                                 $ins_intinerary['description'] = $val;
@@ -991,7 +1001,7 @@ class Master extends MY_Controller {
                             }
                         }
                         $this->session->set_flashdata('success_message', 'Wellness update successfully.');
-                        redirect(base_url() . 'admin/master/list_wellness_plus');
+                        redirect(base_url() . 'admin/master/list_partner');
 
 
             }
@@ -1002,7 +1012,12 @@ class Master extends MY_Controller {
         $this->template->load('template', $partials, $data);
     }
 
-
+    function ajax_dynamic_data(){
+        $days = $this->input->post('days');
+        $data['days'] = $days;
+        echo $this->load->view('ajax_dynamic_data',$data,TRUE);
+        exit;
+    }
 
     function load_editor()
     {

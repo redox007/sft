@@ -264,8 +264,14 @@
 
             var days = $('.dynamic_text').find('.form-group').length + 1;
 
-            $('.dynamic_text').append('<div class="form-group"><label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name"> Itinerary </label><div class="col-md-6 col-sm-6 col-xs-12"><div></div><input type="text" name="Itinerary_title[]" class="form-control col-md-7 col-xs-12" placeholder="Title"  /><br/><textarea name="Itinerary[]" class="form-control col-md-7 col-xs-12" placeholder="Day ' + days + '"></textarea></div></div>');
-
+            $.ajax({
+                url: "<?php echo base_url(); ?>admin/master/ajax_dynamic_data",
+                type: 'POST',
+                data: {days:days},
+                success: function (data, textStatus, jqXHR) {                          
+                       $('.dynamic_text').append(data);
+                }
+            });
 
         });
         $('#del').click(function () {

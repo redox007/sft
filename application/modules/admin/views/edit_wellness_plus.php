@@ -196,7 +196,21 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name"> Itinerary </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12"><div></div>
                                         <input type="text" name="Itinerary_title[]" class="form-control col-md-7 col-xs-12" placeholder="Title" value="<?php echo $itn->wellness_title; ?>"  /><br/>      
-                                  <textarea name="Itinerary[]" class="form-control col-md-7 col-xs-12" placeholder="Day <?php echo $inkey+1; ?>"><?php echo $itn->description; ?></textarea></div></div>
+                                  <textarea name="Itinerary[]" class="form-control col-md-7 col-xs-12" placeholder="Day <?php echo $inkey+1; ?>"><?php echo $itn->description; ?></textarea></div>
+                                </div>
+                                
+                                <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Itinerary Image 
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="pv" id="preview<?php echo $inkey+1; ?>">
+                                <?php load_medias($itn->media_id, $input_media_id = '#input-media'.$inkey+1, true); ?>
+                            </div>
+                                <input id="input-media<?php echo $inkey+1; ?>" type="hidden" value="<?php echo $itn->media_id; ?>" name="itinerary_media[]" class="form-control" />
+                            <!-- Large modal -->
+                            <button type="button" class="btn btn-primary media-button" data-input-field="#input-media<?php echo $inkey+1; ?>"  data-preview="#preview<?php echo $inkey+1; ?>" >Media</button>
+                            </div>
+                        </div>  
                             <?php }} ?>
                             </div> 
 
@@ -277,11 +291,18 @@
                 return true;
             }
         });
-        $('#add').click(function () {
-
+        $('#add').click(function () {            
             var days = $('.dynamic_text').find('.form-group').length + 1;
+            $.ajax({
+                url: "<?php echo base_url(); ?>admin/master/ajax_dynamic_data",
+                type: 'POST',
+                data: {days:days},
+                success: function (data, textStatus, jqXHR) {                          
+                       $('.dynamic_text').append(data);
+                }
+            });
 
-           $('.dynamic_text').append('<div class="form-group"><label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name"> Itinerary </label><div class="col-md-6 col-sm-6 col-xs-12"><div></div><input type="text" name="Itinerary_title[]" class="form-control col-md-7 col-xs-12" placeholder="Title"  /><br/><textarea name="Itinerary[]" class="form-control col-md-7 col-xs-12" placeholder="Day ' + days + '"></textarea></div></div>');
+           
 
 
         });
