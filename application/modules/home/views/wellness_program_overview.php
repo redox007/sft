@@ -83,10 +83,14 @@
                                 <ul class="day-description clearfix">
 <?php if (!empty($itinerary)) {
     foreach ($itinerary as $key => $x) {
+		 		$media['url'] = $x->url;
+                $media['media_name'] = $x->media_name;
+                $media['raw_name'] = $x->raw_name;
+                $media['extension'] = $x->extension;
         ?>     
                                             <li id="day<?php echo $x->day_number; ?>" <?php echo ($key == 0) ? "class='active'" : ""; ?> >
                                                 <div class="col-xs-12 col-sm-3">
-                                                    <figure><img src="<?php echo base_url(); ?>front/images/wellness-concepts/Itinery/01.jpg" alt=""></figure>
+                                                    <figure><img src="<?php echo generate_image_media_url($media, 'wellness_type'); ?>" alt=""></figure>
                                                 </div>
                                                 <div class="col-xs-12 col-sm-9 content">
                                                     <h3>Day<span><?php echo $x->day_number; ?></span></h3>
