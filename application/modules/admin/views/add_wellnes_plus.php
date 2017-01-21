@@ -262,7 +262,7 @@
         });
         $('#add').click(function () {
 
-            var days = $('.dynamic_text').find('.form-group').length + 1;
+            var days = $('.dynamic_text').find('.count_div').length + 1;
 
             $.ajax({
                 url: "<?php echo base_url(); ?>admin/master/ajax_dynamic_data",
@@ -276,7 +276,7 @@
         });
         $('#del').click(function () {
 
-            $('.dynamic_text').find('.form-group').last().remove();
+            $('.dynamic_text').find('.count_div').last().remove();
         });
     });
 </script>

@@ -42,6 +42,11 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+
+ <script type="text/javascript" id="st_insights_js" src="http://w.sharethis.com/button/buttons.js?publisher=c791f769-b2b6-4d1d-a508-95e95b7b9b67"></script>
+<script type="text/javascript">stLight.options({publisher: "c791f769-b2b6-4d1d-a508-95e95b7b9b67", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+
 <style>
       /*remove up-down arrow from the number type textbox.*/
       .no-spin-input {

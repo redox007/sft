@@ -3,9 +3,9 @@
   <div class="row">
     <div class="col-xs-12 breadcrumb-container">
       <ol class="breadcrumb">
-        <li> <a href="index.html">Home</a> </li>
-        <li> <a href="#">Wellness</a> </li>
-        <li> <a href="#">Wellness Concepts</a></li>
+        <li> <a href="<?php echo base_url(); ?>">Home</a> </li>
+        <li> <a href="<?php echo base_url(); ?>">Wellness</a> </li>
+        <li> <a href="<?php echo base_url(); ?>home/wellness_concepts">Wellness Concepts</a></li>
 		<li class="active">Wellness Plus</li>
       </ol>
     </div>

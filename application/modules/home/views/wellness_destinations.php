@@ -4,9 +4,10 @@
   <div class="row">
     <div class="col-xs-12 breadcrumb-container">
       <ol class="breadcrumb">
-        <li> <a href="index.html">Home</a> </li>
-        <li> <a href="#">Wellness</a> </li>
-        <li class="active">Wellness Concepts</li>
+        <li> <a href="<?php echo base_url(); ?>">Home</a> </li>
+        <li> <a href="<?php echo base_url(); ?>">Wellness</a> </li>
+        <li class="active">Wellness Destinations</li>
+        
       </ol>
     </div>
   </div>

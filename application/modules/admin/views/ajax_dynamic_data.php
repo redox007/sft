@@ -1,3 +1,4 @@
+<div class="count_div">
 <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name"> Itinerary </label>
     <div class="col-md-6 col-sm-6 col-xs-12"><div>
@@ -19,3 +20,4 @@
                             <button type="button" class="btn btn-primary media-button" data-input-field="#input-media<?php echo $days; ?>"  data-preview="#preview<?php echo $days; ?>" >Media</button>
                             </div>
                         </div>  
+    </div>

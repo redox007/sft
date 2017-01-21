@@ -43,7 +43,17 @@
 							  <p class="code">Trip code: <span><?php echo $wellness_details->code; ?></span></p>
 							  <h4><?php echo $wellness_details->no_of_day; ?> <strong>Days</strong> <!--<span>Nairobi to Nairobi</span>--></h4>
 							  <p class="price"><!--<span>From</span>--><span><sup>$</sup><?php echo $wellness_details->price; ?><em>USD</em></span></p>
-							  <p class="share"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></p>                   
+							  <p class="share">
+                              <!--<a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a> 
+                              <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a> 
+                              <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                              <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>-->
+                              
+                              <a href="#"><span class='st_facebook_large' displayText='Facebook'></span></a> 
+                              <a href="#"><span class='st_twitter_large' displayText='Tweet'></span></a> 
+                              <a href="#"><span class='st_googleplus_large' displayText='Google +'></span></a>
+                              <a href="#"><span class='st_instagram_large' displayText='Instagram Badge'></span></a>
+                              </p>                   
                         </section>
                         <!--quick-package-view end-->
 

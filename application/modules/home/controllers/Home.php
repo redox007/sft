@@ -138,6 +138,7 @@ class Home extends MY_Controller {
        $wellnes_type = decode_url($wellnes_type);
        $best = decode_url($best);
        $data['wellnes_type']=$wellnes_type;
+       
        $best_of_best = $this->Custom_model->fetch_data(AWARD,
                array(
                    AWARD.'.*',
@@ -364,6 +365,15 @@ class Home extends MY_Controller {
    function wellness_partners($continent=NULL){
 	   $language_id =1;
        $continent = decode_url($continent);
+       
+       $details = $this->Custom_model->fetch_data(AWARD,array('*'),array('type'=>1,'id'=>$continent));
+       if($language_id ==1){
+           $data['partner'] = $details[0]->name_in_english;
+       }if($language_id ==2){
+           $data['partner'] = $details[0]->name_in_vietnamese;
+       }
+       
+       
        //$data['continent'] = $continent;
        $partners = $this->Custom_model->fetch_data(PARTNER,
                array(

@@ -192,6 +192,7 @@
                             <div class="dynamic_text">
                                 
                                  <?php if(!empty($itinerary)){ foreach($itinerary as $inkey=>$itn){ ?>
+                                <div class="count_div">
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name"> Itinerary </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12"><div></div>
@@ -211,6 +212,7 @@
                             <button type="button" class="btn btn-primary media-button" data-input-field="#input-media<?php echo $inkey+1; ?>"  data-preview="#preview<?php echo $inkey+1; ?>" >Media</button>
                             </div>
                         </div>  
+                                </div>
                             <?php }} ?>
                             </div> 
 
@@ -292,7 +294,7 @@
             }
         });
         $('#add').click(function () {            
-            var days = $('.dynamic_text').find('.form-group').length + 1;
+            var days = $('.dynamic_text').find('.count_div').length + 1;
             $.ajax({
                 url: "<?php echo base_url(); ?>admin/master/ajax_dynamic_data",
                 type: 'POST',
@@ -308,7 +310,7 @@
         });
         $('#del').click(function () {
 
-            $('.dynamic_text').find('.form-group').last().remove();
+            $('.dynamic_text').find('.count_div').last().remove();
         });
     });
 </script>
