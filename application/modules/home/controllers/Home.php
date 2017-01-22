@@ -200,6 +200,53 @@ class Home extends MY_Controller {
        $this->template->load('home_template', $partials,$data);
   }
 
+  
+   function best_of_program($wellnes_type=NULL,$best=NULL){
+       $language_id =1;
+       $wellnes_type = decode_url($wellnes_type);
+       $best = decode_url($best);
+       $data['wellnes_type']=$wellnes_type;
+       
+       $best_of_program = $this->Custom_model->fetch_data(AWARD,
+               array(
+                   AWARD.'.*',
+                   PARTNER.'.id as partner_id',
+                   PARTNER.'.partner_name',
+                   PARTNER.'.short_description',
+                   MEDIA.'.url',
+                   MEDIA.'.media_name',
+                   MEDIA.'.extension',
+                   MEDIA.'.raw_name',
+                   COUNTRY_LANG.'.country_name'
+                   ),
+               array(AWARD.'.type'=>$best),
+               array(
+                   AWARD_PARTNER=>AWARD_PARTNER.'.award_id='.AWARD.'.id',
+                   PARTNER=>PARTNER.'.id='.AWARD_PARTNER.'.partner_id',
+                   COUNTRY=>COUNTRY.'.id='.PARTNER.'.country_id',
+                   COUNTRY_LANG=>COUNTRY_LANG.'.country_id='.COUNTRY.'.id AND '.COUNTRY_LANG.'.language_id='.$language_id,
+                   MEDIA=>MEDIA.'.id='.PARTNER.'.media_id'));
+       
+        $program_arr = array();       
+        if(!empty($best_of_program)){
+            foreach($best_of_program as $list){
+                if(!isset($program_arr[$list->id])){
+                    $program_arr[$list->id]=array();
+                }  
+                 array_push($program_arr[$list->id], $list);
+            }
+           
+        }
+        
+        $data['best_of_program'] =$program_arr;
+	
+
+       $data['page_footer'] = $this->footer();
+       $partials = array('content' => 'best_of_program','banner'=>'wellness_banner','why_travel_with_us'=>'why_travel_with_us','menu'=>'menu');
+       $this->template->load('home_template', $partials,$data);
+  }
+  
+  
   function wellness_destinations(){
        $continents =$this->Custom_model->fetch_data(CONTINENT_LANG,
 		   array(
@@ -219,12 +266,13 @@ class Home extends MY_Controller {
        $this->template->load('home_template', $partials,$data);
   }
 
-  function wellness_programs($wellness_type=NULL,$partner_id=NULL){
+  function wellness_programs($wellness_type=NULL,$partner_id=NULL){      
        $partner_id = decode_url($partner_id);
        $wellness_type = decode_url($wellness_type);
        $language =1;
 
        $programs = $this->Custom_model->fetch_data(WELLNESS,array('DISTINCT(program_id) as program_id'),array('partner_id'=>$partner_id),array());
+       
        $sft_pro ="";
        if(!empty($programs)){
            foreach($programs as $pro){

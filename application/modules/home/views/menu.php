@@ -44,7 +44,7 @@ $list_continents = get_continents();
                                             <?php }} ?>
                                         </ul>
                                     </li>
-                                    <li class="dropdown dropdown-submenu"><a href="<?php echo base_url('home/best_of_best/'.  encode_url(1).'/'.encode_url(3)); ?>" class="dropdown-toggle" data-toggle="dropdown">Best of Programs</a>
+                                    <li class="dropdown dropdown-submenu"><a href="<?php echo base_url('home/best_of_program/'.  encode_url(1).'/'.encode_url(3)); ?>" class="dropdown-toggle" data-toggle="dropdown">Best of Programs</a>
                                         <ul class="dropdown-menu">
                                             <?php
                                             if(!empty($list_item[1])){ foreach($list_item[3] as $best_of_program){?>
@@ -138,7 +138,7 @@ $list_continents = get_continents();
                                             <?php }} ?>
                                         </ul>
                                     </li>
-                                    <li class="dropdown"><a href="<?php echo base_url('home/best_of_best/'.  encode_url(1).'/'.encode_url(3)); ?>">Best of Programs</a>
+                                    <li class="dropdown"><a href="<?php echo base_url('home/best_of_program/'.  encode_url(1).'/'.encode_url(3)); ?>">Best of Programs</a>
                                         <ul class="dropdown-menu dropdownhover-left">
                                             <?php
                                             if(!empty($list_item[1])){ foreach($list_item[3] as $best_of_program){?>
